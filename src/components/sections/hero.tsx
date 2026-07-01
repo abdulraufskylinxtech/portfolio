@@ -52,7 +52,7 @@ export function Hero({ onChatOpen }: HeroProps) {
       className="relative flex min-h-screen scroll-mt-24 items-center justify-center overflow-hidden pt-20"
     >
       <div className="absolute inset-0 z-0 bg-cover bg-center bg-[url(/hero-bg.jpg)]" />
-      <div className="absolute inset-0 z-0 bg-gradient-to-b from-background/90 via-background/70 to-background/50 dark:from-background/85 dark:via-background/70 dark:to-background/55" />
+      <div className="absolute inset-0 z-0 bg-gradient-to-b from-[hsl(var(--hero-wash)/0.92)] via-background/75 to-background/55 dark:from-background/88 dark:via-background/72 dark:to-background/58" />
       <HeroAtmosphere className="z-[1]" />
       <div className="container relative z-10 mx-auto px-4">
         <div className="mx-auto max-w-4xl animate-fade-in-up">

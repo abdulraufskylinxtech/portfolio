@@ -32,17 +32,17 @@ function drawSunLayer(
   const glowStrength = sunOpacity * (0.35 + elevation * 0.45);
 
   const glow = ctx.createRadialGradient(sunX, sunY, 0, sunX, sunY, coreRadius * 5.5);
-  glow.addColorStop(0, `rgba(255, 220, 120, ${glowStrength})`);
-  glow.addColorStop(0.25, `rgba(255, 200, 80, ${glowStrength * 0.55})`);
-  glow.addColorStop(0.55, `rgba(255, 180, 60, ${glowStrength * 0.15})`);
-  glow.addColorStop(1, "rgba(255, 200, 100, 0)");
+  glow.addColorStop(0, `rgba(180, 235, 160, ${glowStrength})`);
+  glow.addColorStop(0.25, `rgba(140, 210, 120, ${glowStrength * 0.55})`);
+  glow.addColorStop(0.55, `rgba(100, 180, 90, ${glowStrength * 0.15})`);
+  glow.addColorStop(1, "rgba(120, 200, 100, 0)");
   ctx.fillStyle = glow;
   ctx.fillRect(0, 0, w, h);
 
   const core = ctx.createRadialGradient(sunX, sunY, 0, sunX, sunY, coreRadius);
-  core.addColorStop(0, `rgba(255, 248, 220, ${sunOpacity})`);
-  core.addColorStop(0.5, `rgba(255, 210, 90, ${sunOpacity * 0.85})`);
-  core.addColorStop(1, "rgba(255, 180, 50, 0)");
+  core.addColorStop(0, `rgba(230, 250, 220, ${sunOpacity})`);
+  core.addColorStop(0.5, `rgba(160, 220, 130, ${sunOpacity * 0.85})`);
+  core.addColorStop(1, "rgba(100, 180, 80, 0)");
   ctx.beginPath();
   ctx.arc(sunX, sunY, coreRadius, 0, Math.PI * 2);
   ctx.fillStyle = core;
@@ -60,8 +60,8 @@ function drawSunLayer(
     ctx.moveTo(coreRadius * 1.1, 0);
     ctx.lineTo(rayLength, 0);
     const rayGrad = ctx.createLinearGradient(coreRadius * 1.1, 0, rayLength, 0);
-    rayGrad.addColorStop(0, `rgba(255, 210, 90, ${sunOpacity * 0.22 * elevation})`);
-    rayGrad.addColorStop(1, "rgba(255, 210, 90, 0)");
+    rayGrad.addColorStop(0, `rgba(150, 220, 120, ${sunOpacity * 0.22 * elevation})`);
+    rayGrad.addColorStop(1, "rgba(150, 220, 120, 0)");
     ctx.strokeStyle = rayGrad;
     ctx.lineWidth = 1.5;
     ctx.stroke();
@@ -171,7 +171,7 @@ export function Sunlight({
 
           drawCtx.beginPath();
           drawCtx.arc(mote.x, mote.y, mote.size, 0, Math.PI * 2);
-          drawCtx.fillStyle = `rgba(255, 210, 130, ${mote.opacity * moteAlpha})`;
+          drawCtx.fillStyle = `rgba(120, 200, 140, ${mote.opacity * moteAlpha})`;
           drawCtx.fill();
         }
       },

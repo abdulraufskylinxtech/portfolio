@@ -131,7 +131,7 @@ export function Starfield({
 
           drawCtx.beginPath();
           drawCtx.arc(sx, sy, Math.max(0.3, radius), 0, Math.PI * 2);
-          drawCtx.fillStyle = `rgba(100, 220, 255, ${opacity * 0.85})`;
+          drawCtx.fillStyle = `rgba(148, 230, 178, ${opacity * 0.85})`;
           drawCtx.fill();
         }
 

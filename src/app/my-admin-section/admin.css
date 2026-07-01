@@ -336,7 +336,7 @@
 .admin-checkbox input {
   width: 1rem;
   height: 1rem;
-  accent-color: rgb(59 130 246);
+  accent-color: hsl(var(--primary));
 }
 
 /* Tables */
@@ -384,7 +384,7 @@
 }
 
 .admin-row-active {
-  background: hsl(204 100% 60% / 0.18) !important;
+  background: hsl(var(--primary) / 0.18) !important;
 }
 
 .admin-row-unread td:first-child {
@@ -486,8 +486,8 @@
 }
 
 .admin-badge-default {
-  background: hsl(204 100% 60% / 0.2);
-  color: hsl(204 100% 82%);
+  background: hsl(var(--primary) / 0.2);
+  color: hsl(var(--primary-glow));
 }
 
 .admin-badge-success {
