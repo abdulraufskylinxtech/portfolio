@@ -56,8 +56,23 @@ const ChatWidget = ({ externalOpen, onOpenChange }: ChatWidgetProps) => {
   const [inputValue, setInputValue] = useState("");
   const [isLoading, setIsLoading] = useState(false);
   const [isLoadingHistory, setIsLoadingHistory] = useState(false);
-  const scrollRef = useRef<HTMLDivElement>(null);
+  const messagesEndRef = useRef<HTMLDivElement>(null);
   const skipHistoryLoadRef = useRef(false);
+
+  const scrollToLatest = useCallback(() => {
+    requestAnimationFrame(() => {
+      const anchor = messagesEndRef.current;
+      if (!anchor) return;
+
+      const viewport = anchor.closest("[data-radix-scroll-area-viewport]");
+      if (viewport instanceof HTMLElement) {
+        viewport.scrollTo({ top: viewport.scrollHeight, behavior: "smooth" });
+        return;
+      }
+
+      anchor.scrollIntoView({ behavior: "smooth", block: "end" });
+    });
+  }, []);
 
   useEffect(() => {
     sessionIdRef.current = sessionId;
@@ -117,10 +132,8 @@ const ChatWidget = ({ externalOpen, onOpenChange }: ChatWidgetProps) => {
   }, [isOpen, loadSessionHistory]);
 
   useEffect(() => {
-    if (scrollRef.current) {
-      scrollRef.current.scrollTop = scrollRef.current.scrollHeight;
-    }
-  }, [messages, isLoading, isLoadingHistory]);
+    scrollToLatest();
+  }, [messages, isLoading, isLoadingHistory, scrollToLatest]);
 
   const handleNewChat = () => {
     const newId = createSessionId();
@@ -264,7 +277,7 @@ const ChatWidget = ({ externalOpen, onOpenChange }: ChatWidgetProps) => {
           </div>
         </div>
 
-        <ScrollArea className="flex-1 p-4" ref={scrollRef}>
+        <ScrollArea className="flex-1 p-4">
           <div className="space-y-4">
             {isLoadingHistory ? (
               <div className="flex justify-center py-8">
@@ -295,6 +308,7 @@ const ChatWidget = ({ externalOpen, onOpenChange }: ChatWidgetProps) => {
                 </div>
               </div>
             )}
+            <div ref={messagesEndRef} className="h-px shrink-0" aria-hidden />
           </div>
         </ScrollArea>
 
