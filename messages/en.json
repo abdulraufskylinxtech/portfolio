@@ -1,0 +1,166 @@
+{
+  "metadata": {
+    "title": "Shakeel Latif — Full-Stack Developer & AI Enthusiast",
+    "description": "Portfolio showcasing modern web applications with AI integration. Chat with my AI assistant to learn more about my work.",
+    "siteName": "Shakeel Latif Portfolio",
+    "ogImageAlt": "Shakeel Latif Portfolio"
+  },
+  "nav": {
+    "home": "Home",
+    "projects": "Projects",
+    "skills": "Skills",
+    "experience": "Experience",
+    "about": "About",
+    "blog": "Blog",
+    "contact": "Contact",
+    "login": "Login",
+    "logout": "Logout",
+    "admin": "Admin",
+    "menuOpen": "Open menu",
+    "menuClose": "Close menu",
+    "hireMe": "Hire me"
+  },
+  "hero": {
+    "name": "Shakeel Latif",
+    "roles": [
+      "Full-Stack Developer",
+      "AI Enthusiast",
+      "DevOps Learner"
+    ],
+    "tagline": "Full-Stack Developer | AI Enthusiast | DevOps Learner",
+    "description": "Building innovative solutions with modern technologies. Specializing in React, Node.js, and AI/ML integration.",
+    "chatWithAI": "Chat with AI Twin",
+    "viewProjects": "View Projects",
+    "readBlog": "Read Blog"
+  },
+  "projects": {
+    "sectionLabel": "Portfolio",
+    "title": "Featured Projects",
+    "subtitle": "A selection of projects showcasing my expertise in full-stack development and AI integration",
+    "description": "Description",
+    "technologies": "Technologies",
+    "apis": "APIs & Integrations",
+    "highlights": "Highlights",
+    "code": "Code",
+    "demo": "Demo",
+    "viewCode": "View Code",
+    "liveDemo": "Live Demo",
+    "prevImage": "Previous image",
+    "nextImage": "Next image",
+    "goToImage": "Go to image {n}"
+  },
+  "skills": {
+    "sectionLabel": "Expertise",
+    "title": "Technical Skills",
+    "subtitle": "Constantly learning and improving across the full development stack",
+    "categories": {
+      "frontend": "Frontend",
+      "backend": "Backend",
+      "devops": "DevOps",
+      "aiml": "AI / ML"
+    }
+  },
+  "experience": {
+    "sectionLabel": "Career",
+    "title": "Work Experience"
+  },
+  "about": {
+    "sectionLabel": "About Me",
+    "title": "About Me",
+    "educationTitle": "Education & Qualifications",
+    "educationFormalTitle": "Formal Education",
+    "educationCertificatesTitle": "Certificates",
+    "educationCoursesTitle": "Courses",
+    "educationTrainingsTitle": "Trainings & Workshops",
+    "hobbiesTitle": "Hobbies & Interests",
+    "educationTypes": {
+      "degree": "Formal Education",
+      "certificate": "Certificate",
+      "course": "Course",
+      "training": "Training (Workshop)"
+    },
+    "getInTouch": "Get In Touch",
+    "email": "Email",
+    "linkedin": "LinkedIn",
+    "github": "GitHub"
+  },
+  "contact": {
+    "sectionLabel": "Contact",
+    "title": "Get In Touch",
+    "subtitle": "Have a project in mind? Let's work together!",
+    "map": {
+      "title": "Find Me Here",
+      "directions": "Get Directions",
+      "note": "Based in Lahore, Pakistan — available for local meetings and remote collaboration.",
+      "aria": "Interactive map showing {location}"
+    },
+    "form": {
+      "name": "Name",
+      "email": "Email",
+      "message": "Message",
+      "send": "Send Message",
+      "sending": "Sending..."
+    },
+    "connect": "Connect With Me",
+    "validation": {
+      "nameRequired": "Name is required",
+      "invalidEmail": "Invalid email",
+      "messageMin": "Message must be at least 10 characters"
+    },
+    "toast": {
+      "validationError": "Validation Error",
+      "error": "Failed to send message. Please try again.",
+      "errorTitle": "Could not send",
+      "success": "Your message has been sent. I'll get back to you soon!",
+      "successTitle": "Message sent",
+      "savedTitle": "Message saved",
+      "savedPendingEmail": "Your message was recorded. Email delivery will be configured on the server.",
+      "savedNoEmail": "Your message was saved to the site records. Email could not be sent — check Gmail mailer settings.",
+      "openingEmail": "Opening email..."
+    }
+  },
+  "blog": {
+    "title": "Blog",
+    "subtitle": "Thoughts on development, AI, and technology",
+    "search": "Search posts...",
+    "allTypes": "All Types",
+    "readMore": "Read More",
+    "noPosts": "No posts found",
+    "backToBlog": "Back to Blog"
+  },
+  "auth": {
+    "login": "Login",
+    "signup": "Sign Up",
+    "email": "Email",
+    "password": "Password",
+    "submitLogin": "Sign In",
+    "submitSignup": "Create Account",
+    "toggleLogin": "Already have an account? Sign in",
+    "toggleSignup": "Don't have an account? Sign up",
+    "welcomeBack": "Welcome back!",
+    "loginSuccess": "You've been logged in successfully.",
+    "signupSuccess": "Account created! Check your email to confirm."
+  },
+  "footer": {
+    "rights": "All rights reserved.",
+    "whatsapp": "Message on WhatsApp",
+    "whatsappPrefill": "Hi Shakeel, I found your portfolio and would like to connect.",
+    "connect": "Connect",
+    "quickLinks": "Quick links",
+    "projects": "Projects",
+    "about": "About",
+    "blog": "Blog",
+    "contact": "Contact",
+    "availability": "Open to remote & on-site opportunities"
+  },
+  "chat": {
+    "greeting": "Hi! I'm Shakeel Latif's AI assistant. I can tell you about his projects, skills, and experience. What would you like to know?",
+    "placeholder": "Ask me anything...",
+    "title": "AI Assistant"
+  },
+  "language": {
+    "en": "English",
+    "ar": "العربية",
+    "de": "Deutsch"
+  }
+}

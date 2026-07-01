@@ -1,0 +1,22 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 600" fill="none">
+  <defs>
+    <linearGradient id="bg401" x1="0" y1="0" x2="800" y2="600" gradientUnits="userSpaceOnUse">
+      <stop offset="0%" stop-color="#0f172a"/>
+      <stop offset="100%" stop-color="#1e3a5f"/>
+    </linearGradient>
+  </defs>
+  <rect width="800" height="600" fill="url(#bg401)"/>
+  <rect x="60" y="80" width="680" height="440" rx="16" fill="#ffffff08" stroke="#2dd4bf33" stroke-width="2"/>
+  <text x="400" y="160" text-anchor="middle" fill="#2dd4bf" font-family="system-ui,sans-serif" font-size="42" font-weight="700">401(k)</text>
+  <text x="400" y="210" text-anchor="middle" fill="#94a3b8" font-family="system-ui,sans-serif" font-size="18">Retirement Plan Marketplace</text>
+  <rect x="120" y="260" width="200" height="120" rx="10" fill="#2dd4bf18" stroke="#2dd4bf55"/>
+  <text x="220" y="310" text-anchor="middle" fill="#e2e8f0" font-family="system-ui,sans-serif" font-size="14" font-weight="600">Advisors</text>
+  <text x="220" y="340" text-anchor="middle" fill="#94a3b8" font-family="system-ui,sans-serif" font-size="12">Due diligence</text>
+  <rect x="300" y="280" width="200" height="80" rx="8" fill="#2dd4bf33" stroke="#2dd4bf"/>
+  <text x="400" y="328" text-anchor="middle" fill="#fff" font-family="system-ui,sans-serif" font-size="14" font-weight="600">Compare &amp; Quote</text>
+  <rect x="480" y="260" width="200" height="120" rx="10" fill="#2dd4bf18" stroke="#2dd4bf55"/>
+  <text x="580" y="310" text-anchor="middle" fill="#e2e8f0" font-family="system-ui,sans-serif" font-size="14" font-weight="600">Recordkeepers</text>
+  <text x="580" y="340" text-anchor="middle" fill="#94a3b8" font-family="system-ui,sans-serif" font-size="12">36+ integrations</text>
+  <text x="400" y="480" text-anchor="middle" fill="#e2e8f0" font-family="system-ui,sans-serif" font-size="26" font-weight="700">401kplans.com</text>
+  <text x="400" y="515" text-anchor="middle" fill="#64748b" font-family="system-ui,sans-serif" font-size="14">Laravel · Angular · Elasticsearch · Redis</text>
+</svg>

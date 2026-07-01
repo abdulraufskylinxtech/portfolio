@@ -1,0 +1,168 @@
+"use client";
+
+import Image from "next/image";
+import { MessageSquare, FolderGit2, Sparkles } from "lucide-react";
+import { AnimatePresence, motion } from "framer-motion";
+import { useLocale, useTranslations } from "next-intl";
+import { useMemo, useRef } from "react";
+
+import { HeroAtmosphere } from "@/components/HeroAtmosphere";
+import { Button } from "@/components/ui/button";
+import { Link } from "@/i18n/navigation";
+import { useScrollPosition } from "@/hooks/useScrollPosition";
+import { useSunShadow } from "@/hooks/useSunShadow";
+import { useTypewriter } from "@/hooks/useTypewriter";
+import { cn } from "@/lib/utils";
+
+const HERO_SCROLL_THRESHOLD = 400;
+
+interface HeroProps {
+  onChatOpen?: () => void;
+}
+
+export function Hero({ onChatOpen }: HeroProps) {
+  const t = useTranslations("hero");
+  const locale = useLocale();
+  const roles = useMemo(() => t.raw("roles") as string[], [t]);
+  const typed = useTypewriter(roles);
+  const scrolledPastHero = useScrollPosition(HERO_SCROLL_THRESHOLD);
+  const showHeroAvatar = !scrolledPastHero;
+
+  const heroRef = useRef<HTMLElement>(null);
+  const nameRef = useRef<HTMLHeadingElement>(null);
+  const avatarRef = useRef<HTMLDivElement>(null);
+  const taglineRef = useRef<HTMLParagraphElement>(null);
+
+  const { dropShadow: nameShadow } = useSunShadow(heroRef, nameRef, showHeroAvatar);
+  const { boxShadow: avatarShadow } = useSunShadow(heroRef, avatarRef, showHeroAvatar);
+  const { dropShadow: taglineShadow } = useSunShadow(heroRef, taglineRef);
+
+  const nameClassName = cn(
+    "text-4xl font-bold bg-gradient-to-r from-primary via-primary-glow to-primary bg-clip-text text-transparent transition-[filter] duration-1000 md:text-6xl lg:text-7xl",
+    locale === "ar" && "font-arabic",
+  );
+
+  return (
+    <section
+      ref={heroRef}
+      id="hero"
+      className="relative flex min-h-screen scroll-mt-24 items-center justify-center overflow-hidden pt-20"
+    >
+      <div className="absolute inset-0 z-0 bg-cover bg-center bg-[url(/hero-bg.jpg)]" />
+      <div className="absolute inset-0 z-0 bg-gradient-to-b from-background/90 via-background/70 to-background/50 dark:from-[rgba(10,25,47,0.85)] dark:via-[rgba(10,25,47,0.7)] dark:to-[rgba(10,25,47,0.55)]" />
+      <HeroAtmosphere className="z-[1]" />
+      <div className="container relative z-10 mx-auto px-4">
+        <div className="mx-auto max-w-4xl animate-fade-in-up">
+          <AnimatePresence mode="wait">
+            {showHeroAvatar ? (
+              <motion.div
+                key="hero-header"
+                initial={{ opacity: 0, y: 20 }}
+                animate={{ opacity: 1, y: 0 }}
+                exit={{ opacity: 0, y: -12 }}
+                transition={{ duration: 0.3 }}
+                className="mb-8 flex flex-col items-center gap-6 md:flex-row md:justify-start"
+              >
+                <div
+                  ref={avatarRef}
+                  className="relative h-32 w-32 shrink-0 overflow-hidden rounded-full border-2 border-primary/50 transition-[box-shadow] duration-1000 md:h-40 md:w-40"
+                  style={{
+                    boxShadow:
+                      avatarShadow ?? "0 0 15px rgba(59, 130, 246, 0.5)",
+                  }}
+                >
+                  <Image
+                    src="/me.jpg"
+                    alt={t("name")}
+                    fill
+                    className="object-cover"
+                    priority
+                    sizes="(max-width: 768px) 128px, 160px"
+                  />
+                </div>
+                <div className="text-center md:text-start">
+                  <h1
+                    ref={nameRef}
+                    className={nameClassName}
+                    style={nameShadow ? { filter: nameShadow } : undefined}
+                  >
+                    {t("name")}
+                  </h1>
+                  <p className="mt-3 text-lg text-primary md:text-xl">
+                    {typed}
+                    <span className="animate-pulse">|</span>
+                  </p>
+                </div>
+              </motion.div>
+            ) : (
+              <motion.div
+                key="hero-title-only"
+                initial={{ opacity: 0, y: -12 }}
+                animate={{ opacity: 1, y: 0 }}
+                exit={{ opacity: 0 }}
+                transition={{ duration: 0.3 }}
+                className="mb-8 text-center md:text-start"
+              >
+                <h1
+                  ref={nameRef}
+                  className={nameClassName}
+                  style={nameShadow ? { filter: nameShadow } : undefined}
+                >
+                  {t("name")}
+                </h1>
+              </motion.div>
+            )}
+          </AnimatePresence>
+
+          <div className="text-center">
+            <p
+              ref={taglineRef}
+              className="mb-4 text-xl text-foreground/90 transition-[filter] duration-1000 md:text-2xl"
+              style={taglineShadow ? { filter: taglineShadow } : undefined}
+            >
+              {t("tagline")}
+            </p>
+            <p className="mx-auto mb-12 max-w-2xl text-muted-foreground">{t("description")}</p>
+
+            <div className="flex flex-col justify-center gap-4 sm:flex-row">
+              {onChatOpen && (
+                <Button
+                  onClick={onChatOpen}
+                  size="lg"
+                  className="glow bg-primary hover:bg-primary-glow"
+                >
+                  <MessageSquare className="mr-2 h-5 w-5" />
+                  {t("chatWithAI")}
+                </Button>
+              )}
+              <Button
+                size="lg"
+                variant="outline"
+                className="border-primary/50 hover:border-primary hover:bg-primary/10"
+                onClick={() =>
+                  document.getElementById("projects")?.scrollIntoView({ behavior: "smooth" })
+                }
+              >
+                <FolderGit2 className="mr-2 h-5 w-5" />
+                {t("viewProjects")}
+              </Button>
+              <Button
+                size="lg"
+                variant="outline"
+                className="border-primary/50 hover:border-primary hover:bg-primary/10"
+                asChild
+              >
+                <Link href="/blog">
+                  <Sparkles className="mr-2 h-5 w-5" />
+                  {t("readBlog")}
+                </Link>
+              </Button>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div className="pointer-events-none absolute inset-0 bg-gradient-to-t from-background via-transparent to-transparent" />
+    </section>
+  );
+}

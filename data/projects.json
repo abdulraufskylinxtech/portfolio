@@ -1,0 +1,495 @@
+{
+  "projects": [
+    {
+      "id": "oladoc",
+      "title": "oladoc — Healthcare Platform",
+      "slug": "oladoc",
+      "description": "Pakistan's leading digital healthcare platform to find and book doctors, hospitals, lab tests, and video consultations. Serves millions of patients with in-clinic and tele-consultation booking across major cities.",
+      "tags": [
+        "PHP",
+        "CodeIgniter",
+        "MySQL",
+        "Elasticsearch",
+        "Algolia",
+        "Google AMP"
+      ],
+      "apis": [
+        "Algolia Search API",
+        "Elasticsearch",
+        "SMS OTP",
+        "REST APIs"
+      ],
+      "highlights": [
+        "Search and discovery optimized with Elasticsearch and Algolia",
+        "Performance work including critical CSS and page optimizations",
+        "Google AMP implemented on high-traffic mobile pages"
+      ],
+      "live_link": "https://oladoc.com/",
+      "github_link": null,
+      "images": [
+        "https://image.thum.io/get/width/800/crop/600/noanimate/https://oladoc.com/"
+      ],
+      "published": true
+    },
+    {
+      "id": "seebiz",
+      "title": "SeeBiz — B2B Wholesale Marketplace",
+      "slug": "seebiz",
+      "description": "B2B wholesale marketplace and social networking platform where suppliers, distributors, and retailers connect, trade, and grow. Features tier pricing, RFQ, inventory tools, and multi-industry product catalogs.",
+      "tags": [
+        "Node.js",
+        "MongoDB",
+        "Elasticsearch",
+        "React",
+        "Laravel",
+        "REST APIs"
+      ],
+      "apis": [
+        "Elasticsearch product search",
+        "REST API",
+        "Payment integration"
+      ],
+      "highlights": [
+        "Elastic Search features for marketplace product discovery",
+        "Seebiz.com wholesale marketplace core platform",
+        "Inventory management module as part of the product suite"
+      ],
+      "live_link": "https://seebiz.com/",
+      "github_link": null,
+      "images": [
+        "https://image.thum.io/get/width/800/crop/600/noanimate/https://seebiz.com/"
+      ],
+      "published": true
+    },
+    {
+      "id": "lango",
+      "title": "Lango — Language Access Platform",
+      "slug": "lango",
+      "description": "Full-service language access company offering on-site and virtual interpretation, ASL, translation, and AI-enabled machine translation — managed through the secure Lango Central platform for healthcare, legal, government, and enterprise clients.",
+      "tags": [
+        "Laravel",
+        "Angular",
+        "MySQL",
+        "Socket.io",
+        "REST APIs",
+        "HIPAA"
+      ],
+      "apis": [
+        "REST API",
+        "Twilio",
+        "Real-time interpretation workflows"
+      ],
+      "highlights": [
+        "Language translation and interpreting services platform",
+        "Document translation and interpreting service workflows",
+        "Enterprise language access portal for multiple industries"
+      ],
+      "live_link": "https://lango.co/",
+      "github_link": null,
+      "images": [
+        "https://image.thum.io/get/width/800/crop/600/noanimate/https://lango.co/"
+      ],
+      "published": true
+    },
+    {
+      "id": "second-vintage",
+      "title": "Second Vintage — Watch Auctions",
+      "slug": "second-vintage",
+      "description": "Premier vintage watch auction platform for collectors and dealers. Live marketplace focused on authenticated timepieces and auction-style buying experiences.",
+      "tags": [
+        "E-Commerce",
+        "Auction Platform",
+        "Responsive UI",
+        "Payment Integration"
+      ],
+      "apis": [
+        "Payment gateway",
+        "Auction & listing APIs"
+      ],
+      "highlights": [
+        "Vintage watch auction browsing and bidding experience",
+        "Product catalog tailored for luxury collectibles",
+        "Mobile-responsive marketplace UI"
+      ],
+      "live_link": "https://secondvintage.com/",
+      "github_link": null,
+      "images": [
+        "https://image.thum.io/get/width/800/crop/600/noanimate/https://secondvintage.com/"
+      ],
+      "published": true
+    },
+    {
+      "id": "twisted-voip",
+      "title": "Twisted VoIP — Business Communications",
+      "slug": "twisted-voip",
+      "description": "Business communications and connectivity solutions provider offering VoIP, unified communications, and telecom services for modern businesses.",
+      "tags": [
+        "VoIP",
+        "Business Telecom",
+        "Web Portal",
+        "CRM Integration"
+      ],
+      "apis": [
+        "VoIP / SIP services",
+        "Customer portal APIs"
+      ],
+      "highlights": [
+        "Business VoIP and connectivity services marketing site",
+        "Lead generation and service plan presentation",
+        "Enterprise communications solution showcase"
+      ],
+      "live_link": "https://twistedvoip.com/",
+      "github_link": null,
+      "images": [
+        "https://image.thum.io/get/width/800/crop/600/noanimate/https://twistedvoip.com/"
+      ],
+      "published": true
+    },
+    {
+      "id": "ejuno",
+      "title": "eJuno — Destination Wedding Platform",
+      "slug": "ejuno",
+      "description": "Curated wedding planning platform for destination celebrations — venue booking, vendor marketplace, registry, guest lists, budgeting, and VR venue previews for couples planning weddings in Italy and beyond.",
+      "tags": [
+        "E-Commerce",
+        "Marketplace",
+        "Wedding Tech",
+        "VR Experience",
+        "Multi-vendor"
+      ],
+      "apis": [
+        "Vendor marketplace",
+        "Booking & availability APIs",
+        "Payment processing"
+      ],
+      "highlights": [
+        "Venue and vendor discovery for destination weddings",
+        "Couple planning tools — registry, guest list, budget, seating",
+        "VR experience to preview venues and wedding setups"
+      ],
+      "live_link": "https://ejuno.io/",
+      "github_link": null,
+      "images": [
+        "https://image.thum.io/get/width/800/crop/600/noanimate/https://ejuno.io/"
+      ],
+      "published": true
+    },
+    {
+      "id": "selltime",
+      "title": "SellTime — CMS & E-Commerce Portal",
+      "slug": "selltime",
+      "description": "CMS and e-commerce web portal for managing online sales, product catalogs, and business operations through a unified SellTime platform.",
+      "tags": [
+        "CMS",
+        "E-Commerce",
+        "Web Portal",
+        "Admin Dashboard"
+      ],
+      "apis": [
+        "REST API",
+        "Product & order management"
+      ],
+      "highlights": [
+        "Unified CMS and e-commerce back-office portal",
+        "Product and sales management for merchants",
+        "Customer-facing commerce workflows"
+      ],
+      "live_link": "https://portal.selltime.com/",
+      "github_link": null,
+      "images": [
+        "https://image.thum.io/get/width/800/crop/600/noanimate/https://portal.selltime.com/"
+      ],
+      "published": true
+    },
+    {
+      "id": "401kplans",
+      "title": "401kplans.com — Retirement Plan Marketplace",
+      "slug": "401kplans",
+      "description": "Digital 401(k) retirement plan marketplace for financial advisors and third-party administrators — benchmark providers, run documented due diligence, compare recordkeepers, and request proposals with instant pricing from integrated plan providers. Built from scratch; the platform was later acquired by Envestnet in 2022. (Archived — screenshots to be added.)",
+      "tags": [
+        "Laravel",
+        "AngularJS",
+        "Angular 4+",
+        "Elasticsearch",
+        "Redis",
+        "MySQL",
+        "REST APIs"
+      ],
+      "apis": [
+        "Elasticsearch",
+        "Recordkeeper integrations",
+        "REST API",
+        "Redis caching"
+      ],
+      "highlights": [
+        "401(k) provider marketplace built from the ground up",
+        "Advisor due diligence and proposal workflow digitized",
+        "Elasticsearch-powered search and discovery across plan providers",
+        "Redis-backed caching for high-traffic advisor workflows"
+      ],
+      "live_link": null,
+      "github_link": null,
+      "images": [
+        "/projects/401kplans.svg"
+      ],
+      "published": true
+    },
+    {
+      "id": "talentedhuman",
+      "title": "TalentedHuman — Social Network",
+      "slug": "talentedhuman",
+      "description": "Social networking platform connecting professionals and communities — web and mobile experience with real-time messaging, feeds, and social features. Originally developed for the TalentedHuman team (founder Matthew Colletti); mobile app delivery was also handled by partner studios including Laicos and Bayshore Solutions. (Archived — screenshots to be added.)",
+      "tags": [
+        "Laravel",
+        "MongoDB",
+        "AngularJS",
+        "Node.js",
+        "Socket.io",
+        "Redis"
+      ],
+      "apis": [
+        "REST API",
+        "Socket.io real-time events",
+        "Redis pub/sub",
+        "Mobile app API"
+      ],
+      "highlights": [
+        "Full-stack social network with MongoDB document storage",
+        "Real-time notifications and chat via Node.js and Socket.io",
+        "AngularJS SPA with Laravel API backend",
+        "Redis for caching and broadcast event scaling"
+      ],
+      "live_link": null,
+      "github_link": null,
+      "images": [
+        "/projects/talentedhuman.svg"
+      ],
+      "published": true
+    },
+    {
+      "id": "bestat",
+      "title": "Bestat — Real-Time Web Platform",
+      "slug": "bestat",
+      "description": "Real-time web application with live updates, dashboards, and interactive user flows — Laravel API backend with an AngularJS front end and a dedicated Node.js + Socket.io layer for push events, backed by Redis. (Archived — limited public footprint; screenshots to be added.)",
+      "tags": [
+        "Laravel",
+        "AngularJS",
+        "Node.js",
+        "Socket.io",
+        "Redis",
+        "MySQL"
+      ],
+      "apis": [
+        "REST API",
+        "Socket.io WebSockets",
+        "Redis broadcasting"
+      ],
+      "highlights": [
+        "Hybrid Laravel + Node.js architecture for real-time features",
+        "AngularJS client with live Socket.io event streams",
+        "Redis-backed session, cache, and pub/sub layer",
+        "End-to-end development through deployment"
+      ],
+      "live_link": null,
+      "github_link": null,
+      "images": [
+        "/projects/bestat.svg"
+      ],
+      "published": true
+    },
+    {
+      "id": "bedderone",
+      "title": "BedderOne — Travel & Host Matchmaking",
+      "slug": "bedderone",
+      "description": "Social travel platform matching hosts who have a spare room with travelers looking for affordable or social stays — geo-location discovery, date and country filters, and direct host–guest contact without middlemen. Described as an Airbnb-adjacent matchmaking experience with dating-app-style UX. Built from scratch (frontend and backend). (Archived — screenshots to be added.)",
+      "tags": [
+        "Laravel",
+        "Angular 4+",
+        "Socket.io",
+        "MySQL",
+        "Geolocation",
+        "REST APIs"
+      ],
+      "apis": [
+        "REST API",
+        "Socket.io messaging",
+        "Geolocation services",
+        "Twilio (notifications)"
+      ],
+      "highlights": [
+        "Built from scratch — full frontend and backend ownership",
+        "Location-based host and traveler matching",
+        "Real-time chat and notifications with Socket.io",
+        "Angular 4+ SPA with Laravel API and deployment pipeline"
+      ],
+      "live_link": null,
+      "github_link": null,
+      "images": [
+        "/projects/bedderone.svg"
+      ],
+      "published": true
+    },
+    {
+      "id": "pos-system",
+      "title": "POS System — Point of Sale",
+      "slug": "pos-system",
+      "description": "Retail point-of-sale web application for in-store billing, product lookup, and checkout workflows — responsive Bootstrap UI on a CodeIgniter PHP backend for lightweight deployment on shared hosting.",
+      "tags": [
+        "CodeIgniter",
+        "PHP",
+        "Bootstrap",
+        "MySQL",
+        "jQuery",
+        "Responsive UI"
+      ],
+      "apis": [
+        "REST-style controllers",
+        "Barcode / product lookup",
+        "Receipt printing"
+      ],
+      "highlights": [
+        "In-store POS billing and checkout flows",
+        "Product catalog and inventory lookup",
+        "Responsive Bootstrap interface for counter tablets",
+        "CodeIgniter MVC backend with MySQL"
+      ],
+      "live_link": null,
+      "github_link": null,
+      "images": [
+        "/projects/pos-system.svg"
+      ],
+      "published": true
+    },
+    {
+      "id": "wits",
+      "title": "WITS — Real-Time Quiz Competition Platform",
+      "slug": "wits",
+      "description": "A live synchronized quiz/buzzer platform where participants at multiple venues receive identical questions at the same time. Winners are determined by answer accuracy and response speed. Built for multi-location competitions with live scoreboards, session management, and admin tooling.",
+      "tags": [
+        "Node.js",
+        "Socket.io",
+        "REST APIs",
+        "Redis",
+        "FCM",
+        "APNs",
+        "MySQL",
+        "Real-time"
+      ],
+      "apis": [
+        "REST API — quiz sessions, users, results",
+        "Socket.io — synchronized question broadcast",
+        "WebSocket events — answer submission & winner detection",
+        "Firebase Cloud Messaging (Android push)",
+        "Apple Push Notification service (iOS push)"
+      ],
+      "highlights": [
+        "Backend engineer — designed and built core REST and real-time APIs",
+        "Socket-based question delivery so all venues see the same question simultaneously",
+        "First-correct-answer winner logic with countdown timers per question",
+        "Live scoreboard and ranking updates pushed over WebSockets",
+        "Mobile push notifications for iOS and Android (session alerts, round start)",
+        "Quiz session management, authentication, and admin APIs for quiz creation",
+        "Result history and analytics endpoints for post-event reporting"
+      ],
+      "live_link": null,
+      "github_link": null,
+      "images": [
+        "/projects/wits.svg"
+      ],
+      "published": true
+    },
+    {
+      "id": "document-classification",
+      "title": "Document Classification — AI Pipeline",
+      "slug": "document-classification",
+      "description": "Machine-learning pipeline for automatically classifying uploaded documents — PDFs, scanned images, and forms — into categories. Combines OCR text extraction with NLP and LLM-based classification for high-volume document workflows. (Project offline — screenshots preserved.)",
+      "tags": [
+        "Python",
+        "FastAPI",
+        "OCR",
+        "Hugging Face",
+        "Machine Learning",
+        "LLM"
+      ],
+      "apis": [
+        "Tesseract OCR",
+        "Google Cloud Vision OCR",
+        "OpenAI API",
+        "Hugging Face Inference"
+      ],
+      "highlights": [
+        "Unified OCR layer supporting Tesseract and cloud OCR providers",
+        "Trainable classifiers with FastText, transformer models, and LLM inference",
+        "Batch upload, preview, and confidence scoring in admin UI",
+        "Built for legal, healthcare, and enterprise document workflows"
+      ],
+      "live_link": null,
+      "github_link": null,
+      "images": [
+        "/projects/document-classification.svg"
+      ],
+      "published": true
+    },
+    {
+      "id": "interview-ai-assistance",
+      "title": "Interview AI Assistance",
+      "slug": "interview-ai-assistance",
+      "description": "Interview-style AI assistant that lets visitors explore a developer's portfolio through natural conversation — ask for project lists, drill into specific work, skills, APIs, and background as if in a technical interview. (Project offline — screenshots preserved.)",
+      "tags": [
+        "AI",
+        "OpenAI API",
+        "LangChain",
+        "Next.js",
+        "RAG",
+        "TypeScript"
+      ],
+      "apis": [
+        "OpenAI Chat Completions",
+        "JSON knowledge base",
+        "Structured project Q&A"
+      ],
+      "highlights": [
+        "Knowledge base synced from portfolio JSON — projects, skills, experience",
+        "Project-specific deep-dive responses when asked by name",
+        "Rule-based mimic AI with a clear upgrade path to LLM/RAG",
+        "Embeddable chat widget for multilingual portfolio sites"
+      ],
+      "live_link": null,
+      "github_link": null,
+      "images": [
+        "/projects/interview-ai-assistance.svg"
+      ],
+      "published": true
+    },
+    {
+      "id": "ai-portfolio",
+      "title": "AI-Powered Portfolio (This Site)",
+      "slug": "ai-portfolio",
+      "description": "Multilingual portfolio with JSON-driven content, admin CMS, contact form, and AI chat assistant. Built for free static hosting with optional serverless API routes.",
+      "tags": [
+        "Next.js",
+        "TypeScript",
+        "Tailwind CSS",
+        "next-intl",
+        "Framer Motion"
+      ],
+      "apis": [
+        "Contact API (Nodemailer)",
+        "GitHub JSON persistence",
+        "Admin CMS API"
+      ],
+      "highlights": [
+        "Multilingual support (EN / AR / DE) with RTL",
+        "Browser admin CMS editing JSON content files",
+        "Fully deployable on Vercel with custom domain"
+      ],
+      "live_link": null,
+      "github_link": "https://github.com/shakeellatif",
+      "images": [
+        "/hero-bg.jpg",
+        "/me.jpg"
+      ],
+      "published": true
+    }
+  ]
+}

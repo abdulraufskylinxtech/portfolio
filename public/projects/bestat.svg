@@ -1,0 +1,13 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 600" fill="none">
+  <rect width="800" height="600" fill="#0f172a"/>
+  <rect x="100" y="100" width="600" height="360" rx="16" fill="#ffffff08" stroke="#2dd4bf33" stroke-width="2"/>
+  <rect x="140" y="300" width="80" height="120" rx="4" fill="#2dd4bf44"/>
+  <rect x="240" y="240" width="80" height="180" rx="4" fill="#2dd4bf66"/>
+  <rect x="340" y="200" width="80" height="220" rx="4" fill="#2dd4bf"/>
+  <rect x="440" y="260" width="80" height="160" rx="4" fill="#2dd4bf55"/>
+  <rect x="540" y="220" width="80" height="200" rx="4" fill="#2dd4bf77"/>
+  <circle cx="680" cy="160" r="12" fill="#4ade80"/>
+  <text x="680" y="190" text-anchor="middle" fill="#4ade80" font-family="system-ui,sans-serif" font-size="11">Live</text>
+  <text x="400" y="520" text-anchor="middle" fill="#e2e8f0" font-family="system-ui,sans-serif" font-size="28" font-weight="700">Bestat</text>
+  <text x="400" y="555" text-anchor="middle" fill="#64748b" font-family="system-ui,sans-serif" font-size="14">Laravel · AngularJS · Socket.io · Redis</text>
+</svg>

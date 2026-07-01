@@ -1,0 +1,36 @@
+{
+  "posts": [
+    {
+      "id": "1",
+      "title": "Building a Static Portfolio with Next.js",
+      "slug": "static-portfolio-nextjs",
+      "excerpt": "How I moved from a dynamic backend to JSON-driven static content for simpler hosting and faster performance.",
+      "content": "## Why Static?\n\nStatic sites are faster, cheaper to host, and easier to maintain. By moving project data, blog posts, and profile info into JSON files, the entire portfolio can be deployed to Vercel, Netlify, or GitHub Pages without a database.\n\n## The Stack\n\n- **Next.js 15** with App Router\n- **next-intl** for multilingual support\n- **JSON files** in `/data` for all content\n\n## Updating Content\n\nJust edit the JSON files in the `data/` folder and redeploy. No admin panel needed.",
+      "tags": [
+        "Next.js",
+        "Static",
+        "Portfolio"
+      ],
+      "post_type": "general",
+      "featured_image_url": null,
+      "published": false,
+      "created_at": "2025-01-15T10:00:00Z"
+    },
+    {
+      "id": "2",
+      "title": "Integrating AI into Your Portfolio",
+      "slug": "ai-portfolio-integration",
+      "excerpt": "Creating an interview-style AI assistant that answers questions about your projects and experience.",
+      "content": "## The Concept\n\nVisitors can ask about your projects, tech stack, and experience — like a mini interview. The AI uses a knowledge base built from your JSON data.\n\n## Implementation\n\nStart with a rule-based mimic AI, then upgrade to OpenAI or Hugging Face when ready. Keep the knowledge base in sync with your `data/projects.json` file.",
+      "tags": [
+        "AI",
+        "Portfolio",
+        "Chatbot"
+      ],
+      "post_type": "tutorial",
+      "featured_image_url": null,
+      "published": false,
+      "created_at": "2025-01-10T10:00:00Z"
+    }
+  ]
+}

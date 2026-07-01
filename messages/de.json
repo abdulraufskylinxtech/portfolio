@@ -1,0 +1,166 @@
+{
+  "metadata": {
+    "title": "Shakeel Latif — Full-Stack-Entwickler & KI-Enthusiast",
+    "description": "Portfolio mit modernen Webanwendungen und KI-Integration. Chatten Sie mit meinem KI-Assistenten, um mehr über meine Arbeit zu erfahren.",
+    "siteName": "Shakeel Latif Portfolio",
+    "ogImageAlt": "Shakeel Latif Portfolio"
+  },
+  "nav": {
+    "home": "Start",
+    "projects": "Projekte",
+    "skills": "Fähigkeiten",
+    "experience": "Erfahrung",
+    "about": "Über mich",
+    "blog": "Blog",
+    "contact": "Kontakt",
+    "login": "Anmelden",
+    "logout": "Abmelden",
+    "admin": "Admin",
+    "menuOpen": "Menü öffnen",
+    "menuClose": "Menü schließen",
+    "hireMe": "Beauftragen"
+  },
+  "hero": {
+    "name": "Shakeel Latif",
+    "roles": [
+      "Full-Stack-Entwickler",
+      "KI-Enthusiast",
+      "DevOps-Lerner"
+    ],
+    "tagline": "Full-Stack-Entwickler | KI-Enthusiast | DevOps-Lerner",
+    "description": "Innovative Lösungen mit modernen Technologien. Spezialisiert auf React, Node.js und KI/ML-Integration.",
+    "chatWithAI": "Mit KI-Zwilling chatten",
+    "viewProjects": "Projekte ansehen",
+    "readBlog": "Blog lesen"
+  },
+  "projects": {
+    "sectionLabel": "Portfolio",
+    "title": "Ausgewählte Projekte",
+    "subtitle": "Eine Auswahl von Projekten, die meine Expertise in Full-Stack-Entwicklung und KI-Integration zeigen",
+    "description": "Beschreibung",
+    "technologies": "Technologien",
+    "apis": "APIs & Integrationen",
+    "highlights": "Highlights",
+    "code": "Code",
+    "demo": "Demo",
+    "viewCode": "Code ansehen",
+    "liveDemo": "Live-Demo",
+    "prevImage": "Vorheriges Bild",
+    "nextImage": "Nächstes Bild",
+    "goToImage": "Zu Bild {n} gehen"
+  },
+  "skills": {
+    "sectionLabel": "Expertise",
+    "title": "Technische Fähigkeiten",
+    "subtitle": "Ständiges Lernen und Verbessern im gesamten Entwicklungsstack",
+    "categories": {
+      "frontend": "Frontend",
+      "backend": "Backend",
+      "devops": "DevOps",
+      "aiml": "KI / ML"
+    }
+  },
+  "experience": {
+    "sectionLabel": "Karriere",
+    "title": "Berufserfahrung"
+  },
+  "about": {
+    "sectionLabel": "Über mich",
+    "title": "Über mich",
+    "educationTitle": "Ausbildung & Qualifikationen",
+    "educationFormalTitle": "Formale Ausbildung",
+    "educationCertificatesTitle": "Zertifikate",
+    "educationCoursesTitle": "Kurse",
+    "educationTrainingsTitle": "Schulungen & Workshops",
+    "hobbiesTitle": "Hobbys & Interessen",
+    "educationTypes": {
+      "degree": "Formale Ausbildung",
+      "certificate": "Zertifikat",
+      "course": "Kurs",
+      "training": "Schulung / Workshop"
+    },
+    "getInTouch": "Kontakt aufnehmen",
+    "email": "E-Mail",
+    "linkedin": "LinkedIn",
+    "github": "GitHub"
+  },
+  "contact": {
+    "sectionLabel": "Kontakt",
+    "title": "Kontakt",
+    "subtitle": "Haben Sie ein Projekt im Sinn? Lassen Sie uns zusammenarbeiten!",
+    "map": {
+      "title": "Standort",
+      "directions": "Route anzeigen",
+      "note": "Ansässig in Lahore, Pakistan — offen für lokale Treffen und Remote-Zusammenarbeit.",
+      "aria": "Interaktive Karte mit {location}"
+    },
+    "form": {
+      "name": "Name",
+      "email": "E-Mail",
+      "message": "Nachricht",
+      "send": "Nachricht senden",
+      "sending": "Wird gesendet..."
+    },
+    "connect": "Vernetzen",
+    "validation": {
+      "nameRequired": "Name ist erforderlich",
+      "invalidEmail": "Ungültige E-Mail",
+      "messageMin": "Nachricht muss mindestens 10 Zeichen haben"
+    },
+    "toast": {
+      "validationError": "Validierungsfehler",
+      "error": "Nachricht konnte nicht gesendet werden. Bitte erneut versuchen.",
+      "errorTitle": "Senden fehlgeschlagen",
+      "success": "Ihre Nachricht wurde gesendet. Ich melde mich bald!",
+      "successTitle": "Nachricht gesendet",
+      "savedTitle": "Nachricht gespeichert",
+      "savedPendingEmail": "Ihre Nachricht wurde erfasst. E-Mail-Versand wird auf dem Server konfiguriert.",
+      "savedNoEmail": "Nachricht in den Site-Daten gespeichert. E-Mail konnte nicht gesendet werden — Gmail-Einstellungen prüfen.",
+      "openingEmail": "E-Mail wird geöffnet..."
+    }
+  },
+  "blog": {
+    "title": "Blog",
+    "subtitle": "Gedanken zu Entwicklung, KI und Technologie",
+    "search": "Beiträge suchen...",
+    "allTypes": "Alle Typen",
+    "readMore": "Weiterlesen",
+    "noPosts": "Keine Beiträge gefunden",
+    "backToBlog": "Zurück zum Blog"
+  },
+  "auth": {
+    "login": "Anmelden",
+    "signup": "Registrieren",
+    "email": "E-Mail",
+    "password": "Passwort",
+    "submitLogin": "Anmelden",
+    "submitSignup": "Konto erstellen",
+    "toggleLogin": "Bereits ein Konto? Anmelden",
+    "toggleSignup": "Noch kein Konto? Registrieren",
+    "welcomeBack": "Willkommen zurück!",
+    "loginSuccess": "Sie wurden erfolgreich angemeldet.",
+    "signupSuccess": "Konto erstellt! Bitte E-Mail zur Bestätigung prüfen."
+  },
+  "footer": {
+    "rights": "Alle Rechte vorbehalten.",
+    "whatsapp": "Auf WhatsApp schreiben",
+    "whatsappPrefill": "Hallo Shakeel, ich habe Ihr Portfolio gefunden und möchte mich vernetzen.",
+    "connect": "Kontakt",
+    "quickLinks": "Schnelllinks",
+    "projects": "Projekte",
+    "about": "Über mich",
+    "blog": "Blog",
+    "contact": "Kontakt",
+    "availability": "Offen für Remote- und Vor-Ort-Projekte"
+  },
+  "chat": {
+    "greeting": "Hallo! Ich bin Shakeel Latifs KI-Assistent. Ich kann Ihnen über seine Projekte, Fähigkeiten und Erfahrungen erzählen. Was möchten Sie wissen?",
+    "placeholder": "Fragen Sie mich etwas...",
+    "title": "KI-Assistent"
+  },
+  "language": {
+    "en": "English",
+    "ar": "العربية",
+    "de": "Deutsch"
+  }
+}

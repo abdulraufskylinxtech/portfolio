@@ -1,0 +1,18 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 600" fill="none">
+  <rect width="800" height="600" fill="#0f172a"/>
+  <rect x="120" y="80" width="560" height="400" rx="12" fill="#ffffff08" stroke="#2dd4bf33" stroke-width="2"/>
+  <rect x="140" y="100" width="200" height="360" rx="8" fill="#ffffff10"/>
+  <rect x="160" y="130" width="160" height="40" rx="6" fill="#2dd4bf22" stroke="#2dd4bf44"/>
+  <rect x="160" y="185" width="160" height="40" rx="6" fill="#ffffff10"/>
+  <rect x="160" y="240" width="160" height="40" rx="6" fill="#ffffff10"/>
+  <rect x="360" y="100" width="300" height="200" rx="8" fill="#ffffff08"/>
+  <text x="510" y="140" fill="#94a3b8" font-family="system-ui,sans-serif" font-size="13">Item          Qty    Total</text>
+  <line x1="380" y1="155" x2="640" y2="155" stroke="#334155"/>
+  <rect x="380" y="170" width="260" height="10" rx="3" fill="#94a3b866"/>
+  <rect x="380" y="195" width="220" height="10" rx="3" fill="#94a3b844"/>
+  <rect x="360" y="320" width="300" height="140" rx="8" fill="#2dd4bf22" stroke="#2dd4bf"/>
+  <text x="510" y="370" text-anchor="middle" fill="#fff" font-family="system-ui,sans-serif" font-size="22" font-weight="700">TOTAL $42.50</text>
+  <text x="510" y="410" text-anchor="middle" fill="#2dd4bf" font-family="system-ui,sans-serif" font-size="14">Checkout</text>
+  <text x="400" y="530" text-anchor="middle" fill="#e2e8f0" font-family="system-ui,sans-serif" font-size="28" font-weight="700">POS System</text>
+  <text x="400" y="565" text-anchor="middle" fill="#64748b" font-family="system-ui,sans-serif" font-size="14">CodeIgniter ù Bootstrap ù MySQL</text>
+</svg>

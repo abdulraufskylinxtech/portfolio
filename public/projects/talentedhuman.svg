@@ -1,0 +1,14 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 600" fill="none">
+  <rect width="800" height="600" fill="#0f172a"/>
+  <rect x="80" y="70" width="640" height="460" rx="20" fill="#ffffff08" stroke="#2dd4bf33" stroke-width="2"/>
+  <circle cx="200" cy="200" r="48" fill="#2dd4bf33"/>
+  <circle cx="400" cy="180" r="56" fill="#2dd4bf55"/>
+  <circle cx="600" cy="210" r="44" fill="#2dd4bf33"/>
+  <line x1="248" y1="200" x2="344" y2="180" stroke="#2dd4bf66" stroke-width="2"/>
+  <line x1="456" y1="180" x2="556" y2="210" stroke="#2dd4bf66" stroke-width="2"/>
+  <rect x="140" y="320" width="520" height="72" rx="12" fill="#ffffff10"/>
+  <rect x="160" y="342" width="280" height="10" rx="4" fill="#94a3b866"/>
+  <rect x="160" y="362" width="200" height="8" rx="3" fill="#94a3b844"/>
+  <text x="400" y="470" text-anchor="middle" fill="#e2e8f0" font-family="system-ui,sans-serif" font-size="28" font-weight="700">TalentedHuman</text>
+  <text x="400" y="505" text-anchor="middle" fill="#64748b" font-family="system-ui,sans-serif" font-size="14">Social Network · Real-time · Mobile</text>
+</svg>
