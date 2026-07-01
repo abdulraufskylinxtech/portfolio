@@ -1,7 +1,10 @@
 import type { NextConfig } from "next";
 import createNextIntlPlugin from "next-intl/plugin";
+import path from "node:path";
 
 const nextConfig: NextConfig = {
+  devIndicators: false,
+  outputFileTracingRoot: path.join(__dirname),
   eslint: {
     ignoreDuringBuilds: true,
   },

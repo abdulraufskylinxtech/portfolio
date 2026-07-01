@@ -1,5 +1,5 @@
 {
-  "email": "shakeel.lateef@gmail.com",
+  "email": "naeem.skylinxtech@gmail.com",
   "whatsapp": "+923314409754",
   "linkedin": "https://www.linkedin.com/in/shakeel-latif",
   "github": "https://github.com/shakeel-latif",
@@ -254,5 +254,10 @@
     "Exploring AI tools",
     "Cricket",
     "Traveling"
-  ]
+  ],
+  "cv": {
+    "url": "/cv/resume.pdf",
+    "filename": "quote (1).pdf",
+    "uploadedAt": "2026-07-01T13:39:24.589Z"
+  }
 }

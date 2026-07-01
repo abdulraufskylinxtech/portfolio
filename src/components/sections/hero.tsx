@@ -1,13 +1,14 @@
 "use client";
 
 import Image from "next/image";
-import { MessageSquare, FolderGit2, Sparkles } from "lucide-react";
+import { Download, FolderGit2, MessageSquare, Sparkles } from "lucide-react";
 import { AnimatePresence, motion } from "framer-motion";
 import { useLocale, useTranslations } from "next-intl";
 import { useMemo, useRef } from "react";
 
 import { HeroAtmosphere } from "@/components/HeroAtmosphere";
 import { Button } from "@/components/ui/button";
+import { useSiteInfo } from "@/components/providers/content-provider";
 import { Link } from "@/i18n/navigation";
 import { useScrollPosition } from "@/hooks/useScrollPosition";
 import { useSunShadow } from "@/hooks/useSunShadow";
@@ -23,6 +24,8 @@ interface HeroProps {
 export function Hero({ onChatOpen }: HeroProps) {
   const t = useTranslations("hero");
   const locale = useLocale();
+  const site = useSiteInfo();
+  const cv = site.cv;
   const roles = useMemo(() => t.raw("roles") as string[], [t]);
   const typed = useTypewriter(roles);
   const scrolledPastHero = useScrollPosition(HERO_SCROLL_THRESHOLD);
@@ -49,7 +52,7 @@ export function Hero({ onChatOpen }: HeroProps) {
       className="relative flex min-h-screen scroll-mt-24 items-center justify-center overflow-hidden pt-20"
     >
       <div className="absolute inset-0 z-0 bg-cover bg-center bg-[url(/hero-bg.jpg)]" />
-      <div className="absolute inset-0 z-0 bg-gradient-to-b from-background/90 via-background/70 to-background/50 dark:from-[rgba(10,25,47,0.85)] dark:via-[rgba(10,25,47,0.7)] dark:to-[rgba(10,25,47,0.55)]" />
+      <div className="absolute inset-0 z-0 bg-gradient-to-b from-background/90 via-background/70 to-background/50 dark:from-background/85 dark:via-background/70 dark:to-background/55" />
       <HeroAtmosphere className="z-[1]" />
       <div className="container relative z-10 mx-auto px-4">
         <div className="mx-auto max-w-4xl animate-fade-in-up">
@@ -68,7 +71,7 @@ export function Hero({ onChatOpen }: HeroProps) {
                   className="relative h-32 w-32 shrink-0 overflow-hidden rounded-full border-2 border-primary/50 transition-[box-shadow] duration-1000 md:h-40 md:w-40"
                   style={{
                     boxShadow:
-                      avatarShadow ?? "0 0 15px rgba(59, 130, 246, 0.5)",
+                      avatarShadow ?? "0 0 15px hsl(var(--primary) / 0.45)",
                   }}
                 >
                   <Image
@@ -157,6 +160,19 @@ export function Hero({ onChatOpen }: HeroProps) {
                   {t("readBlog")}
                 </Link>
               </Button>
+              {cv?.url ? (
+                <Button
+                  size="lg"
+                  variant="outline"
+                  className="border-primary/50 hover:border-primary hover:bg-primary/10"
+                  asChild
+                >
+                  <a href={cv.url} download={cv.filename}>
+                    <Download className="mr-2 h-5 w-5" />
+                    {t("downloadCv")}
+                  </a>
+                </Button>
+              ) : null}
             </div>
           </div>
         </div>

@@ -7,6 +7,7 @@ import { useLocale, useTranslations } from "next-intl";
 import { useState } from "react";
 
 import { Button } from "@/components/ui/button";
+import { useSiteInfo } from "@/components/providers/content-provider";
 import { Link, usePathname } from "@/i18n/navigation";
 import { useActiveSection } from "@/hooks/useActiveSection";
 import { useScrollPosition } from "@/hooks/useScrollPosition";
@@ -31,7 +32,14 @@ type PageLink = {
   isActive: (pathname: string) => boolean;
 };
 
-type NavLink = SectionLink | PageLink;
+type CvLink = {
+  kind: "cv";
+  label: string;
+  url: string;
+  filename: string;
+};
+
+type NavLink = SectionLink | PageLink | CvLink;
 
 export function Navbar() {
   const t = useTranslations("nav");
@@ -42,6 +50,8 @@ export function Navbar() {
   const isHome = pathname === "/";
   const activeSection = useActiveSection(isHome ? NAV_SECTION_IDS : []);
   const [mobileOpen, setMobileOpen] = useState(false);
+  const site = useSiteInfo();
+  const cv = site.cv;
 
   const showNavAvatar = !isHome || scrolledPastHero;
 
@@ -52,6 +62,16 @@ export function Navbar() {
     { kind: "section", id: "experience", label: t("experience") },
     { kind: "section", id: "about", label: t("about") },
     { kind: "section", id: "contact", label: t("contact") },
+    ...(cv?.url
+      ? [
+          {
+            kind: "cv" as const,
+            label: cv.label?.trim() || t("resume"),
+            url: cv.url,
+            filename: cv.filename,
+          },
+        ]
+      : []),
     {
       kind: "page",
       href: "/blog",
@@ -93,6 +113,20 @@ export function Navbar() {
       );
     }
 
+    if (item.kind === "cv") {
+      return (
+        <a
+          key={item.label}
+          href={item.url}
+          download={item.filename}
+          className={cn(className, mobile && "bg-primary/10 text-primary")}
+          onClick={mobile ? closeMobile : undefined}
+        >
+          {item.label}
+        </a>
+      );
+    }
+
     return (
       <Link
         key={item.label}
@@ -128,7 +162,7 @@ export function Navbar() {
                   animate={{ opacity: 1, scale: 1, width: 40 }}
                   exit={{ opacity: 0, scale: 0.8, width: 0 }}
                   transition={{ duration: 0.25 }}
-                  className="relative h-10 w-10 overflow-hidden rounded-full border-2 border-primary/50 shadow-[0_0_15px_rgba(59,130,246,0.4)]"
+                  className="relative h-10 w-10 overflow-hidden rounded-full border-2 border-primary/50 shadow-[0_0_15px_hsl(var(--primary)/0.35)]"
                 >
                   <Image
                     src="/me.jpg"

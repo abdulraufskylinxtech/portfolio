@@ -67,6 +67,13 @@ export interface SiteMap {
   label?: string;
 }
 
+export interface SiteCv {
+  url: string;
+  filename: string;
+  label?: string;
+  uploadedAt?: string;
+}
+
 export interface SiteInfo {
   email: string;
   whatsapp?: string;
@@ -78,6 +85,7 @@ export interface SiteInfo {
   role: string;
   availability: string;
   aboutImages: string[];
+  cv?: SiteCv | null;
   map?: SiteMap;
   stats: SiteStat[];
   skills: SiteSkills;

@@ -4,14 +4,19 @@ import { useCallback, useEffect, useState } from "react";
 
 import { BlogEditor } from "@/components/admin/editors/blog-editor";
 import { ContactsEditor } from "@/components/admin/editors/contacts-editor";
+import { CvEditor } from "@/components/admin/editors/cv-editor";
 import { ProjectsEditor } from "@/components/admin/editors/projects-editor";
 import { SiteEditor } from "@/components/admin/editors/site-editor";
 import type { ContentKey } from "@/lib/content-store";
 import type { BlogPost, Project, SiteInfo } from "@/lib/data";
 import type { ContactSubmission } from "@/lib/contact-submissions";
+import ThemeToggle from "@/components/ThemeToggle";
 
-const NAV: { key: ContentKey; label: string; file: string; icon: string }[] = [
+type AdminTabKey = ContentKey | "cv";
+
+const NAV: { key: AdminTabKey; label: string; file: string; icon: string }[] = [
   { key: "site", label: "Site info", file: "data/site.json", icon: "◎" },
+  { key: "cv", label: "Upload CV", file: "public/cv/resume.pdf", icon: "↓" },
   { key: "projects", label: "Projects", file: "data/projects.json", icon: "◫" },
   { key: "blog", label: "Blog", file: "data/blog-posts.json", icon: "✎" },
   { key: "contacts", label: "Inbox", file: "data/contact-submissions.json", icon: "✉" },
@@ -26,6 +31,10 @@ type SessionState = {
   readOnlyHosting: boolean;
   storageMode: StorageMode;
 };
+
+function contentKeyForTab(tab: AdminTabKey): ContentKey {
+  return tab === "cv" ? "site" : tab;
+}
 
 function normalizeAdminContent(key: ContentKey, raw: unknown): unknown {
   if (!raw || typeof raw !== "object") return raw;
@@ -58,10 +67,10 @@ export function AdminCmsApp() {
   const [session, setSession] = useState<SessionState | null>(null);
   const [password, setPassword] = useState("");
   const [loginError, setLoginError] = useState("");
-  const [activeKey, setActiveKey] = useState<ContentKey>("site");
+  const [activeKey, setActiveKey] = useState<AdminTabKey>("site");
   const [viewMode, setViewMode] = useState<ViewMode>("visual");
   const [content, setContent] = useState<unknown>(null);
-  const [loadedKey, setLoadedKey] = useState<ContentKey | null>(null);
+  const [loadedKey, setLoadedKey] = useState<AdminTabKey | null>(null);
   const [jsonEditor, setJsonEditor] = useState("");
   const [status, setStatus] = useState("");
   const [error, setError] = useState("");
@@ -75,8 +84,8 @@ export function AdminCmsApp() {
     return data;
   }, []);
 
-  const applyLoadedData = useCallback((key: ContentKey, data: unknown) => {
-    const normalized = normalizeAdminContent(key, data);
+  const applyLoadedData = useCallback((key: AdminTabKey, data: unknown) => {
+    const normalized = normalizeAdminContent(contentKeyForTab(key), data);
     setContent(normalized);
     setJsonEditor(JSON.stringify(normalized, null, 2));
     setLoadedKey(key);
@@ -84,7 +93,7 @@ export function AdminCmsApp() {
   }, []);
 
   const loadFile = useCallback(
-    async (key: ContentKey) => {
+    async (key: AdminTabKey) => {
       setBusy(true);
       setError("");
       setStatus("");
@@ -93,7 +102,7 @@ export function AdminCmsApp() {
       setJsonEditor("");
 
       try {
-        const res = await fetch(`/api/admin/content/${key}`);
+        const res = await fetch(`/api/admin/content/${contentKeyForTab(key)}`);
         if (!res.ok) {
           const body = (await res.json()) as { error?: string };
           throw new Error(body.error ?? "Failed to load file");
@@ -150,9 +159,11 @@ export function AdminCmsApp() {
     setJsonEditor("");
   };
 
-  const handleNavChange = (key: ContentKey) => {
+  const handleNavChange = (key: AdminTabKey) => {
     if (dirty && !window.confirm("You have unsaved changes. Switch anyway?")) return;
     setActiveKey(key);
+    if (key === "cv" && loadedKey === "cv" && content !== null) return;
+    if (key !== "cv" && key === loadedKey && content !== null) return;
     void loadFile(key);
   };
 
@@ -204,7 +215,7 @@ export function AdminCmsApp() {
     setStatus("");
 
     try {
-      const res = await fetch(`/api/admin/content/${activeKey}`, {
+      const res = await fetch(`/api/admin/content/${contentKeyForTab(activeKey)}`, {
         method: "PUT",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ data: parsed }),
@@ -235,6 +246,14 @@ export function AdminCmsApp() {
           <SiteEditor
             data={content as SiteInfo}
             onChange={handleContentChange}
+            readOnly={readOnly}
+          />
+        );
+      case "cv":
+        return (
+          <CvEditor
+            cv={(content as SiteInfo).cv}
+            onChange={(cv) => handleContentChange({ ...(content as SiteInfo), cv: cv ?? undefined })}
             readOnly={readOnly}
           />
         );
@@ -322,7 +341,7 @@ export function AdminCmsApp() {
         <div className="admin-sidebar-brand">
           <span className="admin-brand-dot" />
           <div>
-            <p className="font-semibold text-white">Portfolio CMS</p>
+            <p className="font-semibold text-foreground">Portfolio CMS</p>
             <p className="text-xs text-muted-foreground">JSON-backed</p>
           </div>
         </div>
@@ -361,21 +380,26 @@ export function AdminCmsApp() {
             </p>
           </div>
           <div className="admin-topbar-actions">
+            <ThemeToggle />
             <div className="admin-view-toggle">
-              <button
-                type="button"
-                className={viewMode === "visual" ? "active" : ""}
-                onClick={() => (viewMode === "json" ? handleSwitchToVisual() : setViewMode("visual"))}
-              >
-                Visual
-              </button>
-              <button
-                type="button"
-                className={viewMode === "json" ? "active" : ""}
-                onClick={handleSwitchToJson}
-              >
-                JSON
-              </button>
+              {activeKey !== "cv" ? (
+                <>
+                  <button
+                    type="button"
+                    className={viewMode === "visual" ? "active" : ""}
+                    onClick={() => (viewMode === "json" ? handleSwitchToVisual() : setViewMode("visual"))}
+                  >
+                    Visual
+                  </button>
+                  <button
+                    type="button"
+                    className={viewMode === "json" ? "active" : ""}
+                    onClick={handleSwitchToJson}
+                  >
+                    JSON
+                  </button>
+                </>
+              ) : null}
             </div>
             <button
               type="button"

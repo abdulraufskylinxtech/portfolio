@@ -18,7 +18,10 @@
     "admin": "Admin",
     "menuOpen": "Menü öffnen",
     "menuClose": "Menü schließen",
-    "hireMe": "Beauftragen"
+    "hireMe": "Beauftragen",
+    "cv": "Lebenslauf",
+    "resume": "Lebenslauf",
+    "viewCv": "Lebenslauf ansehen"
   },
   "hero": {
     "name": "Shakeel Latif",
@@ -31,7 +34,8 @@
     "description": "Innovative Lösungen mit modernen Technologien. Spezialisiert auf React, Node.js und KI/ML-Integration.",
     "chatWithAI": "Mit KI-Zwilling chatten",
     "viewProjects": "Projekte ansehen",
-    "readBlog": "Blog lesen"
+    "readBlog": "Blog lesen",
+    "downloadCv": "Lebenslauf laden"
   },
   "projects": {
     "sectionLabel": "Portfolio",

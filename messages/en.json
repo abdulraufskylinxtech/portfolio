@@ -18,7 +18,10 @@
     "admin": "Admin",
     "menuOpen": "Open menu",
     "menuClose": "Close menu",
-    "hireMe": "Hire me"
+    "hireMe": "Hire me",
+    "cv": "CV",
+    "resume": "Resume",
+    "viewCv": "View CV"
   },
   "hero": {
     "name": "Shakeel Latif",
@@ -31,7 +34,8 @@
     "description": "Building innovative solutions with modern technologies. Specializing in React, Node.js, and AI/ML integration.",
     "chatWithAI": "Chat with AI Twin",
     "viewProjects": "View Projects",
-    "readBlog": "Read Blog"
+    "readBlog": "Read Blog",
+    "downloadCv": "Download CV"
   },
   "projects": {
     "sectionLabel": "Portfolio",
