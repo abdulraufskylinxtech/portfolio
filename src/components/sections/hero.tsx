@@ -41,7 +41,7 @@ export function Hero({ onChatOpen }: HeroProps) {
   const { dropShadow: taglineShadow } = useSunShadow(heroRef, taglineRef);
 
   const nameClassName = cn(
-    "text-4xl font-bold bg-gradient-to-r from-primary via-primary-glow to-primary bg-clip-text text-transparent transition-[filter] duration-1000 md:text-6xl lg:text-7xl",
+    "break-words text-3xl font-bold bg-gradient-to-r from-primary via-primary-glow to-primary bg-clip-text text-transparent transition-[filter] duration-1000 sm:text-4xl md:text-6xl lg:text-7xl",
     locale === "ar" && "font-arabic",
   );
 
@@ -83,7 +83,7 @@ export function Hero({ onChatOpen }: HeroProps) {
                     sizes="(max-width: 768px) 128px, 160px"
                   />
                 </div>
-                <div className="text-center md:text-start">
+                <div className="min-w-0 max-w-full flex-1 text-center md:text-start">
                   <h1
                     ref={nameRef}
                     className={nameClassName}
@@ -91,8 +91,8 @@ export function Hero({ onChatOpen }: HeroProps) {
                   >
                     {t("name")}
                   </h1>
-                  <p className="mt-3 text-lg text-primary md:text-xl">
-                    {typed}
+                  <p className="mt-3 min-h-[1.75rem] max-w-full break-words text-base text-primary sm:text-lg md:text-xl">
+                    <span className="inline-block max-w-full">{typed}</span>
                     <span className="animate-pulse">|</span>
                   </p>
                 </div>
@@ -120,19 +120,21 @@ export function Hero({ onChatOpen }: HeroProps) {
           <div className="text-center">
             <p
               ref={taglineRef}
-              className="mb-4 text-xl text-foreground/90 transition-[filter] duration-1000 md:text-2xl"
+              className="mb-4 break-words text-base text-foreground/90 transition-[filter] duration-1000 sm:text-lg md:text-2xl"
               style={taglineShadow ? { filter: taglineShadow } : undefined}
             >
               {t("tagline")}
             </p>
-            <p className="mx-auto mb-12 max-w-2xl text-muted-foreground">{t("description")}</p>
+            <p className="mx-auto mb-8 max-w-2xl px-1 text-sm text-muted-foreground sm:mb-12 sm:text-base">
+              {t("description")}
+            </p>
 
-            <div className="flex flex-col justify-center gap-4 sm:flex-row">
+            <div className="flex flex-col justify-center gap-3 sm:flex-row sm:flex-wrap sm:gap-4">
               {onChatOpen && (
                 <Button
                   onClick={onChatOpen}
                   size="lg"
-                  className="glow bg-primary hover:bg-primary-glow"
+                  className="glow w-full bg-primary hover:bg-primary-glow sm:w-auto"
                 >
                   <MessageSquare className="mr-2 h-5 w-5" />
                   {t("chatWithAI")}
@@ -141,7 +143,7 @@ export function Hero({ onChatOpen }: HeroProps) {
               <Button
                 size="lg"
                 variant="outline"
-                className="border-primary/50 hover:border-primary hover:bg-primary/10"
+                className="w-full border-primary/50 hover:border-primary hover:bg-primary/10 sm:w-auto"
                 onClick={() =>
                   document.getElementById("projects")?.scrollIntoView({ behavior: "smooth" })
                 }
@@ -152,7 +154,7 @@ export function Hero({ onChatOpen }: HeroProps) {
               <Button
                 size="lg"
                 variant="outline"
-                className="border-primary/50 hover:border-primary hover:bg-primary/10"
+                className="w-full border-primary/50 hover:border-primary hover:bg-primary/10 sm:w-auto"
                 asChild
               >
                 <Link href="/blog">
@@ -164,7 +166,7 @@ export function Hero({ onChatOpen }: HeroProps) {
                 <Button
                   size="lg"
                   variant="outline"
-                  className="border-primary/50 hover:border-primary hover:bg-primary/10"
+                  className="w-full border-primary/50 hover:border-primary hover:bg-primary/10 sm:w-auto"
                   asChild
                 >
                   <a href={cv.url} download={cv.filename}>

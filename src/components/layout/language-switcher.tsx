@@ -21,7 +21,13 @@ const OPTIONS: Record<LocaleCode, { code: LocaleCode; flag: string; labelKey: Lo
 
 const ALL_LOCALES: LocaleCode[] = ["en", "ar", "de"];
 
-export function LanguageSwitcher({ className }: { className?: string }) {
+export function LanguageSwitcher({
+  className,
+  compact = false,
+}: {
+  className?: string;
+  compact?: boolean;
+}) {
   const locale = useLocale() as LocaleCode;
   const t = useTranslations("language");
   const pathname = usePathname();
@@ -73,20 +79,25 @@ export function LanguageSwitcher({ className }: { className?: string }) {
         aria-expanded={open}
         aria-haspopup="listbox"
         className={cn(
-          "inline-flex min-h-[2.25rem] min-w-[8rem] items-center justify-between gap-2 rounded-full border border-white/15 bg-black/20 px-3 py-1.5 text-sm font-semibold text-foreground backdrop-blur-sm transition hover:border-primary/45 hover:bg-black/35 disabled:opacity-60",
+          "inline-flex items-center justify-center rounded-full border border-border/60 bg-background/80 text-sm font-semibold text-foreground backdrop-blur-sm transition hover:border-primary/45 hover:bg-background disabled:opacity-60",
+          compact
+            ? "h-9 w-9 shrink-0"
+            : "min-h-[2.25rem] min-w-[7rem] justify-between gap-2 px-3 py-1.5 sm:min-w-[8rem]",
         )}
       >
-        <span className="flex items-center gap-2 truncate">
+        <span className={cn("flex items-center gap-2 truncate", compact && "gap-0")}>
           <span aria-hidden>{current.flag}</span>
-          <span>{t(current.labelKey)}</span>
+          {!compact ? <span>{t(current.labelKey)}</span> : null}
         </span>
-        <ChevronDown
-          className={cn(
-            "h-4 w-4 shrink-0 opacity-70 transition-transform",
-            open && "rotate-180",
-          )}
-          aria-hidden
-        />
+        {!compact ? (
+          <ChevronDown
+            className={cn(
+              "h-4 w-4 shrink-0 opacity-70 transition-transform",
+              open && "rotate-180",
+            )}
+            aria-hidden
+          />
+        ) : null}
       </button>
 
       {open ? (

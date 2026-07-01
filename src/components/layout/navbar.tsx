@@ -4,7 +4,7 @@ import { Menu, X } from "lucide-react";
 import { AnimatePresence, motion } from "framer-motion";
 import Image from "next/image";
 import { useLocale, useTranslations } from "next-intl";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 
 import { Button } from "@/components/ui/button";
 import { useSiteInfo } from "@/components/providers/content-provider";
@@ -18,6 +18,7 @@ import ThemeToggle from "../ThemeToggle";
 
 const NAV_SECTION_IDS = ["hero", "projects", "skills", "experience", "about", "contact"] as const;
 const HERO_SCROLL_THRESHOLD = 400;
+const MOBILE_NAV_HEIGHT = "3.5rem";
 
 type SectionLink = {
   kind: "section";
@@ -53,7 +54,34 @@ export function Navbar() {
   const site = useSiteInfo();
   const cv = site.cv;
 
-  const showNavAvatar = !isHome || scrolledPastHero;
+  const [isLargeScreen, setIsLargeScreen] = useState(false);
+  useEffect(() => {
+    const mq = window.matchMedia("(min-width: 1024px)");
+    const update = () => setIsLargeScreen(mq.matches);
+    update();
+    mq.addEventListener("change", update);
+    return () => mq.removeEventListener("change", update);
+  }, []);
+
+  const showAvatar = isLargeScreen && (!isHome || scrolledPastHero);
+
+  useEffect(() => {
+    if (!mobileOpen) return;
+    const prev = document.body.style.overflow;
+    document.body.style.overflow = "hidden";
+    return () => {
+      document.body.style.overflow = prev;
+    };
+  }, [mobileOpen]);
+
+  useEffect(() => {
+    const mq = window.matchMedia("(min-width: 1024px)");
+    const closeOnDesktop = () => {
+      if (mq.matches) setMobileOpen(false);
+    };
+    mq.addEventListener("change", closeOnDesktop);
+    return () => mq.removeEventListener("change", closeOnDesktop);
+  }, []);
 
   const links: NavLink[] = [
     { kind: "section", id: "hero", label: t("home") },
@@ -82,6 +110,7 @@ export function Navbar() {
 
   const isLinkActive = (item: NavLink) => {
     if (item.kind === "page") return item.isActive(pathname);
+    if (item.kind === "cv") return false;
     return isHome && activeSection === item.id;
   };
 
@@ -144,25 +173,28 @@ export function Navbar() {
       <header
         className={cn(
           "fixed inset-x-0 top-0 z-50 w-full transition-all duration-300",
+          "max-lg:glass max-lg:border-b max-lg:border-border/50 max-lg:shadow-lg",
           scrolled || !isHome
-            ? "glass border-b border-border/50 py-3 shadow-lg"
-            : "bg-transparent py-5",
+            ? "lg:glass lg:border-b lg:border-border/50 lg:py-3 lg:shadow-lg"
+            : "lg:bg-transparent lg:py-5",
+          "py-3",
         )}
+        style={{ minHeight: MOBILE_NAV_HEIGHT }}
       >
-        <div className="container mx-auto flex items-center justify-between gap-4 px-4">
+        <div className="container mx-auto flex h-14 min-w-0 items-center justify-between gap-2 px-3 sm:gap-3 sm:px-4">
           <Link
             href="/"
-            className="group flex shrink-0 items-center gap-3"
+            className="group flex min-w-0 shrink items-center gap-2 sm:gap-3"
             onClick={closeMobile}
           >
             <AnimatePresence>
-              {showNavAvatar && (
+              {showAvatar && (
                 <motion.div
                   initial={{ opacity: 0, scale: 0.8, width: 0 }}
                   animate={{ opacity: 1, scale: 1, width: 40 }}
                   exit={{ opacity: 0, scale: 0.8, width: 0 }}
                   transition={{ duration: 0.25 }}
-                  className="relative h-10 w-10 overflow-hidden rounded-full border-2 border-primary/50 shadow-[0_0_15px_hsl(var(--primary)/0.35)]"
+                  className="relative hidden h-10 w-10 overflow-hidden rounded-full border-2 border-primary/50 shadow-[0_0_15px_hsl(var(--primary)/0.35)] lg:block"
                 >
                   <Image
                     src="/me.jpg"
@@ -176,8 +208,8 @@ export function Navbar() {
             </AnimatePresence>
             <span
               className={cn(
-                "text-xl font-bold bg-gradient-to-r from-primary to-primary-glow bg-clip-text text-transparent",
-                locale === "ar" && "font-arabic text-2xl",
+                "truncate text-base font-bold bg-gradient-to-r from-primary to-primary-glow bg-clip-text text-transparent sm:text-lg lg:text-xl",
+                locale === "ar" && "font-arabic sm:text-xl lg:text-2xl",
               )}
             >
               {locale === "ar" ? "شكيل لطيف" : "Shakeel Latif"}
@@ -188,18 +220,20 @@ export function Navbar() {
             {links.map((item) => renderNavLink(item))}
           </nav>
 
-          <div className="flex shrink-0 items-center gap-2">
-            <LanguageSwitcher />
-            <ThemeToggle />
+          <div className="flex shrink-0 items-center gap-1 sm:gap-2">
             <Button
               variant="ghost"
               size="icon"
-              className="lg:hidden"
+              className="h-9 w-9 lg:hidden"
               onClick={() => setMobileOpen((o) => !o)}
               aria-label={mobileOpen ? t("menuClose") : t("menuOpen")}
+              aria-expanded={mobileOpen}
             >
-              {mobileOpen ? <X /> : <Menu />}
+              {mobileOpen ? <X className="h-5 w-5" /> : <Menu className="h-5 w-5" />}
             </Button>
+            <LanguageSwitcher compact className="lg:hidden" />
+            <LanguageSwitcher className="hidden lg:block" />
+            <ThemeToggle />
           </div>
         </div>
       </header>
@@ -212,16 +246,24 @@ export function Navbar() {
               animate={{ opacity: 1 }}
               exit={{ opacity: 0 }}
               className="fixed inset-0 z-40 bg-black/55 backdrop-blur-md lg:hidden"
+              style={{ top: MOBILE_NAV_HEIGHT }}
               onClick={closeMobile}
               aria-hidden
             />
             <motion.div
-              initial={{ opacity: 0, y: -16 }}
+              initial={{ opacity: 0, y: -8 }}
               animate={{ opacity: 1, y: 0 }}
-              exit={{ opacity: 0, y: -16 }}
-              className="fixed left-0 right-0 top-[4.5rem] z-[48] border-b border-border glass lg:hidden"
+              exit={{ opacity: 0, y: -8 }}
+              className="fixed inset-x-0 z-[49] border-b border-border glass lg:hidden"
+              style={{
+                top: MOBILE_NAV_HEIGHT,
+                maxHeight: `calc(100dvh - ${MOBILE_NAV_HEIGHT})`,
+              }}
             >
-              <nav className="flex flex-col gap-1 px-4 py-4">
+              <nav
+                className="flex max-h-[inherit] flex-col gap-1 overflow-y-auto overscroll-contain px-4 py-4"
+                aria-label="Mobile"
+              >
                 {links.map((item) => renderNavLink(item, true))}
               </nav>
             </motion.div>
