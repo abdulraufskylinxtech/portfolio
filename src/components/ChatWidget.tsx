@@ -5,7 +5,7 @@ import { useTranslations } from "next-intl";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Card } from "@/components/ui/card";
-import { MessageSquare, X, Send, Loader2 } from "lucide-react";
+import { MessageCircle, X, Send, Loader2 } from "lucide-react";
 import { ScrollArea } from "@/components/ui/scroll-area";
 import { useContent, usePublishedProjects } from "@/components/providers/content-provider";
 import { mimicAI } from "@/lib/mimicAI";
@@ -89,18 +89,25 @@ const ChatWidget = ({ externalOpen, onOpenChange }: ChatWidgetProps) => {
 
   return (
     <>
-      <Button
+      <button
+        type="button"
         onClick={() => setIsOpen(true)}
-        size="lg"
-        className={cn(
-          "fixed z-40 h-12 w-12 rounded-full bg-primary shadow-xl glow transition-all duration-300 hover:bg-primary-glow sm:h-14 sm:w-14",
-          "bottom-[max(1rem,env(safe-area-inset-bottom))] end-[max(1rem,env(safe-area-inset-right))]",
-          isOpen ? "pointer-events-none scale-0" : "scale-100",
-        )}
         aria-label="Open AI Chat"
+        className={cn(
+          "chat-launcher group fixed z-40 flex h-14 w-14 items-center justify-center rounded-full sm:h-16 sm:w-16",
+          "bottom-[max(1.25rem,env(safe-area-inset-bottom))] end-[max(1.25rem,env(safe-area-inset-right))]",
+          "bg-primary text-primary-foreground shadow-[0_10px_28px_hsl(var(--primary)/0.45)]",
+          "ring-4 ring-primary/25 transition-all duration-300 hover:scale-105 hover:bg-primary-glow hover:shadow-[0_12px_32px_hsl(var(--primary-glow)/0.5)]",
+          "focus-visible:outline-none focus-visible:ring-4 focus-visible:ring-primary/40",
+          isOpen ? "pointer-events-none scale-0 opacity-0" : "scale-100 opacity-100",
+        )}
       >
-        <MessageSquare className="h-5 w-5 sm:h-6 sm:w-6" />
-      </Button>
+        <MessageCircle
+          className="h-7 w-7 stroke-[2] text-primary-foreground sm:h-8 sm:w-8"
+          fill="none"
+          aria-hidden
+        />
+      </button>
 
       <Card
         className={cn(
