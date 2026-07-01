@@ -19,22 +19,11 @@ interface ChatWidgetProps {
   onOpenChange?: (open: boolean) => void;
 }
 
-const SESSION_STORAGE_KEY = "portfolio-chat-session-id";
-
 function createSessionId(): string {
   if (typeof crypto !== "undefined" && "randomUUID" in crypto) {
     return crypto.randomUUID();
   }
   return `session-${Date.now()}-${Math.random().toString(36).slice(2)}`;
-}
-
-function getStoredSessionId(): string {
-  if (typeof window === "undefined") return createSessionId();
-  const existing = localStorage.getItem(SESSION_STORAGE_KEY);
-  if (existing) return existing;
-  const id = createSessionId();
-  localStorage.setItem(SESSION_STORAGE_KEY, id);
-  return id;
 }
 
 const ChatWidget = ({ externalOpen, onOpenChange }: ChatWidgetProps) => {
@@ -48,16 +37,26 @@ const ChatWidget = ({ externalOpen, onOpenChange }: ChatWidgetProps) => {
     onOpenChange?.(open);
   };
 
-  const [sessionId, setSessionId] = useState<string>(() => getStoredSessionId());
-  const sessionIdRef = useRef(sessionId);
+  const sessionIdRef = useRef(createSessionId());
   const [messages, setMessages] = useState<Message[]>([
     { role: "assistant", content: t("greeting") },
   ]);
   const [inputValue, setInputValue] = useState("");
   const [isLoading, setIsLoading] = useState(false);
-  const [isLoadingHistory, setIsLoadingHistory] = useState(false);
   const messagesEndRef = useRef<HTMLDivElement>(null);
-  const skipHistoryLoadRef = useRef(false);
+  const wasOpenRef = useRef(false);
+
+  const greetingMessage = useCallback((): Message => {
+    return { role: "assistant", content: t("greeting") };
+  }, [t]);
+
+  const startFreshChat = useCallback(() => {
+    const newId = createSessionId();
+    sessionIdRef.current = newId;
+    setMessages([greetingMessage()]);
+    setInputValue("");
+    setIsLoading(false);
+  }, [greetingMessage]);
 
   const scrollToLatest = useCallback(() => {
     requestAnimationFrame(() => {
@@ -75,76 +74,24 @@ const ChatWidget = ({ externalOpen, onOpenChange }: ChatWidgetProps) => {
   }, []);
 
   useEffect(() => {
-    sessionIdRef.current = sessionId;
-  }, [sessionId]);
-
-  const greetingMessage = useCallback((): Message => {
-    return { role: "assistant", content: t("greeting") };
-  }, [t]);
-
-  const loadSessionHistory = useCallback(
-    async (forSessionId: string) => {
-      if (skipHistoryLoadRef.current) {
-        skipHistoryLoadRef.current = false;
-        return;
-      }
-
-      setIsLoadingHistory(true);
-      try {
-        const res = await fetch(`/api/chat?sessionId=${encodeURIComponent(forSessionId)}`);
-        if (!res.ok) return;
-
-        const data = (await res.json()) as {
-          messages?: { role: "user" | "assistant"; content: string }[];
-        };
-
-        // Ignore stale responses (e.g. user clicked New chat while fetch was in flight)
-        if (forSessionId !== sessionIdRef.current) return;
-
-        if (data.messages?.length) {
-          setMessages(data.messages);
-        } else {
-          setMessages([greetingMessage()]);
-        }
-      } catch {
-        if (forSessionId === sessionIdRef.current) {
-          setMessages([greetingMessage()]);
-        }
-      } finally {
-        if (forSessionId === sessionIdRef.current) {
-          setIsLoadingHistory(false);
-        }
-      }
-    },
-    [greetingMessage],
-  );
-
-  useEffect(() => {
     if (externalOpen !== undefined) {
       setInternalOpen(externalOpen);
     }
   }, [externalOpen]);
 
   useEffect(() => {
-    if (isOpen) {
-      void loadSessionHistory(sessionIdRef.current);
+    if (isOpen && !wasOpenRef.current) {
+      startFreshChat();
     }
-  }, [isOpen, loadSessionHistory]);
+    wasOpenRef.current = isOpen;
+  }, [isOpen, startFreshChat]);
 
   useEffect(() => {
     scrollToLatest();
-  }, [messages, isLoading, isLoadingHistory, scrollToLatest]);
+  }, [messages, isLoading, scrollToLatest]);
 
   const handleNewChat = () => {
-    const newId = createSessionId();
-    sessionIdRef.current = newId;
-    skipHistoryLoadRef.current = true;
-    localStorage.setItem(SESSION_STORAGE_KEY, newId);
-    setSessionId(newId);
-    setMessages([greetingMessage()]);
-    setInputValue("");
-    setIsLoadingHistory(false);
-    setIsLoading(false);
+    startFreshChat();
   };
 
   const handleSend = async () => {
@@ -181,8 +128,6 @@ const ChatWidget = ({ externalOpen, onOpenChange }: ChatWidgetProps) => {
 
       if (data.sessionId && data.sessionId !== sessionIdRef.current) {
         sessionIdRef.current = data.sessionId;
-        localStorage.setItem(SESSION_STORAGE_KEY, data.sessionId);
-        setSessionId(data.sessionId);
       }
 
       if (activeSessionId !== sessionIdRef.current) return;
@@ -279,28 +224,22 @@ const ChatWidget = ({ externalOpen, onOpenChange }: ChatWidgetProps) => {
 
         <ScrollArea className="flex-1 p-4">
           <div className="space-y-4">
-            {isLoadingHistory ? (
-              <div className="flex justify-center py-8">
-                <Loader2 className="h-5 w-5 animate-spin text-muted-foreground" />
-              </div>
-            ) : (
-              messages.map((message, index) => (
+            {messages.map((message, index) => (
+              <div
+                key={`${message.role}-${index}-${message.content.slice(0, 24)}`}
+                className={`flex ${message.role === "user" ? "justify-end" : "justify-start"}`}
+              >
                 <div
-                  key={`${message.role}-${index}-${message.content.slice(0, 24)}`}
-                  className={`flex ${message.role === "user" ? "justify-end" : "justify-start"}`}
+                  className={`max-w-[80%] rounded-lg p-3 ${
+                    message.role === "user"
+                      ? "bg-primary text-primary-foreground"
+                      : "bg-secondary text-foreground"
+                  }`}
                 >
-                  <div
-                    className={`max-w-[80%] rounded-lg p-3 ${
-                      message.role === "user"
-                        ? "bg-primary text-primary-foreground"
-                        : "bg-secondary text-foreground"
-                    }`}
-                  >
-                    <p className="whitespace-pre-wrap text-sm">{message.content}</p>
-                  </div>
+                  <p className="whitespace-pre-wrap text-sm">{message.content}</p>
                 </div>
-              ))
-            )}
+              </div>
+            ))}
             {isLoading && (
               <div className="flex justify-start">
                 <div className="rounded-lg bg-secondary p-3 text-foreground">
@@ -320,13 +259,13 @@ const ChatWidget = ({ externalOpen, onOpenChange }: ChatWidgetProps) => {
               onKeyPress={handleKeyPress}
               placeholder={t("placeholder")}
               className="border-border bg-secondary"
-              disabled={isLoading || isLoadingHistory}
+              disabled={isLoading}
             />
             <Button
               onClick={() => void handleSend()}
               size="icon"
               className="shrink-0 bg-primary hover:bg-primary-glow"
-              disabled={isLoading || isLoadingHistory || !inputValue.trim()}
+              disabled={isLoading || !inputValue.trim()}
             >
               <Send className="h-4 w-4" />
             </Button>

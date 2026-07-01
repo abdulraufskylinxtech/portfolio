@@ -1,6 +1,39 @@
 {
   "sessions": [
     {
+      "id": "de03e09b-3932-4109-8633-e0f00f7ab06c",
+      "started_at": "2026-07-01T17:14:12.155Z",
+      "updated_at": "2026-07-01T17:14:23.465Z",
+      "locale": "en",
+      "user_agent": "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/149.0.0.0 Safari/537.36",
+      "page_url": "http://localhost:3000/en",
+      "message_count": 2,
+      "preview": "hello",
+      "messages": [
+        {
+          "role": "user",
+          "content": "hello",
+          "created_at": "2026-07-01T17:14:12.155Z"
+        },
+        {
+          "role": "assistant",
+          "content": "Hello, it's nice to meet you. I'm here to help you learn more about Shakeel Latif, a Full-Stack Developer & AI Enthusiast. What would you like to know about him? His skills, work experience, or maybe some of the projects he's worked on?",
+          "created_at": "2026-07-01T17:14:12.155Z"
+        },
+        {
+          "role": "user",
+          "content": "what about your react experience?",
+          "created_at": "2026-07-01T17:14:23.465Z"
+        },
+        {
+          "role": "assistant",
+          "content": "Shakeel has experience with React, which is one of his frontend skills. He's worked with React, as well as other frameworks like Angular and VueJs, to build modern web applications. If you'd like to know more about a specific project he's worked on that involved React, I can try to provide more details.",
+          "created_at": "2026-07-01T17:14:23.465Z"
+        }
+      ],
+      "read": false
+    },
+    {
       "id": "8c432186-b8af-48bc-887c-a1298b59ee70",
       "started_at": "2026-07-01T16:59:57.046Z",
       "updated_at": "2026-07-01T17:10:04.292Z",
