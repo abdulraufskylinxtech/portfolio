@@ -84,6 +84,10 @@ export interface SiteInfo {
   bio: string;
   role: string;
   availability: string;
+  /** Hero + navbar portrait (path under public/, e.g. /me.jpg) */
+  profileImage?: string;
+  /** Optional AI depth map (grayscale) for true 3D portrait — e.g. /profile-depth.png */
+  profileDepthMap?: string;
   aboutImages: string[];
   cv?: SiteCv | null;
   map?: SiteMap;
@@ -92,4 +96,14 @@ export interface SiteInfo {
   experience: ExperienceEntry[];
   education: EducationEntry[];
   hobbies: string[];
+}
+
+const DEFAULT_PROFILE_IMAGE = "/me.jpg";
+
+export function getProfileImage(site: Pick<SiteInfo, "profileImage" | "aboutImages">): string {
+  const fromProfile = site.profileImage?.trim();
+  if (fromProfile) return fromProfile;
+  const fromAbout = site.aboutImages?.map((src) => src.trim()).find(Boolean);
+  if (fromAbout) return fromAbout;
+  return DEFAULT_PROFILE_IMAGE;
 }

@@ -1,7 +1,9 @@
 "use client";
 
 import { AboutPhotosEditor } from "@/components/admin/editors/about-photos-editor";
+import { ProfileImageEditor } from "@/components/admin/editors/profile-image-editor";
 import type { EducationEntry, ExperienceEntry, SiteInfo, SiteStat } from "@/lib/data";
+import { getProfileImage } from "@/lib/data";
 
 import {
   AdminBadge,
@@ -133,6 +135,14 @@ export function SiteEditor({ data, onChange, readOnly }: Props) {
           </AdminField>
         </div>
       </AdminSection>
+
+      <ProfileImageEditor
+        image={data.profileImage ?? getProfileImage(data)}
+        depthMap={data.profileDepthMap ?? ""}
+        onImageChange={(profileImage) => onChange({ ...data, profileImage })}
+        onDepthMapChange={(profileDepthMap) => onChange({ ...data, profileDepthMap })}
+        readOnly={disabled}
+      />
 
       <AboutPhotosEditor
         images={data.aboutImages}

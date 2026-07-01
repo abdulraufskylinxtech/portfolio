@@ -8,6 +8,7 @@ import { useEffect, useState } from "react";
 
 import { Button } from "@/components/ui/button";
 import { useSiteInfo } from "@/components/providers/content-provider";
+import { getProfileImage } from "@/lib/data";
 import { Link, usePathname } from "@/i18n/navigation";
 import { useActiveSection } from "@/hooks/useActiveSection";
 import { useScrollPosition } from "@/hooks/useScrollPosition";
@@ -53,6 +54,7 @@ export function Navbar() {
   const [mobileOpen, setMobileOpen] = useState(false);
   const site = useSiteInfo();
   const cv = site.cv;
+  const profileImage = getProfileImage(site);
 
   const [isLargeScreen, setIsLargeScreen] = useState(false);
   useEffect(() => {
@@ -197,7 +199,7 @@ export function Navbar() {
                   className="relative hidden h-10 w-10 overflow-hidden rounded-full border-2 border-primary/50 shadow-[0_0_15px_hsl(var(--primary)/0.35)] lg:block"
                 >
                   <Image
-                    src="/me.jpg"
+                    src={profileImage}
                     alt={t("home")}
                     fill
                     className="object-cover"

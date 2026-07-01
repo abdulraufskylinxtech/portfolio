@@ -14,9 +14,8 @@
   "bio": "Full-Stack Developer passionate about AI/ML and DevOps. Building modern web applications with React, Node.js, and cloud technologies.",
   "role": "Full-Stack Developer & AI Enthusiast",
   "availability": "Open to new opportunities — remote & on-site",
+  "profileImage": "/me.jpg",
   "aboutImages": [
-    "/me-3.jpg",
-    "/me-2.jpeg",
     "/me.jpg"
   ],
   "stats": [

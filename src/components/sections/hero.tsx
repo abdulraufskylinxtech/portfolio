@@ -1,14 +1,15 @@
 "use client";
 
-import Image from "next/image";
 import { Download, FolderGit2, MessageSquare, Sparkles } from "lucide-react";
 import { AnimatePresence, motion } from "framer-motion";
 import { useLocale, useTranslations } from "next-intl";
 import { useMemo, useRef } from "react";
 
 import { HeroAtmosphere } from "@/components/HeroAtmosphere";
+import { Hero3DAvatar } from "@/components/Hero3DAvatar";
 import { Button } from "@/components/ui/button";
 import { useSiteInfo } from "@/components/providers/content-provider";
+import { getProfileImage } from "@/lib/data";
 import { Link } from "@/i18n/navigation";
 import { useScrollPosition } from "@/hooks/useScrollPosition";
 import { useSunShadow } from "@/hooks/useSunShadow";
@@ -26,6 +27,7 @@ export function Hero({ onChatOpen }: HeroProps) {
   const locale = useLocale();
   const site = useSiteInfo();
   const cv = site.cv;
+  const portraitSrc = getProfileImage(site);
   const roles = useMemo(() => t.raw("roles") as string[], [t]);
   const typed = useTypewriter(roles);
   const scrolledPastHero = useScrollPosition(HERO_SCROLL_THRESHOLD);
@@ -66,23 +68,13 @@ export function Hero({ onChatOpen }: HeroProps) {
                 transition={{ duration: 0.3 }}
                 className="mb-8 flex flex-col items-center gap-6 md:flex-row md:justify-start"
               >
-                <div
+                <Hero3DAvatar
                   ref={avatarRef}
-                  className="relative h-32 w-32 shrink-0 overflow-hidden rounded-full border-2 border-primary/50 transition-[box-shadow] duration-1000 md:h-40 md:w-40"
-                  style={{
-                    boxShadow:
-                      avatarShadow ?? "0 0 15px hsl(var(--primary) / 0.45)",
-                  }}
-                >
-                  <Image
-                    src="/me.jpg"
-                    alt={t("name")}
-                    fill
-                    className="object-cover"
-                    priority
-                    sizes="(max-width: 768px) 128px, 160px"
-                  />
-                </div>
+                  src={portraitSrc}
+                  depthSrc={site.profileDepthMap}
+                  alt={t("name")}
+                  boxShadow={avatarShadow ?? "0 0 15px hsl(var(--primary) / 0.45)"}
+                />
                 <div className="min-w-0 max-w-full flex-1 text-center md:text-start">
                   <h1
                     ref={nameRef}
