@@ -1,5 +1,6 @@
 import type { BlogPost, Project, SiteInfo } from "@/lib/data";
 import { validateContactSubmissionsFile } from "@/lib/contact-submissions";
+import { validateChatSessionsFile } from "@/lib/chat-sessions";
 import {
   canPersistJson,
   getStorageMode,
@@ -8,7 +9,7 @@ import {
   writeDataJson,
 } from "@/lib/json-store";
 
-export const CONTENT_KEYS = ["site", "projects", "blog", "contacts"] as const;
+export const CONTENT_KEYS = ["site", "projects", "blog", "contacts", "chats"] as const;
 export type ContentKey = (typeof CONTENT_KEYS)[number];
 
 const FILE_MAP: Record<ContentKey, string> = {
@@ -16,6 +17,7 @@ const FILE_MAP: Record<ContentKey, string> = {
   projects: "projects.json",
   blog: "blog-posts.json",
   contacts: "contact-submissions.json",
+  chats: "chat-sessions.json",
 };
 
 export function isContentKey(value: string): value is ContentKey {
@@ -74,6 +76,8 @@ export function validateContent(key: ContentKey, data: unknown): string | null {
   }
 
   if (key === "contacts") return validateContactSubmissionsFile(data);
+
+  if (key === "chats") return validateChatSessionsFile(data);
 
   return null;
 }

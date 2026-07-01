@@ -1,117 +1,82 @@
 import type { Project, SiteInfo } from "@/lib/data";
+import {
+  buildPortfolioKnowledge,
+  detectIntent,
+  findBestKnowledgeMatch,
+} from "@/lib/portfolio-knowledge";
 
 interface AIResponse {
   response: string;
   confidence: number;
 }
 
-const skills = {
-  frontend: ["React", "Next.js", "TailwindCSS", "TypeScript", "Framer Motion"],
-  backend: ["Node.js", "Python", "PostgreSQL", "Express"],
-  aiml: ["TensorFlow", "Hugging Face", "LangChain", "OpenAI API"],
-  devops: ["Docker", "Kubernetes", "AWS", "CI/CD", "GitHub Actions"],
-};
+const SCOPE_SUGGESTIONS = [
+  '"What are your skills?"',
+  '"Tell me about your work experience"',
+  '"Which projects have you built?"',
+  '"How can I contact you?"',
+];
 
 export const mimicAI = async (
   userMessage: string,
   site: SiteInfo,
   projects: Project[],
 ): Promise<AIResponse> => {
-  await new Promise((resolve) => setTimeout(resolve, 600 + Math.random() * 300));
+  await new Promise((resolve) => setTimeout(resolve, 500 + Math.random() * 250));
 
-  const msg = userMessage.toLowerCase();
-  const hasAny = (words: string[]) => words.some((word) => msg.includes(word));
+  const knowledge = buildPortfolioKnowledge(site, projects);
+  const intent = detectIntent(userMessage, knowledge);
 
-  for (const project of projects) {
-    const nameLower = project.title.toLowerCase();
-    const slugLower = project.slug.toLowerCase();
-    if (msg.includes(nameLower) || msg.includes(slugLower.replace(/-/g, " "))) {
-      const apis = project.apis?.length
-        ? `\n\n**APIs:** ${project.apis.join(", ")}`
-        : "";
-      const highlights = project.highlights?.length
-        ? `\n\n**Highlights:**\n${project.highlights.map((h) => `- ${h}`).join("\n")}`
-        : "";
-      return {
-        response: `**${project.title}**\n\n${project.description}\n\n**Tech:** ${project.tags.join(", ")}${apis}${highlights}`,
-        confidence: 0.96,
-      };
-    }
+  if (intent === "greeting") {
+    return {
+      response:
+        `Hi! I'm the portfolio assistant for **Shakeel Latif**. I can answer questions about his **skills, experience, projects, education, and contact details** based on his CV and portfolio.\n\nWhat would you like to know?`,
+      confidence: 0.95,
+    };
   }
 
-  if (hasAny(["hello", "hi", "hey", "salam", "assalam", "good morning", "good afternoon", "good evening"])) {
+  if (intent === "thanks") {
     return {
-      response: "Hi there! I’m the portfolio chat assistant. Ask me about the developer’s skills, projects, or contact details.",
+      response:
+        "You're welcome! Ask me anything else about skills, experience, projects, or how to get in touch.",
       confidence: 0.9,
     };
   }
 
-  if (hasAny(["thank", "thanks", "thx", "appreciate"])) {
+  if (intent === "bye") {
     return {
-      response: "You’re welcome! If you want, I can tell you about projects, skills, or how to contact the developer.",
+      response: "Goodbye! Come back anytime if you want to learn more about this developer's background.",
       confidence: 0.9,
     };
   }
 
-  if (hasAny(["how are you", "how are u", "how’s it going", "how is it going"])) {
+  if (intent === "smalltalk") {
     return {
-      response: "I’m doing great, thanks for asking! I’m here to help with portfolio questions and project details.",
-      confidence: 0.9,
-    };
-  }
-
-  if (hasAny(["bye", "goodbye", "see you", "later", "take care"])) {
-    return {
-      response: "Goodbye! Feel free to come back anytime if you want to chat about projects or skills.",
-      confidence: 0.85,
-    };
-  }
-
-  if (hasAny(["skill", "technolog", "stack"])) {
-    return {
-      response: `My technical skillset:\n- Frontend: ${skills.frontend.join(", ")}\n- Backend: ${skills.backend.join(", ")}\n- AI/ML: ${skills.aiml.join(", ")}\n- DevOps: ${skills.devops.join(", ")}`,
-      confidence: 0.9,
-    };
-  }
-
-  if (hasAny(["project", "work", "built", "portfolio"])) {
-    const list = projects
-      .map((p) => `**${p.title}** — ${p.description.slice(0, 100)}...`)
-      .join("\n\n");
-    return {
-      response: `Here are some projects I can tell you about:\n\n${list}\n\nAsk me about any specific project for more details!`,
-      confidence: 0.94,
-    };
-  }
-
-  if (hasAny(["about", "who are you", "who", "introduce", "bio"])) {
-    return {
-      response: `${site.bio} Based in ${site.location}. I can also share details on skills, projects, or how to contact the developer.`,
-      confidence: 0.96,
-    };
-  }
-
-  if (hasAny(["contact", "email", "hire", "linkedin", "github"])) {
-    return {
-      response: `Reach me at:\n- Email: ${site.email}\n- LinkedIn: ${site.linkedin}\n- GitHub: ${site.github}`,
-      confidence: 0.97,
-    };
-  }
-
-  if (hasAny(["api", "integration", "rest", "graphql"])) {
-    const allApis = projects.flatMap((p) => p.apis ?? []);
-    const apiList = [...new Set(allApis)];
-    return {
-      response: apiList.length
-        ? `APIs and integrations I’ve worked with:\n${apiList.map((a) => `- ${a}`).join("\n")}`
-        : "I don’t have API details for available projects right now, but I can still tell you about skills and work experience.",
+      response:
+        "I'm doing well, thanks! I'm here to help with portfolio and CV questions — skills, projects, experience, or contact info.",
       confidence: 0.88,
+    };
+  }
+
+  if (intent === "off-topic") {
+    return {
+      response:
+        `I can only discuss **Shakeel Latif's professional background** — skills, work experience, projects, education, CV, and contact details.\n\nTry asking:\n${SCOPE_SUGGESTIONS.map((s) => `- ${s}`).join("\n")}`,
+      confidence: 0.98,
+    };
+  }
+
+  const match = findBestKnowledgeMatch(userMessage, knowledge);
+  if (match) {
+    return {
+      response: match.content,
+      confidence: 0.92,
     };
   }
 
   return {
     response:
-      "I’m here to chat! Ask me about the portfolio, skills, or projects.\n\nNeed a suggestion? Try:\n- \"Tell me about your skills\"\n- \"What projects have you built?\"\n- \"How can I contact you?\"",
-    confidence: 0.75,
+      `I don't have information about that in the portfolio/CV knowledge base.\n\nI can help with:\n- Skills & tech stack\n- Work experience\n- Projects\n- Education\n- Contact details${site.cv?.url ? "\n- Resume / CV download" : ""}\n\nTry one of these:\n${SCOPE_SUGGESTIONS.map((s) => `- ${s}`).join("\n")}`,
+    confidence: 0.8,
   };
 };

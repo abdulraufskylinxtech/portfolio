@@ -158,9 +158,11 @@
     "availability": "Offen für Remote- und Vor-Ort-Projekte"
   },
   "chat": {
-    "greeting": "Hallo! Ich bin Shakeel Latifs KI-Assistent. Ich kann Ihnen über seine Projekte, Fähigkeiten und Erfahrungen erzählen. Was möchten Sie wissen?",
-    "placeholder": "Fragen Sie mich etwas...",
-    "title": "KI-Assistent"
+    "greeting": "Hallo! Ich bin Shakeel Latifs Portfolio-Assistent. Ich beantworte Fragen zu Fähigkeiten, Erfahrung, Projekten, Ausbildung und Lebenslauf — nur im beruflichen Kontext.",
+    "placeholder": "Fragen zu Skills, Erfahrung, Projekten…",
+    "title": "KI-Assistent",
+    "newChat": "Neuer Chat",
+    "error": "Ich habe gerade Probleme beim Antworten. Bitte versuche es erneut."
   },
   "language": {
     "en": "English",

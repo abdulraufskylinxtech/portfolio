@@ -1,0 +1,246 @@
+{
+  "sessions": [
+    {
+      "id": "8c432186-b8af-48bc-887c-a1298b59ee70",
+      "started_at": "2026-07-01T16:59:57.046Z",
+      "updated_at": "2026-07-01T17:04:36.332Z",
+      "locale": "en",
+      "user_agent": "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/149.0.0.0 Safari/537.36",
+      "page_url": "http://localhost:3000/en",
+      "message_count": 4,
+      "preview": "Hi shakeel",
+      "messages": [
+        {
+          "role": "user",
+          "content": "Hi shakeel",
+          "created_at": "2026-07-01T16:59:57.046Z"
+        },
+        {
+          "role": "assistant",
+          "content": "Hello, I'm Shakeel Latif, a Full-Stack Developer & AI Enthusiast. It's nice to meet you. I can help you learn more about my skills, experience, and projects. What would you like to know?",
+          "created_at": "2026-07-01T16:59:57.046Z"
+        },
+        {
+          "role": "user",
+          "content": "how are you?",
+          "created_at": "2026-07-01T17:00:12.764Z"
+        },
+        {
+          "role": "assistant",
+          "content": "I'm doing well, thanks for asking. I'm excited to share my portfolio and experiences with you. As a Full-Stack Developer & AI Enthusiast, I'm always looking to learn and grow, and I'm happy to chat with you about my work. Is there something specific you'd like to know or discuss?",
+          "created_at": "2026-07-01T17:00:12.764Z"
+        },
+        {
+          "role": "user",
+          "content": "ok fine. can you tell me about your experience in react ?",
+          "created_at": "2026-07-01T17:00:49.581Z"
+        },
+        {
+          "role": "assistant",
+          "content": "I have experience working with React, which is one of the frontend skills I've listed in my portfolio. I've worked on several projects that utilize React, including Next.js, which is a popular React-based framework. \n\nIn my previous roles, such as at Mateebtech Smc Pvt Ltd, I've worked on projects that involved building modern web applications using React, Node.js, and other technologies. I've also explored other React-related technologies like TypeScript and Bootstrap.\n\nIf you'd like to know more about my specific experience with React or any of my other projects, feel free to ask.",
+          "created_at": "2026-07-01T17:00:49.581Z"
+        },
+        {
+          "role": "user",
+          "content": "ok perfect.. now tell me your total experience of  all stack?",
+          "created_at": "2026-07-01T17:04:36.332Z"
+        },
+        {
+          "role": "assistant",
+          "content": "According to my portfolio, I have over 10 years of experience in the field of software development, with expertise in a wide range of technologies across the full stack.\n\nI've worked on numerous projects and have experience with various frontend frameworks like React, Angular, and VueJs, as well as backend technologies like Node.js, PHP, Laravel, and Python. I've also worked with databases like MongoDB, MySQL, and PostgreSQL, and have experience with DevOps tools like Docker, CI/CD, and AWS.\n\nThroughout my career, I've delivered over 20 projects and have worked with more than 10 different technologies. My experience spans multiple industries and domains, including healthcare, e-commerce, and social networking.\n\nIf you'd like to know more about my experience or would like to discuss a specific technology or project, I'd be happy to chat with you.",
+          "created_at": "2026-07-01T17:04:36.332Z"
+        }
+      ],
+      "read": false
+    },
+    {
+      "id": "fca364e2-4dfd-47a6-8d88-d3829bf424f4",
+      "started_at": "2026-07-01T16:58:07.544Z",
+      "updated_at": "2026-07-01T16:58:07.544Z",
+      "locale": "en",
+      "user_agent": "curl/8.7.1",
+      "message_count": 1,
+      "preview": "what is your experience in react?",
+      "messages": [
+        {
+          "role": "user",
+          "content": "what is your experience in react?",
+          "created_at": "2026-07-01T16:58:07.544Z"
+        },
+        {
+          "role": "assistant",
+          "content": "Shakeel Latif has experience with React, as well as Next.js, which is a popular React framework. He has worked on several projects that utilize React, including the AI-Powered Portfolio site, which is built using Next.js and features a multilingual interface with JSON-driven content. Additionally, some of his other projects, such as SeeBiz and oladoc, may have involved React or Next.js, although the specific tech stacks for those projects are listed as including Node.js, MongoDB, Elasticsearch, and other technologies. Overall, Shakeel has listed React as one of his frontend skills, indicating that he has experience working with the library.",
+          "created_at": "2026-07-01T16:58:07.544Z"
+        }
+      ],
+      "read": false
+    },
+    {
+      "id": "09ae5d81-023e-4459-9200-b5d5cc62bd9d",
+      "started_at": "2026-07-01T16:52:43.393Z",
+      "updated_at": "2026-07-01T16:52:43.393Z",
+      "locale": "en",
+      "user_agent": "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/149.0.0.0 Safari/537.36",
+      "page_url": "http://localhost:3000/en",
+      "message_count": 1,
+      "preview": "what is your experienc ein react?",
+      "messages": [
+        {
+          "role": "user",
+          "content": "what is your experienc ein react?",
+          "created_at": "2026-07-01T16:52:43.393Z"
+        },
+        {
+          "role": "assistant",
+          "content": "Great question! Shakeel Latif has hands-on experience with React.\n\nIt's listed in his frontend skills (React).\n\nHe's used it professionally in roles such as Full Stack Engineer at Mateebtech Smc Pvt Ltd (September 2019).\n\nFor example: Worked on the seebiz.com Wholesale Market place product\n\nYou can also see it in projects like SeeBiz — B2B Wholesale Marketplace.\n\nHappy to share more — ask about a specific project or role if you'd like!",
+          "created_at": "2026-07-01T16:52:43.393Z"
+        }
+      ],
+      "read": false
+    },
+    {
+      "id": "3c3cf4c0-d31c-4522-b3f5-4d8c04023dcd",
+      "started_at": "2026-07-01T16:48:30.238Z",
+      "updated_at": "2026-07-01T16:48:30.238Z",
+      "locale": "en",
+      "user_agent": "curl/8.7.1",
+      "message_count": 1,
+      "preview": "what is your experience in react?",
+      "messages": [
+        {
+          "role": "user",
+          "content": "what is your experience in react?",
+          "created_at": "2026-07-01T16:48:30.238Z"
+        },
+        {
+          "role": "assistant",
+          "content": "Great question! Shakeel Latif has hands-on experience with React.\n\nIt's listed in his frontend skills (React).\n\nHe's used it professionally in roles such as Full Stack Engineer at Mateebtech Smc Pvt Ltd (September 2019).\n\nFor example: Worked on the seebiz.com Wholesale Market place product\n\nYou can also see it in projects like SeeBiz — B2B Wholesale Marketplace.\n\nHappy to share more — ask about a specific project or role if you'd like!",
+          "created_at": "2026-07-01T16:48:30.238Z"
+        }
+      ],
+      "read": false
+    },
+    {
+      "id": "4b3cefc7-a265-4103-84cc-8b1e5a8e5374",
+      "started_at": "2026-07-01T16:48:23.934Z",
+      "updated_at": "2026-07-01T16:48:23.934Z",
+      "locale": "en",
+      "user_agent": "curl/8.7.1",
+      "message_count": 1,
+      "preview": "what is your experience in react?",
+      "messages": [
+        {
+          "role": "user",
+          "content": "what is your experience in react?",
+          "created_at": "2026-07-01T16:48:23.934Z"
+        },
+        {
+          "role": "assistant",
+          "content": "Great question! Shakeel Latif has hands-on experience with React.\n\nIt's listed in his frontend skills (React).\n\nHe's used it professionally in roles such as Full Stack Engineer at Mateebtech Smc Pvt Ltd (September 2019).\n\nFor example: Worked on many Elastic Search features for the project search requirements\n\nYou can also see it in projects like SeeBiz — B2B Wholesale Marketplace.\n\nHappy to share more — ask about a specific project or role if you'd like!",
+          "created_at": "2026-07-01T16:48:23.934Z"
+        }
+      ],
+      "read": false
+    },
+    {
+      "id": "ab649e90-fc9e-48ba-b15d-8dbd9da899d6",
+      "started_at": "2026-07-01T16:47:54.237Z",
+      "updated_at": "2026-07-01T16:47:54.237Z",
+      "locale": "en",
+      "user_agent": "curl/8.7.1",
+      "message_count": 1,
+      "preview": "what is your experience in react?",
+      "messages": [
+        {
+          "role": "user",
+          "content": "what is your experience in react?",
+          "created_at": "2026-07-01T16:47:54.237Z"
+        },
+        {
+          "role": "assistant",
+          "content": "Great question! Shakeel Latif has hands-on experience with React.\n\nIt's part of his frontend stack (VueJs, React, Next.js; Node.js).\n\nHe's used it professionally in roles such as Computer Programmer (BPS-17) at Govt. Fisheries Department (November 2020); Full Stack Engineer at Mateebtech Smc Pvt Ltd (September 2019); Senior Programmer at Hashe Computer Solutions (Pvt) Ltd (August 2016).\n\nYou can also see it in projects like SeeBiz — B2B Wholesale Marketplace and 401kplans.com — Retirement Plan Marketplace.\n\nHappy to share more — ask about a specific project or role if you'd like!",
+          "created_at": "2026-07-01T16:47:54.237Z"
+        }
+      ],
+      "read": false
+    },
+    {
+      "id": "8a9b943f-a973-4e88-858a-dd5353ca017c",
+      "started_at": "2026-07-01T16:41:13.049Z",
+      "updated_at": "2026-07-01T16:41:30.818Z",
+      "locale": "en",
+      "user_agent": "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/149.0.0.0 Safari/537.36",
+      "page_url": "http://localhost:3000/en",
+      "message_count": 2,
+      "preview": "HI",
+      "messages": [
+        {
+          "role": "user",
+          "content": "HI",
+          "created_at": "2026-07-01T16:41:13.049Z"
+        },
+        {
+          "role": "assistant",
+          "content": "Hi! I'm the portfolio assistant for Shakeel Latif. I can answer questions about skills, experience, projects, education, and contact details based on the CV and portfolio. What would you like to know?",
+          "created_at": "2026-07-01T16:41:13.049Z"
+        },
+        {
+          "role": "user",
+          "content": "what is your experience in react?",
+          "created_at": "2026-07-01T16:41:30.818Z"
+        },
+        {
+          "role": "assistant",
+          "content": "- 10+ Years Experience\n- 20+ Projects Delivered\n- 10+ Technologies",
+          "created_at": "2026-07-01T16:41:30.818Z"
+        }
+      ],
+      "read": false
+    },
+    {
+      "id": "dfc7e891-7572-4b61-922b-1b394cbb034d",
+      "started_at": "2026-07-01T16:40:58.405Z",
+      "updated_at": "2026-07-01T16:40:58.405Z",
+      "locale": "en",
+      "user_agent": "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/149.0.0.0 Safari/537.36",
+      "page_url": "http://localhost:3000/en",
+      "message_count": 1,
+      "preview": "Hi shakeel",
+      "messages": [
+        {
+          "role": "user",
+          "content": "Hi shakeel",
+          "created_at": "2026-07-01T16:40:58.405Z"
+        },
+        {
+          "role": "assistant",
+          "content": "Hi! I'm the portfolio assistant for Shakeel Latif. I can answer questions about skills, experience, projects, education, and contact details based on the CV and portfolio. What would you like to know?",
+          "created_at": "2026-07-01T16:40:58.405Z"
+        }
+      ],
+      "read": false
+    },
+    {
+      "id": "c89fc997-a7d5-4dbe-911b-02d7fa5e86a8",
+      "started_at": "2026-07-01T16:38:16.829Z",
+      "updated_at": "2026-07-01T16:38:16.829Z",
+      "locale": "en",
+      "user_agent": "curl/8.7.1",
+      "message_count": 1,
+      "preview": "What are your Node.js skills?",
+      "messages": [
+        {
+          "role": "user",
+          "content": "What are your Node.js skills?",
+          "created_at": "2026-07-01T16:38:16.829Z"
+        },
+        {
+          "role": "assistant",
+          "content": "Backend: PHP, CodeIgniter, Laravel, Node.js, Python - Fast API, REST APIs, GraphQL, Redis, MongoDB, MySql, PostgreSql",
+          "created_at": "2026-07-01T16:38:16.829Z"
+        }
+      ],
+      "read": true
+    }
+  ]
+}

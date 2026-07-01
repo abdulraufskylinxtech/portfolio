@@ -158,9 +158,11 @@
     "availability": "Open to remote & on-site opportunities"
   },
   "chat": {
-    "greeting": "Hi! I'm Shakeel Latif's AI assistant. I can tell you about his projects, skills, and experience. What would you like to know?",
-    "placeholder": "Ask me anything...",
-    "title": "AI Assistant"
+    "greeting": "Hi! I'm Shakeel Latif's portfolio assistant. I answer questions about his skills, experience, projects, education, and CV — only within his professional background.",
+    "placeholder": "Ask about skills, experience, projects…",
+    "title": "AI Assistant",
+    "newChat": "New chat",
+    "error": "I'm having trouble responding right now. Please try again."
   },
   "language": {
     "en": "English",

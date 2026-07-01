@@ -3,6 +3,7 @@
 import { useCallback, useEffect, useState } from "react";
 
 import { BlogEditor } from "@/components/admin/editors/blog-editor";
+import { ChatsEditor } from "@/components/admin/editors/chats-editor";
 import { ContactsEditor } from "@/components/admin/editors/contacts-editor";
 import { CvEditor } from "@/components/admin/editors/cv-editor";
 import { ProjectsEditor } from "@/components/admin/editors/projects-editor";
@@ -10,6 +11,7 @@ import { SiteEditor } from "@/components/admin/editors/site-editor";
 import type { ContentKey } from "@/lib/content-store";
 import type { BlogPost, Project, SiteInfo } from "@/lib/data";
 import type { ContactSubmission } from "@/lib/contact-submissions";
+import type { ChatSession } from "@/lib/chat-sessions";
 import ThemeToggle from "@/components/ThemeToggle";
 
 type AdminTabKey = ContentKey | "cv";
@@ -20,6 +22,7 @@ const NAV: { key: AdminTabKey; label: string; file: string; icon: string }[] = [
   { key: "projects", label: "Projects", file: "data/projects.json", icon: "◫" },
   { key: "blog", label: "Blog", file: "data/blog-posts.json", icon: "✎" },
   { key: "contacts", label: "Inbox", file: "data/contact-submissions.json", icon: "✉" },
+  { key: "chats", label: "Chats", file: "data/chat-sessions.json", icon: "💬" },
 ];
 
 type StorageMode = "local" | "github" | "readonly";
@@ -56,6 +59,12 @@ function normalizeAdminContent(key: ContentKey, raw: unknown): unknown {
       return {
         submissions: Array.isArray((raw as { submissions?: unknown }).submissions)
           ? (raw as { submissions: ContactSubmission[] }).submissions
+          : [],
+      };
+    case "chats":
+      return {
+        sessions: Array.isArray((raw as { sessions?: unknown }).sessions)
+          ? (raw as { sessions: ChatSession[] }).sessions
           : [],
       };
     default:
@@ -277,6 +286,14 @@ export function AdminCmsApp() {
         return (
           <ContactsEditor
             data={content as { submissions: ContactSubmission[] }}
+            onChange={handleContentChange}
+            readOnly={readOnly}
+          />
+        );
+      case "chats":
+        return (
+          <ChatsEditor
+            data={content as { sessions: ChatSession[] }}
             onChange={handleContentChange}
             readOnly={readOnly}
           />
