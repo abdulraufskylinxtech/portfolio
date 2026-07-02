@@ -2,13 +2,14 @@
 
 import { Download, FolderGit2, MessageSquare, Sparkles } from "lucide-react";
 import { motion } from "framer-motion";
+import Image from "next/image";
 import { useLocale, useTranslations } from "next-intl";
 import { useMemo, useRef } from "react";
 
 import { HeroAtmosphere } from "@/components/HeroAtmosphere";
 import { Button } from "@/components/ui/button";
 import { useSiteInfo, useLocalizedSite } from "@/components/providers/content-provider";
-import { getHeroRoles } from "@/lib/data";
+import { getHeroRoles, getProfileImage } from "@/lib/data";
 import { Link } from "@/i18n/navigation";
 import { useSunShadow } from "@/hooks/useSunShadow";
 import { useTypewriter } from "@/hooks/useTypewriter";
@@ -25,6 +26,7 @@ export function Hero({ onChatOpen }: HeroProps) {
   const rawSite = useSiteInfo();
   const cv = rawSite.cv;
   const displayName = site.name;
+  const profileImage = getProfileImage(rawSite);
   const roles = useMemo(() => getHeroRoles(site), [site]);
   const typed = useTypewriter(roles);
 
@@ -51,6 +53,25 @@ export function Hero({ onChatOpen }: HeroProps) {
       <HeroAtmosphere className="z-[1]" />
       <div className="container relative z-10 mx-auto px-4">
         <div className="mx-auto max-w-4xl animate-fade-in-up">
+          {profileImage ? (
+            <motion.div
+              initial={{ opacity: 0, scale: 0.9 }}
+              animate={{ opacity: 1, scale: 1 }}
+              transition={{ duration: 0.35 }}
+              className="mb-8 flex justify-center md:justify-start"
+            >
+              <div className="relative h-28 w-28 overflow-hidden rounded-full border-4 border-primary/50 shadow-[0_0_30px_hsl(var(--primary)/0.35)] sm:h-32 sm:w-32">
+                <Image
+                  src={profileImage}
+                  alt={displayName}
+                  fill
+                  className="object-cover"
+                  sizes="128px"
+                  priority
+                />
+              </div>
+            </motion.div>
+          ) : null}
           <motion.div
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}

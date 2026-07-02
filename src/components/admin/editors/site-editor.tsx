@@ -1,6 +1,7 @@
 "use client";
 
 import { AboutPhotosEditor } from "@/components/admin/editors/about-photos-editor";
+import { ProfileImageEditor } from "@/components/admin/editors/profile-image-editor";
 import { SiteLanguagesPanel } from "@/components/admin/editors/site-languages-panel";
 import type { EducationEntry, ExperienceEntry, SiteInfo, SiteStat } from "@/lib/data";
 
@@ -196,6 +197,17 @@ export function SiteEditor({ data, onChange, onTranslationsSaved, readOnly }: Pr
           </AdminField>
         </div>
       </AdminSection>
+
+      <ProfileImageEditor
+        profileImage={data.profileImage}
+        onChange={(profileImage) => {
+          const next = { ...data };
+          if (profileImage) next.profileImage = profileImage;
+          else delete next.profileImage;
+          onChange(next);
+        }}
+        readOnly={disabled}
+      />
 
       <SiteLanguagesPanel
         data={data}

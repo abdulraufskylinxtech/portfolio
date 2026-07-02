@@ -116,6 +116,8 @@ export interface SiteInfo {
   /** Rotating hero titles — falls back to splitting role by | or & */
   heroRoles?: string[];
   availability: string;
+  /** Hero + navbar portrait */
+  profileImage?: string;
   aboutImages: string[];
   cv?: SiteCv | null;
   map?: SiteMap;
@@ -131,6 +133,11 @@ export interface SiteInfo {
   /** AI-generated copies of hero/about text per locale code */
   translations?: Record<string, SiteLocaleBundle>;
   translationsUpdatedAt?: string;
+}
+
+export function getProfileImage(site: Pick<SiteInfo, "profileImage">): string | null {
+  const image = site.profileImage?.trim();
+  return image || null;
 }
 
 export function getDisplayName(
