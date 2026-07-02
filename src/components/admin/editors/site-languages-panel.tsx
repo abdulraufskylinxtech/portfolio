@@ -187,9 +187,9 @@ export function SiteLanguagesPanel({ data, onChange, onTranslated, readOnly }: P
       </div>
 
       <p className="mt-3 text-sm text-muted-foreground">
-        After adding a language, click <strong>Save changes</strong>, then generate AI. UI buttons
-        (nav, etc.) use English labels until a dedicated messages file exists; your portfolio content
-        is fully translated.
+        After adding a language, click <strong>Save changes</strong>, then generate AI. This
+        translates <strong>all UI labels</strong> (nav, buttons, sections) and your portfolio
+        content (hero, about, footer).
       </p>
 
       <details className="mt-3 text-xs text-muted-foreground">

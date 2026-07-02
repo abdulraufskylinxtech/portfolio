@@ -8,6 +8,10 @@ import {
 import { getLanguageNameForAi } from "@/lib/locale-catalog";
 import { callLlmCompletion, getLlmConfig, parseJsonFromLlm } from "@/lib/llm-client";
 import { readContentFile, writeContentFile } from "@/lib/content-store";
+import {
+  generateUiMessagesForLocale,
+  saveUiMessagesForLocale,
+} from "@/lib/ui-messages";
 
 export type SiteTranslationMap = Record<string, SiteLocaleBundle>;
 
@@ -107,6 +111,18 @@ export async function generateTranslationForLocale(
   return normalizeBundle(parsed, source);
 }
 
+async function generateFullLocalePack(
+  site: SiteInfo,
+  localeCode: string,
+): Promise<SiteLocaleBundle> {
+  const [content, ui] = await Promise.all([
+    generateTranslationForLocale(site, localeCode),
+    generateUiMessagesForLocale(localeCode, site),
+  ]);
+  await saveUiMessagesForLocale(localeCode, ui);
+  return content;
+}
+
 export async function generateSiteTranslations(
   site: SiteInfo,
   localeCodes?: string[],
@@ -119,7 +135,7 @@ export async function generateSiteTranslations(
   const next: SiteTranslationMap = { ...(site.translations ?? {}) };
 
   for (const code of targets) {
-    next[code] = await generateTranslationForLocale(site, code);
+    next[code] = await generateFullLocalePack(site, code);
   }
 
   return next;

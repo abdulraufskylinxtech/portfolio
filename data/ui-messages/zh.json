@@ -1,0 +1,171 @@
+{
+  "metadata": {
+    "title": "Shakeel Latif — 全栈开发者 & AI 爱好者",
+    "description": "展示现代 Web 应用程序与 AI 集成的作品集。与我的 AI 助手聊天以了解更多关于我的工作。",
+    "siteName": "Shakeel Latif 作品集",
+    "ogImageAlt": "Shakeel Latif 作品集"
+  },
+  "nav": {
+    "home": "首页",
+    "projects": "项目",
+    "skills": "技能",
+    "experience": "经验",
+    "about": "关于",
+    "blog": "博客",
+    "contact": "联系",
+    "login": "登录",
+    "logout": "退出",
+    "admin": "管理员",
+    "menuOpen": "打开菜单",
+    "menuClose": "关闭菜单",
+    "hireMe": "雇用我",
+    "cv": "简历",
+    "resume": "简历",
+    "viewCv": "查看简历"
+  },
+  "hero": {
+    "name": "Shakeel Latif",
+    "roles": [
+      "全栈开发者",
+      "AI 爱好者",
+      "DevOps 学习者"
+    ],
+    "tagline": "全栈开发者 | AI 爱好者 | DevOps 学习者",
+    "description": "使用现代技术构建创新解决方案。专注于 React、Node.js 和 AI/ML 集成。",
+    "chatWithAI": "与 AI 双胞胎聊天",
+    "viewProjects": "查看项目",
+    "readBlog": "阅读博客",
+    "downloadCv": "下载简历"
+  },
+  "projects": {
+    "sectionLabel": "作品集",
+    "title": "特色项目",
+    "subtitle": "展示我在全栈开发和 AI 集成方面的专业知识的项目选择",
+    "description": "描述",
+    "technologies": "技术",
+    "apis": "API 和集成",
+    "highlights": "亮点",
+    "code": "代码",
+    "demo": "演示",
+    "viewCode": "查看代码",
+    "liveDemo": "在线演示",
+    "prevImage": "上一张图片",
+    "nextImage": "下一张图片",
+    "goToImage": "跳转到图片 {n}"
+  },
+  "skills": {
+    "sectionLabel": "专业知识",
+    "title": "技术技能",
+    "subtitle": "不断学习和改进整个开发栈",
+    "categories": {
+      "frontend": "前端",
+      "backend": "后端",
+      "devops": "DevOps",
+      "aiml": "AI / ML"
+    }
+  },
+  "experience": {
+    "sectionLabel": "职业",
+    "title": "工作经验"
+  },
+  "about": {
+    "sectionLabel": "关于我",
+    "title": "关于我",
+    "educationTitle": "教育和资格",
+    "educationFormalTitle": "正式教育",
+    "educationCertificatesTitle": "证书",
+    "educationCoursesTitle": "课程",
+    "educationTrainingsTitle": "培训和研讨会",
+    "hobbiesTitle": "爱好和兴趣",
+    "educationTypes": {
+      "degree": "正式教育",
+      "certificate": "证书",
+      "course": "课程",
+      "training": "培训（研讨会）"
+    },
+    "getInTouch": "联系我",
+    "email": "电子邮件",
+    "linkedin": "LinkedIn",
+    "github": "GitHub"
+  },
+  "contact": {
+    "sectionLabel": "联系",
+    "title": "联系我",
+    "subtitle": "有一个项目想法？让我们一起合作！",
+    "map": {
+      "title": "在这里找到我",
+      "directions": "获取方向",
+      "note": "位于巴基斯坦拉合尔 —— 可以进行本地会议和远程协作。",
+      "aria": "显示 {location} 的交互式地图"
+    },
+    "form": {
+      "name": "姓名",
+      "email": "电子邮件",
+      "message": "消息",
+      "send": "发送消息",
+      "sending": "发送中..."
+    },
+    "connect": "与我联系",
+    "validation": {
+      "nameRequired": "姓名是必需的",
+      "invalidEmail": "无效的电子邮件",
+      "messageMin": "消息必须至少 10 个字符"
+    },
+    "toast": {
+      "validationError": "验证错误",
+      "error": "无法发送消息。请再试一次。",
+      "errorTitle": "无法发送",
+      "success": "您的消息已发送。我很快会回复您！",
+      "successTitle": "消息已发送",
+      "savedTitle": "消息已保存",
+      "savedPendingEmail": "您的消息已记录。电子邮件将在服务器上配置。",
+      "savedNoEmail": "您的消息已保存到网站记录中。电子邮件无法发送 —— 检查 Gmail 邮件发送设置。",
+      "openingEmail": "打开电子邮件..."
+    }
+  },
+  "blog": {
+    "title": "博客",
+    "subtitle": "关于开发、AI 和技术的想法",
+    "search": "搜索帖子...",
+    "allTypes": "所有类型",
+    "readMore": "阅读更多",
+    "noPosts": "没有找到帖子",
+    "backToBlog": "返回博客"
+  },
+  "auth": {
+    "login": "登录",
+    "signup": "注册",
+    "email": "电子邮件",
+    "password": "密码",
+    "submitLogin": "登录",
+    "submitSignup": "创建账户",
+    "toggleLogin": "已经有账户？登录",
+    "toggleSignup": "没有账户？注册",
+    "welcomeBack": "欢迎回来！",
+    "loginSuccess": "您已成功登录。",
+    "signupSuccess": "账户创建成功！请检查您的电子邮件以确认。"
+  },
+  "footer": {
+    "rights": "所有权利保留。",
+    "whatsapp": "在 WhatsApp 上发送消息",
+    "whatsappPrefill": "您好 {name}，我发现了您的作品集，想与您联系。",
+    "connect": "联系",
+    "quickLinks": "快速链接",
+    "projects": "项目",
+    "about": "关于",
+    "blog": "博客",
+    "contact": "联系",
+    "availability": "开放远程和现场机会"
+  },
+  "chat": {
+    "greeting": "您好！我是 {name} 的作品集助手。我可以回答关于技能、经验、项目、教育和简历的问题 —— 只限于他们的职业背景。",
+    "placeholder": "询问技能、经验、项目...",
+    "title": "AI 助手",
+    "newChat": "新聊天",
+    "error": "我现在遇到了一些问题，无法回应。请再试一次。"
+  },
+  "language": {
+    "en": "English",
+    "zh": "中文"
+  }
+}

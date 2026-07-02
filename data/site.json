@@ -10,28 +10,16 @@
       "flag": "🇬🇧"
     },
     {
-      "code": "ar",
-      "label": "Arabic",
-      "nativeName": "العربية",
-      "flag": "🇸🇦"
-    },
-    {
-      "code": "de",
-      "label": "German",
-      "nativeName": "Deutsch",
-      "flag": "🇩🇪"
-    },
-    {
       "code": "zh",
       "label": "Chinese",
       "nativeName": "中文",
       "flag": "🇨🇳"
     },
     {
-      "code": "fa",
-      "label": "Persian",
-      "nativeName": "فارسی",
-      "flag": "🇮🇷"
+      "code": "ar",
+      "label": "Arabic",
+      "nativeName": "العربية",
+      "flag": "🇸🇦"
     }
   ],
   "email": "naeem.skylinxtech@gmail.com",
@@ -301,85 +289,21 @@
     "uploadedAt": "2026-07-01T13:39:24.589Z"
   },
   "translations": {
-    "ar": {
-      "name": "AI TEAM",
-      "role": "مطور كامل Stack ومتحمس للاستخبارات الاصطناعية",
-      "bio": "مطور كامل Stack متحمس للاستخبارات الاصطناعية / التعلم الآلي و DevOps. بناء تطبيقات الويب الحديثة مع React و Node.js وتكنولوجيا السحابة.",
-      "heroRoles": [
-        "مطور كامل Stack",
-        "متحمس للاستخبارات الاصطناعية",
-        "متعلم DevOps"
-      ],
-      "availability": "مفتوح للفرص الجديدة — عن بعد وموقعي",
-      "location": "منازل منصوره، لاهور، باكستان",
-      "stats": [
-        {
-          "value": "10+",
-          "label": "سنوات الخبرة"
-        },
-        {
-          "value": "20+",
-          "label": "مشاريع تم تسليمها"
-        },
-        {
-          "value": "10+",
-          "label": "تكنولوجيات"
-        }
-      ],
-      "hobbies": [
-        "قراءة مدونات التكنولوجيا",
-        "استكشاف أدوات الاستخبارات الاصطناعية",
-        "كريكيت",
-        "السفر"
-      ]
-    },
-    "de": {
-      "name": "AI TEAM",
-      "role": "Full-Stack-Entwickler & KI-Enthusiast",
-      "bio": "Full-Stack-Entwickler mit Leidenschaft für KI/ML und DevOps. Moderne Webanwendungen mit React, Node.js und Cloud-Technologien erstellen.",
-      "heroRoles": [
-        "Full-Stack-Entwickler",
-        "KI-Enthusiast",
-        "DevOps-Lerner"
-      ],
-      "availability": "Für neue Herausforderungen offen — Remote- und Präsenzarbeit",
-      "location": "Mansoora Homes, Lahore, Pakistan",
-      "stats": [
-        {
-          "value": "10+",
-          "label": "Jahre Erfahrung"
-        },
-        {
-          "value": "20+",
-          "label": "Abgeschlossene Projekte"
-        },
-        {
-          "value": "10+",
-          "label": "Technologien"
-        }
-      ],
-      "hobbies": [
-        "Technik-Blogs lesen",
-        "KI-Tools erkunden",
-        "Cricket",
-        "Reisen"
-      ]
-    },
     "zh": {
       "name": "AI TEAM",
       "role": "全栈开发者 & AI 爱好者",
-      "bio": "全栈开发者，热衷于 AI/ML 和 DevOps。使用 React、Node.js 和云技术构建现代 Web 应用程序。",
+      "bio": "热衷于 AI/ML 和 DevOps 的全栈开发者，使用 React、Node.js 和云技术构建现代 Web 应用。",
       "heroRoles": [
         "全栈开发者",
         "AI 爱好者",
         "DevOps 学习者"
       ],
-      "availability": "开放新的机会 — 远程和现场",
+      "availability": "开放新的机会 — 远程 & 现场",
       "location": "曼苏拉住宅，拉合尔，巴基斯坦",
       "stats": [
         {
           "value": "10+",
-          "label": "年工作经验"
+          "label": "工作年限"
         },
         {
           "value": "20+",
@@ -397,38 +321,38 @@
         "旅行"
       ]
     },
-    "fa": {
-      "name": "تیم هوش مصنوعی",
-      "role": "برنامه‌نویس فول‌استک و علاقه‌مند به هوش مصنوعی",
-      "bio": "برنامه‌نویس فول‌استک با علاقه به هوش مصنوعی/یادگیری ماشین و DevOps. ساخت برنامه‌های وب مدرن با React، Node.js و فناوری‌های ابری.",
+    "ar": {
+      "name": "AI TEAM",
+      "role": "مطور كامل الطاقات ومحب لذكاء الاصطناعي",
+      "bio": "مطور كامل الطاقات شغوف بذكاء الاصطناعي والتعلم الآلي والعمليات التطويرية. بناء تطبيقات الويب الحديثة باستخدام React و Node.js وتكنولوجيا السحابة.",
       "heroRoles": [
-        "برنامه‌نویس فول‌استک",
-        "علاقه‌مند به هوش مصنوعی",
-        "یادگیرنده DevOps"
+        "مطور كامل الطاقات",
+        "محب لذكاء الاصطناعي",
+        "متعلم العمليات التطويرية"
       ],
-      "availability": "باز برای فرصت‌های جدید — از راه دور و حضوری",
-      "location": "منصورا هومز، لاهور، پاکستان",
+      "availability": "مفتوح للفرص الجديدة — عن بعد وفي الموقع",
+      "location": "منازل منصوره، لاهور، باكستان",
       "stats": [
         {
           "value": "10+",
-          "label": "سال تجربه"
+          "label": "سنوات الخبرة"
         },
         {
           "value": "20+",
-          "label": "پروژه‌های تحویل داده شده"
+          "label": "مشاريع تم تسليمها"
         },
         {
           "value": "10+",
-          "label": "فناوری‌ها"
+          "label": "تكنولوجيات"
         }
       ],
       "hobbies": [
-        "خواندن وبلاگ‌های فناوری",
-        "کاوش ابزارهای هوش مصنوعی",
-        "کرicket",
-        "سفر"
+        "قراءة مدونات التكنولوجيا",
+        "استكشاف أدوات ذكاء الاصطناعي",
+        "كريكيت",
+        "السفر"
       ]
     }
   },
-  "translationsUpdatedAt": "2026-07-02T12:00:24.229Z"
+  "translationsUpdatedAt": "2026-07-02T12:07:09.648Z"
 }
