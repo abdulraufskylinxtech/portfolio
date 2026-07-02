@@ -4,7 +4,7 @@ import { isAdminAuthenticated } from "@/lib/admin-auth";
 import { translateAndSaveSite } from "@/lib/site-translations";
 import { isLlmConfigured } from "@/lib/llm-client";
 
-export async function POST() {
+export async function POST(request: Request) {
   if (!(await isAdminAuthenticated())) {
     return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
   }
@@ -16,8 +16,15 @@ export async function POST() {
     );
   }
 
+  let body: { locales?: string[] } = {};
   try {
-    const site = await translateAndSaveSite();
+    body = (await request.json()) as { locales?: string[] };
+  } catch {
+    body = {};
+  }
+
+  try {
+    const site = await translateAndSaveSite(body.locales);
     return NextResponse.json({
       ok: true,
       translationsUpdatedAt: site.translationsUpdatedAt,

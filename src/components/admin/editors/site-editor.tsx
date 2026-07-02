@@ -2,7 +2,7 @@
 
 import { AboutPhotosEditor } from "@/components/admin/editors/about-photos-editor";
 import { ProfileImageEditor } from "@/components/admin/editors/profile-image-editor";
-import { SiteTranslationsPanel } from "@/components/admin/editors/site-translations-panel";
+import { SiteLanguagesPanel } from "@/components/admin/editors/site-languages-panel";
 import type { EducationEntry, ExperienceEntry, SiteInfo, SiteStat } from "@/lib/data";
 import { getProfileImage } from "@/lib/data";
 
@@ -199,8 +199,9 @@ export function SiteEditor({ data, onChange, onTranslationsSaved, readOnly }: Pr
         </div>
       </AdminSection>
 
-      <SiteTranslationsPanel
+      <SiteLanguagesPanel
         data={data}
+        onChange={onChange}
         onTranslated={async (site) => {
           onChange(site);
           await onTranslationsSaved?.();

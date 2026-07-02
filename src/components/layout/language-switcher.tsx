@@ -1,25 +1,14 @@
 "use client";
 
 import { ChevronDown } from "lucide-react";
-import { useLocale, useTranslations } from "next-intl";
-import {
-  useRouter as useIntlRouter,
-  usePathname,
-} from "@/i18n/navigation";
+import { useLocale } from "next-intl";
+import { useRouter as useIntlRouter, usePathname } from "@/i18n/navigation";
+import { useSiteInfo } from "@/components/providers/content-provider";
+import { getDefaultLocaleCode, getEnabledLocales } from "@/lib/site-locales";
 import { cn } from "@/lib/utils";
 import { useEffect, useRef, useState, useTransition } from "react";
 
 const LOCALE_STORAGE_KEY = "portfolio-preferred-locale";
-
-type LocaleCode = "en" | "ar" | "de";
-
-const OPTIONS: Record<LocaleCode, { code: LocaleCode; flag: string; labelKey: LocaleCode }> = {
-  en: { code: "en", flag: "🇬🇧", labelKey: "en" },
-  ar: { code: "ar", flag: "🇸🇦", labelKey: "ar" },
-  de: { code: "de", flag: "🇩🇪", labelKey: "de" },
-};
-
-const ALL_LOCALES: LocaleCode[] = ["en", "ar", "de"];
 
 export function LanguageSwitcher({
   className,
@@ -28,17 +17,18 @@ export function LanguageSwitcher({
   className?: string;
   compact?: boolean;
 }) {
-  const locale = useLocale() as LocaleCode;
-  const t = useTranslations("language");
+  const locale = useLocale();
+  const site = useSiteInfo();
   const pathname = usePathname();
   const router = useIntlRouter();
   const [isPending, startTransition] = useTransition();
   const [open, setOpen] = useState(false);
   const rootRef = useRef<HTMLDivElement>(null);
 
-  const current = OPTIONS[locale];
+  const enabled = getEnabledLocales(site);
+  const current = enabled.find((entry) => entry.code === locale) ?? enabled[0];
 
-  const switchLocale = (target: LocaleCode) => {
+  const switchLocale = (target: string) => {
     if (target === locale) {
       setOpen(false);
       return;
@@ -70,6 +60,11 @@ export function LanguageSwitcher({
     };
   }, [open]);
 
+  if (!current) return null;
+
+  const others = enabled.filter((entry) => entry.code !== locale);
+  const defaultLocale = getDefaultLocaleCode(site);
+
   return (
     <div ref={rootRef} className={cn("relative z-[60]", className)}>
       <button
@@ -87,7 +82,7 @@ export function LanguageSwitcher({
       >
         <span className={cn("flex items-center gap-2 truncate", compact && "gap-0")}>
           <span aria-hidden>{current.flag}</span>
-          {!compact ? <span>{t(current.labelKey)}</span> : null}
+          {!compact ? <span>{current.nativeName}</span> : null}
         </span>
         {!compact ? (
           <ChevronDown
@@ -105,16 +100,21 @@ export function LanguageSwitcher({
           className="absolute end-0 top-[calc(100%+6px)] z-[70] min-w-[11rem] overflow-hidden rounded-xl border border-white/15 bg-card py-1 shadow-xl backdrop-blur-md"
           role="listbox"
         >
-          {ALL_LOCALES.filter((code) => code !== locale).map((code) => (
+          {others.map((entry) => (
             <button
-              key={code}
+              key={entry.code}
               type="button"
               role="option"
               className="flex w-full items-center gap-2 px-3 py-2.5 text-start text-sm font-medium text-foreground/90 transition hover:bg-primary/10 hover:text-primary"
-              onClick={() => switchLocale(code)}
+              onClick={() => switchLocale(entry.code)}
             >
-              <span aria-hidden>{OPTIONS[code].flag}</span>
-              <span>{t(OPTIONS[code].labelKey)}</span>
+              <span aria-hidden>{entry.flag}</span>
+              <span>
+                {entry.nativeName}
+                {entry.code === defaultLocale ? (
+                  <span className="ms-1 text-xs text-muted-foreground">(source)</span>
+                ) : null}
+              </span>
             </button>
           ))}
         </div>

@@ -1,9 +1,15 @@
-import type { SiteInfo, SiteLocaleBundle, SiteLocaleCode, SiteStat } from "@/lib/data";
+import type { SiteInfo, SiteLocaleBundle, SiteStat } from "@/lib/data";
 import { getHeroRoles } from "@/lib/data";
+import {
+  getDefaultLocaleCode,
+  getEnabledLocales,
+  getTranslatableLocaleCodes,
+} from "@/lib/site-locales";
+import { getLanguageNameForAi } from "@/lib/locale-catalog";
 import { callLlmCompletion, getLlmConfig, parseJsonFromLlm } from "@/lib/llm-client";
 import { readContentFile, writeContentFile } from "@/lib/content-store";
 
-export type SiteTranslationMap = Partial<Record<Exclude<SiteLocaleCode, "en">, SiteLocaleBundle>>;
+export type SiteTranslationMap = Record<string, SiteLocaleBundle>;
 
 type TranslationSource = {
   name: string;
@@ -29,42 +35,15 @@ function buildTranslationSource(site: SiteInfo): TranslationSource {
   };
 }
 
-const SYSTEM_PROMPT = `You are a professional translator for portfolio websites.
-Translate the given English portfolio content into Arabic and German.
+function buildSystemPrompt(targetLanguage: string): string {
+  return `You are a professional translator for portfolio websites.
+Translate the given English portfolio content into ${targetLanguage}.
 Rules:
 - Preserve meaning and professional tone.
-- Keep technology names (React, Node.js, TypeScript, etc.) in their common form for each language.
+- Keep technology names (React, Node.js, TypeScript, etc.) in their common form for the target language.
 - Do not invent new facts.
-- Return ONLY valid JSON with exactly two keys: "ar" and "de".
-- Each locale object must include: name, role, bio, heroRoles (array), availability, location, stats (array of {value, label}), hobbies (array of strings).
+- Return ONLY valid JSON for a single locale object with keys: name, role, bio, heroRoles (array), availability, location, stats (array of {value, label}), hobbies (array of strings).
 - Stat "value" fields must stay identical to the source; only translate stat labels.`;
-
-export async function generateSiteTranslations(
-  site: SiteInfo,
-): Promise<SiteTranslationMap> {
-  const llm = getLlmConfig();
-  if (!llm) {
-    throw new Error("AI translation requires GROQ_API_KEY or OPENAI_API_KEY in .env");
-  }
-
-  const source = buildTranslationSource(site);
-  const userPrompt = `Translate this portfolio content:\n\n${JSON.stringify(source, null, 2)}`;
-
-  const raw = await callLlmCompletion(llm, SYSTEM_PROMPT, userPrompt, {
-    temperature: 0.2,
-    maxTokens: 3000,
-  });
-
-  const parsed = parseJsonFromLlm<{ ar: SiteLocaleBundle; de: SiteLocaleBundle }>(raw);
-
-  if (!parsed.ar?.role || !parsed.de?.role) {
-    throw new Error("AI translation response was missing Arabic or German content");
-  }
-
-  return {
-    ar: normalizeBundle(parsed.ar, source),
-    de: normalizeBundle(parsed.de, source),
-  };
 }
 
 function normalizeBundle(bundle: SiteLocaleBundle, source: TranslationSource): SiteLocaleBundle {
@@ -92,12 +71,69 @@ function normalizeBundle(bundle: SiteLocaleBundle, source: TranslationSource): S
   };
 }
 
-export async function translateAndSaveSite(): Promise<SiteInfo> {
+export async function generateTranslationForLocale(
+  site: SiteInfo,
+  localeCode: string,
+): Promise<SiteLocaleBundle> {
+  const llm = getLlmConfig();
+  if (!llm) {
+    throw new Error("AI translation requires GROQ_API_KEY or OPENAI_API_KEY in .env");
+  }
+
+  const defaultLocale = getDefaultLocaleCode(site);
+  if (localeCode === defaultLocale) {
+    throw new Error("The default language does not need AI translation");
+  }
+
+  const enabled = new Set(getEnabledLocales(site).map((locale) => locale.code));
+  if (!enabled.has(localeCode)) {
+    throw new Error(`Language "${localeCode}" is not enabled on this site`);
+  }
+
+  const source = buildTranslationSource(site);
+  const languageName = getLanguageNameForAi(localeCode);
+  const userPrompt = `Translate this portfolio content into ${languageName} (locale code: ${localeCode}):\n\n${JSON.stringify(source, null, 2)}`;
+
+  const raw = await callLlmCompletion(llm, buildSystemPrompt(languageName), userPrompt, {
+    temperature: 0.2,
+    maxTokens: 2200,
+  });
+
+  const parsed = parseJsonFromLlm<SiteLocaleBundle>(raw);
+  if (!parsed.role?.trim()) {
+    throw new Error(`AI translation for ${languageName} was incomplete`);
+  }
+
+  return normalizeBundle(parsed, source);
+}
+
+export async function generateSiteTranslations(
+  site: SiteInfo,
+  localeCodes?: string[],
+): Promise<SiteTranslationMap> {
+  const targets =
+    localeCodes?.length && localeCodes.length > 0
+      ? localeCodes
+      : getTranslatableLocaleCodes(site);
+
+  const next: SiteTranslationMap = { ...(site.translations ?? {}) };
+
+  for (const code of targets) {
+    next[code] = await generateTranslationForLocale(site, code);
+  }
+
+  return next;
+}
+
+export async function translateAndSaveSite(localeCodes?: string[]): Promise<SiteInfo> {
   const site = (await readContentFile("site")) as SiteInfo;
-  const translations = await generateSiteTranslations(site);
+  const generated = await generateSiteTranslations(site, localeCodes);
   const next: SiteInfo = {
     ...site,
-    translations,
+    translations: {
+      ...(site.translations ?? {}),
+      ...generated,
+    },
     translationsUpdatedAt: new Date().toISOString(),
   };
   await writeContentFile("site", next);

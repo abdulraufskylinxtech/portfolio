@@ -1,6 +1,39 @@
 {
   "name": "AI TEAM",
   "nameAr": "شكيل لطيف",
+  "defaultLocale": "en",
+  "enabledLocales": [
+    {
+      "code": "en",
+      "label": "English",
+      "nativeName": "English",
+      "flag": "🇬🇧"
+    },
+    {
+      "code": "ar",
+      "label": "Arabic",
+      "nativeName": "العربية",
+      "flag": "🇸🇦"
+    },
+    {
+      "code": "de",
+      "label": "German",
+      "nativeName": "Deutsch",
+      "flag": "🇩🇪"
+    },
+    {
+      "code": "zh",
+      "label": "Chinese",
+      "nativeName": "中文",
+      "flag": "🇨🇳"
+    },
+    {
+      "code": "fa",
+      "label": "Persian",
+      "nativeName": "فارسی",
+      "flag": "🇮🇷"
+    }
+  ],
   "email": "naeem.skylinxtech@gmail.com",
   "phone": "+923314409754",
   "whatsapp": "+923314409754",
@@ -269,16 +302,16 @@
   },
   "translations": {
     "ar": {
-      "name": "فريق الذكاء الاصطناعي",
-      "role": "مطور ويب كامل الطاقات ومحب للذكاء الاصطناعي",
-      "bio": "مطور ويب كامل الطاقات شغوف بالذكاء الاصطناعي والتعلم الآلي وعمليات التطوير والتشغيل. بناء تطبيقات الويب الحديثة باستخدام React و Node.js وتكنولوجيا السحابة.",
+      "name": "AI TEAM",
+      "role": "مطور كامل Stack ومتحمس للاستخبارات الاصطناعية",
+      "bio": "مطور كامل Stack متحمس للاستخبارات الاصطناعية / التعلم الآلي و DevOps. بناء تطبيقات الويب الحديثة مع React و Node.js وتكنولوجيا السحابة.",
       "heroRoles": [
-        "مطور ويب كامل الطاقات",
-        "محب للذكاء الاصطناعي",
-        "متعلم عمليات التطوير والتشغيل"
+        "مطور كامل Stack",
+        "متحمس للاستخبارات الاصطناعية",
+        "متعلم DevOps"
       ],
       "availability": "مفتوح للفرص الجديدة — عن بعد وموقعي",
-      "location": "منازل منصورة، لاهور، باكستان",
+      "location": "منازل منصوره، لاهور، باكستان",
       "stats": [
         {
           "value": "10+",
@@ -294,22 +327,22 @@
         }
       ],
       "hobbies": [
-        "قراءة блогات التقنية",
-        "استكشاف أدوات الذكاء الاصطناعي",
+        "قراءة مدونات التكنولوجيا",
+        "استكشاف أدوات الاستخبارات الاصطناعية",
         "كريكيت",
         "السفر"
       ]
     },
     "de": {
-      "name": "KI-TEAM",
+      "name": "AI TEAM",
       "role": "Full-Stack-Entwickler & KI-Enthusiast",
-      "bio": "Full-Stack-Entwickler mit Leidenschaft für KI/ML und DevOps. Bau von modernen Webanwendungen mit React, Node.js und Cloud-Technologien.",
+      "bio": "Full-Stack-Entwickler mit Leidenschaft für KI/ML und DevOps. Moderne Webanwendungen mit React, Node.js und Cloud-Technologien erstellen.",
       "heroRoles": [
         "Full-Stack-Entwickler",
         "KI-Enthusiast",
         "DevOps-Lerner"
       ],
-      "availability": "Offen für neue Möglichkeiten — Remote und Vor-Ort",
+      "availability": "Für neue Herausforderungen offen — Remote- und Präsenzarbeit",
       "location": "Mansoora Homes, Lahore, Pakistan",
       "stats": [
         {
@@ -328,10 +361,74 @@
       "hobbies": [
         "Technik-Blogs lesen",
         "KI-Tools erkunden",
-        "Kricketspiel",
+        "Cricket",
         "Reisen"
+      ]
+    },
+    "zh": {
+      "name": "AI TEAM",
+      "role": "全栈开发者 & AI 爱好者",
+      "bio": "全栈开发者，热衷于 AI/ML 和 DevOps。使用 React、Node.js 和云技术构建现代 Web 应用程序。",
+      "heroRoles": [
+        "全栈开发者",
+        "AI 爱好者",
+        "DevOps 学习者"
+      ],
+      "availability": "开放新的机会 — 远程和现场",
+      "location": "曼苏拉住宅，拉合尔，巴基斯坦",
+      "stats": [
+        {
+          "value": "10+",
+          "label": "年工作经验"
+        },
+        {
+          "value": "20+",
+          "label": "已交付项目"
+        },
+        {
+          "value": "10+",
+          "label": "技术栈"
+        }
+      ],
+      "hobbies": [
+        "阅读技术博客",
+        "探索 AI 工具",
+        "板球",
+        "旅行"
+      ]
+    },
+    "fa": {
+      "name": "تیم هوش مصنوعی",
+      "role": "برنامه‌نویس فول‌استک و علاقه‌مند به هوش مصنوعی",
+      "bio": "برنامه‌نویس فول‌استک با علاقه به هوش مصنوعی/یادگیری ماشین و DevOps. ساخت برنامه‌های وب مدرن با React، Node.js و فناوری‌های ابری.",
+      "heroRoles": [
+        "برنامه‌نویس فول‌استک",
+        "علاقه‌مند به هوش مصنوعی",
+        "یادگیرنده DevOps"
+      ],
+      "availability": "باز برای فرصت‌های جدید — از راه دور و حضوری",
+      "location": "منصورا هومز، لاهور، پاکستان",
+      "stats": [
+        {
+          "value": "10+",
+          "label": "سال تجربه"
+        },
+        {
+          "value": "20+",
+          "label": "پروژه‌های تحویل داده شده"
+        },
+        {
+          "value": "10+",
+          "label": "فناوری‌ها"
+        }
+      ],
+      "hobbies": [
+        "خواندن وبلاگ‌های فناوری",
+        "کاوش ابزارهای هوش مصنوعی",
+        "کرicket",
+        "سفر"
       ]
     }
   },
-  "translationsUpdatedAt": "2026-07-02T11:50:11.037Z"
+  "translationsUpdatedAt": "2026-07-02T12:00:24.229Z"
 }

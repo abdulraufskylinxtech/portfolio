@@ -76,7 +76,15 @@ export interface SiteCv {
 
 export type SiteLocaleCode = "en" | "ar" | "de";
 
-/** Localized copy of hero/about text — stored per language (not English). */
+/** Config for a language shown in the public language switcher. */
+export interface SiteLocaleConfig {
+  code: string;
+  label: string;
+  nativeName: string;
+  flag: string;
+}
+
+/** Localized copy of hero/about text — stored per language (not the default source locale). */
 export interface SiteLocaleBundle {
   name?: string;
   role: string;
@@ -120,8 +128,12 @@ export interface SiteInfo {
   experience: ExperienceEntry[];
   education: EducationEntry[];
   hobbies: string[];
-  /** AI-generated Arabic & German copies of hero/about text */
-  translations?: Partial<Record<Exclude<SiteLocaleCode, "en">, SiteLocaleBundle>>;
+  /** Primary/source language code (usually en) */
+  defaultLocale?: string;
+  /** Languages available in the public switcher */
+  enabledLocales?: SiteLocaleConfig[];
+  /** AI-generated copies of hero/about text per locale code */
+  translations?: Record<string, SiteLocaleBundle>;
   translationsUpdatedAt?: string;
 }
 
@@ -163,17 +175,13 @@ export function getPhoneNumber(site: Pick<SiteInfo, "phone" | "whatsapp">): stri
   return site.whatsapp?.trim() || undefined;
 }
 
-export function toSiteLocale(locale: string): SiteLocaleCode {
-  if (locale === "ar" || locale === "de") return locale;
-  return "en";
-}
+import { getDefaultLocaleCode, isSourceLocale } from "@/lib/site-locales";
 
-/** Merge AI/stored translations for the active locale (English uses top-level fields). */
+/** Merge AI/stored translations for the active locale (source locale uses top-level fields). */
 export function resolveSiteForLocale(site: SiteInfo, locale: string): SiteInfo {
-  const code = toSiteLocale(locale);
-  if (code === "en") return site;
+  if (isSourceLocale(site, locale)) return site;
 
-  const tr = site.translations?.[code];
+  const tr = site.translations?.[locale];
   if (!tr) return site;
 
   return {
@@ -188,3 +196,5 @@ export function resolveSiteForLocale(site: SiteInfo, locale: string): SiteInfo {
     hobbies: tr.hobbies?.length ? tr.hobbies : site.hobbies,
   };
 }
+
+export { getDefaultLocaleCode };

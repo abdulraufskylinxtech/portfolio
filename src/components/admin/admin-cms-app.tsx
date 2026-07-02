@@ -260,7 +260,7 @@ export function AdminCmsApp() {
               if (!res.ok) return;
               const body = (await res.json()) as { data: unknown };
               applyLoadedData("site", body.data);
-              setStatus("AI translations saved for Arabic and German.");
+              setStatus("AI translations saved.");
             }}
             readOnly={readOnly}
           />

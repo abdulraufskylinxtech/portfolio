@@ -12,6 +12,8 @@ import { Navbar } from "@/components/layout/navbar";
 import { routing } from "@/i18n/routing";
 import { loadContentData } from "@/lib/content-store";
 import { resolveSiteForLocale } from "@/lib/data";
+import { isRtlLocale } from "@/lib/locale-catalog";
+import { getEnabledLocales } from "@/lib/site-locales";
 import { getSiteUrl } from "@/lib/site";
 
 type LocaleLayoutProps = {
@@ -34,17 +36,17 @@ export async function generateMetadata({
   const base = getSiteUrl();
   const title = `${site.name} — ${site.role}`;
   const description = site.bio;
+  const enabled = getEnabledLocales(rawSite);
+  const languages = Object.fromEntries(
+    enabled.map((entry) => [entry.code, `${base}/${entry.code}`]),
+  );
 
   return {
     title,
     description,
     alternates: {
       canonical: `${base}/${locale}`,
-      languages: {
-        en: `${base}/en`,
-        ar: `${base}/ar`,
-        de: `${base}/de`,
-      },
+      languages,
     },
     openGraph: {
       title,
@@ -70,9 +72,9 @@ export default async function LocaleLayout({
   setRequestLocale(locale);
   noStore();
   const [messages, content] = await Promise.all([getMessages(), loadContentData()]);
-  const dir = locale === "ar" ? "rtl" : "ltr";
+  const dir = isRtlLocale(locale) ? "rtl" : "ltr";
   const lang = locale;
-  const fontClass = locale === "ar" ? "font-arabic" : "";
+  const fontClass = locale === "ar" || locale === "ur" || locale === "fa" ? "font-arabic" : "";
 
   return (
     <NextIntlClientProvider locale={locale} messages={messages}>
