@@ -35,7 +35,8 @@
     "chatWithAI": "Mit KI-Zwilling chatten",
     "viewProjects": "Projekte ansehen",
     "readBlog": "Blog lesen",
-    "downloadCv": "Lebenslauf laden"
+    "downloadCv": "Lebenslauf laden",
+    "portraitHint": "3D drehen — bleibt an der Position"
   },
   "projects": {
     "sectionLabel": "Portfolio",

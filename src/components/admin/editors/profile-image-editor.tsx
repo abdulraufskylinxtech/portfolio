@@ -3,6 +3,7 @@
 import { useRef, useState } from "react";
 
 import { AdminBadge, AdminButton, AdminSection } from "../ui";
+import { cutOutProfileImage } from "@/lib/profile-image-cutout";
 
 type Props = {
   profileImage?: string | null;
@@ -27,8 +28,17 @@ export function ProfileImageEditor({ profileImage, readOnly, onChange }: Props) 
     setPreviewFailed(false);
 
     try {
+      setMessage("Removing background with AI…");
+      let prepared = file;
+      try {
+        prepared = await cutOutProfileImage(file);
+      } catch {
+        prepared = file;
+        setMessage("AI cutout skipped — uploading original image…");
+      }
+
       const body = new FormData();
-      body.append("file", file);
+      body.append("file", prepared);
 
       const res = await fetch("/api/admin/profile-image", { method: "POST", body });
       const data = (await res.json()) as { error?: string; profileImage?: string | null };
@@ -36,7 +46,11 @@ export function ProfileImageEditor({ profileImage, readOnly, onChange }: Props) 
       if (!res.ok) throw new Error(data.error ?? "Upload failed");
 
       onChange(data.profileImage ?? null);
-      setMessage("Profile image uploaded and saved.");
+      setMessage(
+        prepared !== file
+          ? "AI cutout saved — drag the hero portrait to rotate it."
+          : "Profile image uploaded and saved.",
+      );
     } catch (err) {
       setError(err instanceof Error ? err.message : "Upload failed");
     } finally {
@@ -71,7 +85,7 @@ export function ProfileImageEditor({ profileImage, readOnly, onChange }: Props) 
   return (
     <AdminSection
       title="Profile image"
-      description="Your portrait for the hero and navbar. Upload one image — replacing it removes the previous file."
+      description="Hero portrait with AI background removal. Re-upload to refresh the 3D cutout."
     >
       {image ? (
         <div className="admin-subcard">
@@ -83,7 +97,7 @@ export function ProfileImageEditor({ profileImage, readOnly, onChange }: Props) 
             <AdminBadge tone="success">Live</AdminBadge>
           </div>
 
-          <div className="mt-4 overflow-hidden rounded-xl border border-border bg-card">
+          <div className="mt-4 overflow-hidden rounded-xl border border-border bg-[linear-gradient(45deg,hsl(var(--muted))_25%,transparent_25%,transparent_75%,hsl(var(--muted))_75%),linear-gradient(45deg,hsl(var(--muted))_25%,transparent_25%,transparent_75%,hsl(var(--muted))_75%)] bg-[length:16px_16px] bg-[position:0_0,8px_8px]">
             {previewFailed ? (
               <div className="flex h-48 items-center justify-center text-sm text-muted-foreground">
                 Preview unavailable
@@ -93,7 +107,7 @@ export function ProfileImageEditor({ profileImage, readOnly, onChange }: Props) 
               <img
                 src={image}
                 alt="Profile preview"
-                className="mx-auto h-48 w-full max-w-xs object-cover"
+                className="mx-auto h-52 w-full max-w-xs object-contain object-bottom"
                 onError={() => setPreviewFailed(true)}
               />
             )}
@@ -133,7 +147,9 @@ export function ProfileImageEditor({ profileImage, readOnly, onChange }: Props) 
               if (file) void upload(file);
             }}
           />
-          <span className="admin-hint">JPG, PNG, WebP, or GIF · max 5 MB</span>
+          <span className="admin-hint">
+            JPG, PNG, WebP, or GIF · max 5 MB · AI removes the background automatically
+          </span>
         </label>
       </div>
 

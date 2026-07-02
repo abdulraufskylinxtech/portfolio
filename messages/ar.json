@@ -35,7 +35,8 @@
     "chatWithAI": "تحدث مع نسختي الذكية",
     "viewProjects": "عرض المشاريع",
     "readBlog": "اقرأ المدونة",
-    "downloadCv": "تحميل السيرة الذاتية"
+    "downloadCv": "تحميل السيرة الذاتية",
+    "portraitHint": "اسحب للتدوير ثلاثي الأبعاد — يبقى في مكانك"
   },
   "projects": {
     "sectionLabel": "معرض الأعمال",

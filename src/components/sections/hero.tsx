@@ -1,8 +1,8 @@
 "use client";
 
 import { Download, FolderGit2, MessageSquare, Sparkles } from "lucide-react";
+import dynamic from "next/dynamic";
 import { motion } from "framer-motion";
-import Image from "next/image";
 import { useLocale, useTranslations } from "next-intl";
 import { useMemo, useRef } from "react";
 
@@ -14,6 +14,16 @@ import { Link } from "@/i18n/navigation";
 import { useSunShadow } from "@/hooks/useSunShadow";
 import { useTypewriter } from "@/hooks/useTypewriter";
 import { cn } from "@/lib/utils";
+
+const HeroPortrait3D = dynamic(
+  () => import("@/components/HeroPortrait3D").then((mod) => mod.HeroPortrait3D),
+  {
+    ssr: false,
+    loading: () => (
+      <div className="h-[260px] w-[200px] animate-pulse rounded-2xl bg-primary/10 sm:h-[280px] sm:w-[220px] lg:h-[320px] lg:w-[250px]" />
+    ),
+  },
+);
 
 interface HeroProps {
   onChatOpen?: () => void;
@@ -38,9 +48,11 @@ export function Hero({ onChatOpen }: HeroProps) {
   const { dropShadow: taglineShadow } = useSunShadow(heroRef, taglineRef);
 
   const nameClassName = cn(
-    "break-words text-3xl font-bold bg-gradient-to-r from-primary via-primary-glow to-primary bg-clip-text text-transparent transition-[filter] duration-1000 sm:text-4xl md:text-6xl lg:text-7xl",
+    "break-words text-4xl font-bold leading-tight bg-gradient-to-r from-primary via-primary-glow to-primary bg-clip-text text-transparent transition-[filter] duration-1000 sm:text-5xl md:text-5xl lg:text-6xl",
     locale === "ar" && "font-arabic",
   );
+
+  const isRtl = locale === "ar";
 
   return (
     <section
@@ -51,32 +63,37 @@ export function Hero({ onChatOpen }: HeroProps) {
       <div className="absolute inset-0 z-0 bg-cover bg-center bg-[url(/hero-bg.jpg)]" />
       <div className="absolute inset-0 z-0 bg-gradient-to-b from-[hsl(var(--hero-wash)/0.92)] via-background/75 to-background/55 dark:from-background/88 dark:via-background/72 dark:to-background/58" />
       <HeroAtmosphere className="z-[1]" />
-      <div className="container relative z-10 mx-auto px-4">
-        <div className="mx-auto max-w-4xl animate-fade-in-up">
+      <div className="container relative z-10 mx-auto px-4 sm:px-6">
+        <div
+          className={cn(
+            "mx-auto flex max-w-6xl animate-fade-in-up flex-col items-center gap-8 py-8 lg:flex-row lg:items-start lg:justify-center lg:gap-12 xl:gap-16",
+            profileImage && isRtl && "lg:flex-row-reverse",
+          )}
+        >
           {profileImage ? (
             <motion.div
-              initial={{ opacity: 0, scale: 0.9 }}
-              animate={{ opacity: 1, scale: 1 }}
-              transition={{ duration: 0.35 }}
-              className="mb-8 flex justify-center md:justify-start"
+              initial={{ opacity: 0, x: isRtl ? 24 : -24 }}
+              animate={{ opacity: 1, x: 0 }}
+              transition={{ duration: 0.45, delay: 0.05 }}
+              className="order-2 shrink-0 lg:order-none lg:pt-2"
             >
-              <div className="relative h-28 w-28 overflow-hidden rounded-full border-4 border-primary/50 shadow-[0_0_30px_hsl(var(--primary)/0.35)] sm:h-32 sm:w-32">
-                <Image
-                  src={profileImage}
-                  alt={displayName}
-                  fill
-                  className="object-cover"
-                  sizes="128px"
-                  priority
-                />
-              </div>
+              <HeroPortrait3D
+                src={profileImage}
+                alt={displayName}
+                hint={t("portraitHint")}
+              />
             </motion.div>
           ) : null}
+
           <motion.div
-            initial={{ opacity: 0, y: 20 }}
+            initial={{ opacity: 0, y: 24 }}
             animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.3 }}
-            className="mb-8 text-center md:text-start"
+            transition={{ duration: 0.4 }}
+            className={cn(
+              "order-1 min-w-0 flex-1 text-center lg:max-w-2xl lg:pt-4",
+              profileImage ? "lg:order-none lg:text-start" : "max-w-4xl",
+              isRtl && profileImage && "lg:text-end",
+            )}
           >
             <h1
               ref={nameRef}
@@ -85,72 +102,87 @@ export function Hero({ onChatOpen }: HeroProps) {
             >
               {displayName}
             </h1>
-            <p className="mt-3 min-h-[1.75rem] max-w-full break-words text-base text-primary sm:text-lg md:text-xl">
+
+            <p className="mt-3 min-h-[1.75rem] text-base font-medium text-primary sm:text-lg">
               <span className="inline-block max-w-full">{typed}</span>
               <span className="animate-pulse">|</span>
             </p>
-          </motion.div>
 
-          <div className="text-center md:text-start">
             <p
               ref={taglineRef}
-              className="mb-4 break-words text-base text-foreground/90 transition-[filter] duration-1000 sm:text-lg md:text-2xl"
+              className="mt-3 break-words text-lg font-medium text-foreground/90 transition-[filter] duration-1000 sm:text-xl"
               style={taglineShadow ? { filter: taglineShadow } : undefined}
             >
               {site.role}
             </p>
-            <p className="mx-auto mb-8 max-w-2xl px-1 text-sm text-muted-foreground sm:mb-12 sm:text-base md:mx-0">
+
+            <p className="mx-auto mt-4 max-w-xl text-sm leading-relaxed text-muted-foreground sm:text-base lg:mx-0">
               {site.bio}
             </p>
 
-            <div className="flex flex-col justify-center gap-3 sm:flex-row sm:flex-wrap sm:gap-4 md:justify-start">
-              {onChatOpen && (
-                <Button
-                  onClick={onChatOpen}
-                  size="lg"
-                  className="glow w-full bg-primary hover:bg-primary-glow sm:w-auto"
-                >
-                  <MessageSquare className="mr-2 h-5 w-5" />
-                  {t("chatWithAI")}
-                </Button>
-              )}
-              <Button
-                size="lg"
-                variant="outline"
-                className="w-full border-primary/50 hover:border-primary hover:bg-primary/10 sm:w-auto"
-                onClick={() =>
-                  document.getElementById("projects")?.scrollIntoView({ behavior: "smooth" })
-                }
+            <div className="mt-8 space-y-3">
+              <div
+                className={cn(
+                  "flex flex-col gap-3 sm:flex-row",
+                  isRtl ? "sm:justify-end" : "sm:justify-start",
+                )}
               >
-                <FolderGit2 className="mr-2 h-5 w-5" />
-                {t("viewProjects")}
-              </Button>
-              <Button
-                size="lg"
-                variant="outline"
-                className="w-full border-primary/50 hover:border-primary hover:bg-primary/10 sm:w-auto"
-                asChild
-              >
-                <Link href="/blog">
-                  <Sparkles className="mr-2 h-5 w-5" />
-                  {t("readBlog")}
-                </Link>
-              </Button>
-              {cv?.url ? (
+                {onChatOpen ? (
+                  <Button
+                    onClick={onChatOpen}
+                    size="lg"
+                    className="glow w-full bg-primary hover:bg-primary-glow sm:min-w-[200px] sm:flex-1 sm:max-w-[240px]"
+                  >
+                    <MessageSquare className="mr-2 h-5 w-5" />
+                    {t("chatWithAI")}
+                  </Button>
+                ) : null}
                 <Button
                   size="lg"
                   variant="outline"
-                  className="w-full border-primary/50 hover:border-primary hover:bg-primary/10 sm:w-auto"
+                  className="w-full border-primary/50 hover:border-primary hover:bg-primary/10 sm:min-w-[200px] sm:flex-1 sm:max-w-[240px]"
+                  onClick={() =>
+                    document.getElementById("projects")?.scrollIntoView({ behavior: "smooth" })
+                  }
+                >
+                  <FolderGit2 className="mr-2 h-5 w-5" />
+                  {t("viewProjects")}
+                </Button>
+              </div>
+
+              <div
+                className={cn(
+                  "flex flex-wrap items-center justify-center gap-2 sm:gap-3",
+                  isRtl ? "lg:justify-end" : "lg:justify-start",
+                )}
+              >
+                <Button
+                  size="sm"
+                  variant="secondary"
+                  className="h-10 border border-border/80 bg-card/60 px-4 hover:bg-primary/10"
                   asChild
                 >
-                  <a href={cv.url} download={cv.filename}>
-                    <Download className="mr-2 h-5 w-5" />
-                    {t("downloadCv")}
-                  </a>
+                  <Link href="/blog">
+                    <Sparkles className="mr-2 h-4 w-4" />
+                    {t("readBlog")}
+                  </Link>
                 </Button>
-              ) : null}
+                {cv?.url ? (
+                  <Button
+                    size="sm"
+                    variant="secondary"
+                    className="h-10 border border-border/80 bg-card/60 px-4 hover:bg-primary/10"
+                    asChild
+                  >
+                    <a href={cv.url} download={cv.filename}>
+                      <Download className="mr-2 h-4 w-4" />
+                      {t("downloadCv")}
+                    </a>
+                  </Button>
+                ) : null}
+              </div>
             </div>
-          </div>
+          </motion.div>
         </div>
       </div>
 
