@@ -1,11 +1,9 @@
 "use client";
 
-import { useState } from "react";
+import { useRef, useState } from "react";
 
-import { AdminButton, AdminField, AdminInput, AdminSection } from "../ui";
-
-const MAX_PHOTOS = 3;
-const FALLBACK = "/me.jpg";
+import { AdminButton, AdminSection } from "../ui";
+import { MAX_ABOUT_PHOTOS } from "@/lib/about-images";
 
 type Props = {
   images: string[];
@@ -15,13 +13,20 @@ type Props = {
 
 function PhotoPreview({ src }: { src: string }) {
   const [failed, setFailed] = useState(false);
-  const display = src.trim() || FALLBACK;
+
+  if (!src.trim() || failed) {
+    return (
+      <div className="flex h-36 w-full items-center justify-center rounded-lg border border-dashed border-border bg-card/60 text-xs text-muted-foreground">
+        Preview unavailable
+      </div>
+    );
+  }
 
   return (
     <div className="relative h-36 w-full overflow-hidden rounded-lg border border-border bg-card">
       {/* eslint-disable-next-line @next/next/no-img-element */}
       <img
-        src={failed ? FALLBACK : display}
+        src={src}
         alt=""
         className="h-full w-full object-cover"
         onError={() => setFailed(true)}
@@ -31,96 +36,154 @@ function PhotoPreview({ src }: { src: string }) {
 }
 
 export function AboutPhotosEditor({ images, onChange, readOnly }: Props) {
-  const disabled = readOnly;
-  const slots = images.length > 0 ? images.slice(0, MAX_PHOTOS) : [FALLBACK];
+  const inputRef = useRef<HTMLInputElement>(null);
+  const [busy, setBusy] = useState(false);
+  const [message, setMessage] = useState("");
+  const [error, setError] = useState("");
 
-  const updateSlot = (index: number, value: string) => {
-    const next = [...slots];
-    next[index] = value;
-    onChange(next.slice(0, MAX_PHOTOS));
+  const disabled = readOnly || busy;
+  const photos = images.map((src) => src.trim()).filter(Boolean).slice(0, MAX_ABOUT_PHOTOS);
+
+  const upload = async (file: File) => {
+    if (photos.length >= MAX_ABOUT_PHOTOS) {
+      setError(`You can only add up to ${MAX_ABOUT_PHOTOS} photos.`);
+      return;
+    }
+
+    setBusy(true);
+    setMessage("");
+    setError("");
+
+    try {
+      const body = new FormData();
+      body.append("file", file);
+
+      const res = await fetch("/api/admin/about-images", { method: "POST", body });
+      const data = (await res.json()) as { error?: string; aboutImages?: string[] };
+
+      if (!res.ok) throw new Error(data.error ?? "Upload failed");
+
+      onChange(data.aboutImages ?? []);
+      setMessage("Photo uploaded and saved.");
+    } catch (err) {
+      setError(err instanceof Error ? err.message : "Upload failed");
+    } finally {
+      setBusy(false);
+      if (inputRef.current) inputRef.current.value = "";
+    }
   };
 
-  const addSlot = () => {
-    if (slots.length >= MAX_PHOTOS) return;
-    onChange([...slots, ""]);
-  };
+  const remove = async (url: string) => {
+    if (!window.confirm("Remove this photo from the About section?")) return;
 
-  const removeSlot = (index: number) => {
-    const next = slots.filter((_, i) => i !== index);
-    onChange(next.length > 0 ? next : [FALLBACK]);
+    setBusy(true);
+    setMessage("");
+    setError("");
+
+    try {
+      const res = await fetch("/api/admin/about-images", {
+        method: "DELETE",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ url }),
+      });
+      const data = (await res.json()) as { error?: string; aboutImages?: string[] };
+
+      if (!res.ok) throw new Error(data.error ?? "Remove failed");
+
+      onChange(data.aboutImages ?? []);
+      setMessage("Photo removed.");
+    } catch (err) {
+      setError(err instanceof Error ? err.message : "Remove failed");
+    } finally {
+      setBusy(false);
+    }
   };
 
   const moveSlot = (index: number, direction: -1 | 1) => {
     const target = index + direction;
-    if (target < 0 || target >= slots.length) return;
-    const next = [...slots];
+    if (target < 0 || target >= photos.length) return;
+    const next = [...photos];
     [next[index], next[target]] = [next[target], next[index]];
     onChange(next);
+    setMessage("Order updated. Click Save changes to keep the new order.");
+    setError("");
+  };
+
+  const openFilePicker = () => {
+    if (disabled || photos.length >= MAX_ABOUT_PHOTOS) return;
+    inputRef.current?.click();
   };
 
   return (
     <AdminSection
       title="About photos"
-      description={`Stack of up to ${MAX_PHOTOS} photos on the About section (left card). First photo is the main one.`}
+      description={`Upload up to ${MAX_ABOUT_PHOTOS} photos for the About section stack. First photo is the main one.`}
     >
-      <p className="mb-4 text-xs leading-relaxed text-muted-foreground">
-        Add image files to the <code className="admin-code">public/</code> folder in your project,
-        then reference them here as paths like <code className="admin-code">/me.jpg</code> or{" "}
-        <code className="admin-code">/about-office.jpg</code>. On Vercel, commit new images to
-        GitHub and redeploy (or push via git).
-      </p>
+      <input
+        ref={inputRef}
+        type="file"
+        accept="image/jpeg,image/png,image/webp,image/gif,.jpg,.jpeg,.png,.webp,.gif"
+        className="hidden"
+        disabled={disabled}
+        onChange={(e) => {
+          const file = e.target.files?.[0];
+          if (file) void upload(file);
+        }}
+      />
 
-      <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
-        {slots.map((src, index) => (
-          <div
-            key={`photo-slot-${index}`}
-            className="rounded-xl border border-border/80 bg-card/40 p-3"
-          >
-            <p className="mb-2 text-xs font-semibold uppercase tracking-wide text-muted-foreground">
-              Photo {index + 1}
-              {index === 1 ? " · center (main)" : ""}
-            </p>
-            <PhotoPreview src={src} />
-            <AdminField label="Image path" className="mt-3">
-              <AdminInput
-                value={src}
-                onChange={(value) => updateSlot(index, value)}
-                placeholder="/me.jpg"
-                disabled={disabled}
-              />
-            </AdminField>
-            {!disabled ? (
-              <div className="mt-2 flex flex-wrap gap-1">
-                <AdminButton
-                  variant="ghost"
-                  onClick={() => moveSlot(index, -1)}
-                  disabled={index === 0}
-                >
-                  ←
-                </AdminButton>
-                <AdminButton
-                  variant="ghost"
-                  onClick={() => moveSlot(index, 1)}
-                  disabled={index === slots.length - 1}
-                >
-                  →
-                </AdminButton>
-                <AdminButton variant="danger" onClick={() => removeSlot(index)}>
-                  Remove
-                </AdminButton>
-              </div>
-            ) : null}
-          </div>
-        ))}
-      </div>
+      {photos.length === 0 ? (
+        <p className="mb-4 text-sm text-muted-foreground">No photos yet. Add one below.</p>
+      ) : (
+        <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
+          {photos.map((src, index) => (
+            <div
+              key={src}
+              className="rounded-xl border border-border/80 bg-card/40 p-3"
+            >
+              <p className="mb-2 text-xs font-semibold uppercase tracking-wide text-muted-foreground">
+                Photo {index + 1}
+                {photos.length > 1 && index === 1 ? " · center (main)" : ""}
+              </p>
+              <PhotoPreview src={src} />
+              {!disabled ? (
+                <div className="mt-2 flex flex-wrap gap-1">
+                  <AdminButton
+                    variant="ghost"
+                    onClick={() => moveSlot(index, -1)}
+                    disabled={index === 0}
+                  >
+                    ←
+                  </AdminButton>
+                  <AdminButton
+                    variant="ghost"
+                    onClick={() => moveSlot(index, 1)}
+                    disabled={index === photos.length - 1}
+                  >
+                    →
+                  </AdminButton>
+                  <AdminButton variant="danger" onClick={() => void remove(src)}>
+                    Remove
+                  </AdminButton>
+                </div>
+              ) : null}
+            </div>
+          ))}
+        </div>
+      )}
 
-      {!disabled && slots.length < MAX_PHOTOS ? (
+      {!readOnly && photos.length < MAX_ABOUT_PHOTOS ? (
         <div className="mt-4">
-          <AdminButton variant="ghost" onClick={addSlot}>
-            + Add photo ({slots.length}/{MAX_PHOTOS})
+          <AdminButton variant="ghost" onClick={openFilePicker} disabled={disabled}>
+            {busy ? "Uploading…" : `+ Add photo (${photos.length}/${MAX_ABOUT_PHOTOS})`}
           </AdminButton>
+          <p className="mt-2 text-xs text-muted-foreground">
+            JPG, PNG, WebP, or GIF · max 5 MB each
+          </p>
         </div>
       ) : null}
+
+      {message ? <p className="mt-3 text-sm text-emerald-400">{message}</p> : null}
+      {error ? <p className="mt-3 text-sm text-red-400">{error}</p> : null}
     </AdminSection>
   );
 }
