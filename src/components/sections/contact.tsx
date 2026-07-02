@@ -2,13 +2,15 @@
 
 import { useState } from "react";
 import { motion, useInView, useReducedMotion } from "framer-motion";
-import { Loader2, Mail, Linkedin, Github, Send } from "lucide-react";
+import { Loader2, Mail, Linkedin, Github, Send, Phone, Instagram } from "lucide-react";
 import { useTranslations } from "next-intl";
 import { useRef } from "react";
 import { z } from "zod";
 
 import { ContactMap } from "@/components/pages/contact-map";
 import { useSiteInfo } from "@/components/providers/content-provider";
+import { getPhoneNumber } from "@/lib/data";
+import { getWhatsAppUrl } from "@/lib/site";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
@@ -93,8 +95,32 @@ export function ContactSection() {
     }
   };
 
+  const phone = getPhoneNumber(site);
+  const whatsapp = site.whatsapp?.trim();
+  const showPhone = Boolean(phone && phone !== whatsapp);
+
   const socialLinks = [
     { icon: Mail, label: "Email", href: `mailto:${site.email}`, text: site.email },
+    ...(showPhone
+      ? [
+          {
+            icon: Phone,
+            label: "Phone",
+            href: `tel:${phone!.replace(/\s/g, "")}`,
+            text: phone!,
+          },
+        ]
+      : []),
+    ...(whatsapp
+      ? [
+          {
+            icon: Phone,
+            label: "WhatsApp",
+            href: getWhatsAppUrl(whatsapp),
+            text: whatsapp,
+          },
+        ]
+      : []),
     {
       icon: Linkedin,
       label: "LinkedIn",
@@ -107,6 +133,16 @@ export function ContactSection() {
       href: site.github,
       text: site.github.replace("https://", ""),
     },
+    ...(site.instagram
+      ? [
+          {
+            icon: Instagram,
+            label: "Instagram",
+            href: site.instagram,
+            text: site.instagram.replace("https://", ""),
+          },
+        ]
+      : []),
   ];
 
   return (

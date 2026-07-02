@@ -2,6 +2,7 @@
 
 import { AboutPhotosEditor } from "@/components/admin/editors/about-photos-editor";
 import { ProfileImageEditor } from "@/components/admin/editors/profile-image-editor";
+import { SiteTranslationsPanel } from "@/components/admin/editors/site-translations-panel";
 import type { EducationEntry, ExperienceEntry, SiteInfo, SiteStat } from "@/lib/data";
 import { getProfileImage } from "@/lib/data";
 
@@ -19,6 +20,7 @@ import {
 type Props = {
   data: SiteInfo;
   onChange: (data: SiteInfo) => void;
+  onTranslationsSaved?: () => void | Promise<void>;
   readOnly?: boolean;
 };
 
@@ -61,13 +63,55 @@ function updateEducation(
   return { ...data, education };
 }
 
-export function SiteEditor({ data, onChange, readOnly }: Props) {
+export function SiteEditor({ data, onChange, onTranslationsSaved, readOnly }: Props) {
   const disabled = readOnly;
 
   return (
     <div className="admin-editor-stack">
       <AdminSection title="Profile & contact" description="Hero, footer, and contact details">
         <div className="admin-form-grid">
+          <AdminField
+            label="Full name"
+            hint="Used in all languages unless you enable a separate Arabic name below"
+          >
+            <AdminInput
+              value={data.name ?? ""}
+              onChange={(name) => onChange({ ...data, name })}
+              placeholder="Shakeel Latif"
+              disabled={disabled}
+            />
+          </AdminField>
+          <AdminField label="Arabic name" className="admin-span-2">
+            <label className="flex items-center gap-2 text-sm text-foreground">
+              <input
+                type="checkbox"
+                checked={data.useArabicDisplayName ?? false}
+                disabled={disabled}
+                onChange={(e) =>
+                  onChange({
+                    ...data,
+                    useArabicDisplayName: e.target.checked,
+                    ...(e.target.checked && !data.nameAr?.trim() ? { nameAr: data.name } : {}),
+                  })
+                }
+              />
+              Use a different name when the site is in Arabic
+            </label>
+            {data.useArabicDisplayName ? (
+              <div className="mt-3">
+                <AdminInput
+                  value={data.nameAr ?? ""}
+                  onChange={(nameAr) => onChange({ ...data, nameAr })}
+                  placeholder="شكيل لطيف"
+                  disabled={disabled}
+                />
+              </div>
+            ) : (
+              <span className="admin-hint mt-2 block">
+                The full name above is shown in English, Arabic, and German.
+              </span>
+            )}
+          </AdminField>
           <AdminField label="Email">
             <AdminInput
               value={data.email}
@@ -75,7 +119,15 @@ export function SiteEditor({ data, onChange, readOnly }: Props) {
               disabled={disabled}
             />
           </AdminField>
-          <AdminField label="WhatsApp">
+          <AdminField label="Phone">
+            <AdminInput
+              value={data.phone ?? ""}
+              onChange={(phone) => onChange({ ...data, phone })}
+              placeholder="+923001234567"
+              disabled={disabled}
+            />
+          </AdminField>
+          <AdminField label="WhatsApp" hint="Used for WhatsApp button — can match phone">
             <AdminInput
               value={data.whatsapp ?? ""}
               onChange={(whatsapp) => onChange({ ...data, whatsapp })}
@@ -118,6 +170,17 @@ export function SiteEditor({ data, onChange, readOnly }: Props) {
               disabled={disabled}
             />
           </AdminField>
+          <AdminField
+            label="Hero rotating titles"
+            hint="Comma-separated — typewriter animation under your name"
+            className="admin-span-2"
+          >
+            <CommaListInput
+              items={data.heroRoles ?? []}
+              onChange={(heroRoles) => onChange({ ...data, heroRoles })}
+              disabled={disabled}
+            />
+          </AdminField>
           <AdminField label="Availability" className="admin-span-2">
             <AdminInput
               value={data.availability}
@@ -135,6 +198,15 @@ export function SiteEditor({ data, onChange, readOnly }: Props) {
           </AdminField>
         </div>
       </AdminSection>
+
+      <SiteTranslationsPanel
+        data={data}
+        onTranslated={async (site) => {
+          onChange(site);
+          await onTranslationsSaved?.();
+        }}
+        readOnly={disabled}
+      />
 
       <ProfileImageEditor
         image={data.profileImage ?? getProfileImage(data)}

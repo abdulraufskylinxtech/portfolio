@@ -28,9 +28,10 @@ export const mimicAI = async (
   const intent = detectIntent(userMessage, knowledge);
 
   if (intent === "greeting") {
+    const name = site.name?.trim() || "the developer";
     return {
       response:
-        `Hi! I'm the portfolio assistant for **Shakeel Latif**. I can answer questions about his **skills, experience, projects, education, and contact details** based on his CV and portfolio.\n\nWhat would you like to know?`,
+        `Hi! I'm the portfolio assistant for **${name}**. I can answer questions about their **skills, experience, projects, education, and contact details** based on their CV and portfolio.\n\nWhat would you like to know?`,
       confidence: 0.95,
     };
   }
@@ -59,9 +60,10 @@ export const mimicAI = async (
   }
 
   if (intent === "off-topic") {
+    const name = site.name?.trim() || "this developer";
     return {
       response:
-        `I can only discuss **Shakeel Latif's professional background** — skills, work experience, projects, education, CV, and contact details.\n\nTry asking:\n${SCOPE_SUGGESTIONS.map((s) => `- ${s}`).join("\n")}`,
+        `I can only discuss **${name}'s professional background** — skills, work experience, projects, education, CV, and contact details.\n\nTry asking:\n${SCOPE_SUGGESTIONS.map((s) => `- ${s}`).join("\n")}`,
       confidence: 0.98,
     };
   }

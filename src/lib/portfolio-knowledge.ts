@@ -412,6 +412,9 @@ function extractTechTerms(message: string, site: SiteInfo, projects: Project[]):
 }
 
 function developerNameFromSite(site: SiteInfo): string {
+  const fromName = site.name?.trim();
+  if (fromName) return fromName;
+
   const fromGithub = site.github.match(/github\.com\/([^/?#]+)/i)?.[1];
   if (fromGithub) {
     return fromGithub
@@ -419,7 +422,7 @@ function developerNameFromSite(site: SiteInfo): string {
       .map((part) => part.charAt(0).toUpperCase() + part.slice(1))
       .join(" ");
   }
-  return "Shakeel";
+  return "the developer";
 }
 
 export function composeFriendlyReply(

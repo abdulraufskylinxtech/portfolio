@@ -3,7 +3,7 @@
 import { ExternalLink, MapPin } from "lucide-react";
 import { useTranslations } from "next-intl";
 
-import { useSiteInfo } from "@/components/providers/content-provider";
+import { useLocalizedSite } from "@/components/providers/content-provider";
 import { getMapDirectionsUrl, getMapEmbedUrl } from "@/lib/map";
 import { cn } from "@/lib/utils";
 
@@ -13,7 +13,7 @@ type ContactMapProps = {
 
 export function ContactMap({ className }: ContactMapProps) {
   const t = useTranslations("contact.map");
-  const site = useSiteInfo();
+  const site = useLocalizedSite();
 
   if (!site.map) return null;
 
@@ -68,7 +68,10 @@ export function ContactMap({ className }: ContactMapProps) {
         </div>
       </div>
 
-      <p className="text-sm leading-relaxed text-muted-foreground">{t("note")}</p>
+      <p className="text-sm leading-relaxed text-muted-foreground">
+        {site.location}
+        {site.availability ? ` — ${site.availability}` : null}
+      </p>
     </div>
   );
 }

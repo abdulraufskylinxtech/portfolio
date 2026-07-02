@@ -4,7 +4,7 @@ import { Github, Instagram, Linkedin, Mail } from "lucide-react";
 import { useLocale, useTranslations } from "next-intl";
 
 import { Link } from "@/i18n/navigation";
-import { useSiteInfo } from "@/components/providers/content-provider";
+import { useLocalizedSite, useSiteInfo } from "@/components/providers/content-provider";
 import { getWhatsAppUrl } from "@/lib/site";
 import { cn } from "@/lib/utils";
 
@@ -22,9 +22,13 @@ const iconLinkClass =
 export function Footer() {
   const t = useTranslations("footer");
   const locale = useLocale();
-  const site = useSiteInfo();
+  const site = useLocalizedSite();
+  const rawSite = useSiteInfo();
+  const displayName = site.name;
   const year = new Date().getFullYear();
-  const whatsappUrl = site.whatsapp ? getWhatsAppUrl(site.whatsapp, t("whatsappPrefill")) : null;
+  const whatsappUrl = rawSite.whatsapp
+    ? getWhatsAppUrl(rawSite.whatsapp, t("whatsappPrefill", { name: displayName }))
+    : null;
 
   const quickLinks = [
     { href: { pathname: "/", hash: "projects" } as const, label: t("projects") },
@@ -34,11 +38,11 @@ export function Footer() {
   ];
 
   const socialIcons = [
-    { href: `mailto:${site.email}`, label: "Email", icon: Mail, external: false },
-    { href: site.linkedin, label: "LinkedIn", icon: Linkedin, external: true },
-    { href: site.github, label: "GitHub", icon: Github, external: true },
-    ...(site.instagram
-      ? [{ href: site.instagram, label: "Instagram", icon: Instagram, external: true }]
+    { href: `mailto:${rawSite.email}`, label: "Email", icon: Mail, external: false },
+    { href: rawSite.linkedin, label: "LinkedIn", icon: Linkedin, external: true },
+    { href: rawSite.github, label: "GitHub", icon: Github, external: true },
+    ...(rawSite.instagram
+      ? [{ href: rawSite.instagram, label: "Instagram", icon: Instagram, external: true }]
       : []),
   ];
 
@@ -55,7 +59,7 @@ export function Footer() {
                 locale === "ar" && "font-arabic text-2xl",
               )}
             >
-              {locale === "ar" ? "شكيل لطيف" : "Shakeel Latif"}
+              {displayName}
             </p>
             <p className="mt-3 max-w-sm text-sm leading-relaxed text-muted-foreground">{site.role}</p>
             <p className="mt-2 inline-flex items-center rounded-full border border-primary/25 bg-primary/5 px-3 py-1 text-xs font-medium text-primary">
@@ -126,9 +130,9 @@ export function Footer() {
 
         <div className="mt-12 flex flex-col items-center justify-between gap-3 border-t border-border/50 pt-6 text-center text-xs text-muted-foreground sm:flex-row sm:text-start">
           <p>
-            © {year} Shakeel Latif. {t("rights")}
+            © {year} {displayName}. {t("rights")}
           </p>
-          <p>{t("availability")}</p>
+          <p>{site.availability}</p>
         </div>
       </div>
     </footer>

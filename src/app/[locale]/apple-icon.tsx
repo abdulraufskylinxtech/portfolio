@@ -1,5 +1,5 @@
-import { getTranslations } from "next-intl/server";
-
+import { loadContentData } from "@/lib/content-store";
+import { getDisplayName } from "@/lib/data";
 import { generateInitialsIcon } from "@/lib/favicon-image";
 import { getNameInitials } from "@/lib/initials";
 
@@ -12,8 +12,8 @@ type AppleIconProps = {
 
 export default async function AppleIcon({ params }: AppleIconProps) {
   const { locale } = await params;
-  const t = await getTranslations({ locale, namespace: "hero" });
-  const initials = getNameInitials(t("name"), locale);
+  const { site } = await loadContentData();
+  const initials = getNameInitials(getDisplayName(site, locale), locale);
 
   return generateInitialsIcon({ initials, size: 180 });
 }

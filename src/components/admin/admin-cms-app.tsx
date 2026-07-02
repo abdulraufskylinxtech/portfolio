@@ -255,6 +255,13 @@ export function AdminCmsApp() {
           <SiteEditor
             data={content as SiteInfo}
             onChange={handleContentChange}
+            onTranslationsSaved={async () => {
+              const res = await fetch("/api/admin/content/site", { credentials: "same-origin" });
+              if (!res.ok) return;
+              const body = (await res.json()) as { data: unknown };
+              applyLoadedData("site", body.data);
+              setStatus("AI translations saved for Arabic and German.");
+            }}
             readOnly={readOnly}
           />
         );

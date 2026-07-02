@@ -7,7 +7,7 @@ import { useLocale, useTranslations } from "next-intl";
 import { useEffect, useState } from "react";
 
 import { Button } from "@/components/ui/button";
-import { useSiteInfo } from "@/components/providers/content-provider";
+import { useLocalizedSite, useSiteInfo } from "@/components/providers/content-provider";
 import { getProfileImage } from "@/lib/data";
 import { Link, usePathname } from "@/i18n/navigation";
 import { useActiveSection } from "@/hooks/useActiveSection";
@@ -52,9 +52,11 @@ export function Navbar() {
   const isHome = pathname === "/";
   const activeSection = useActiveSection(isHome ? NAV_SECTION_IDS : []);
   const [mobileOpen, setMobileOpen] = useState(false);
-  const site = useSiteInfo();
-  const cv = site.cv;
-  const profileImage = getProfileImage(site);
+  const site = useLocalizedSite();
+  const rawSite = useSiteInfo();
+  const cv = rawSite.cv;
+  const profileImage = getProfileImage(rawSite);
+  const displayName = site.name;
 
   const [isLargeScreen, setIsLargeScreen] = useState(false);
   useEffect(() => {
@@ -200,7 +202,7 @@ export function Navbar() {
                 >
                   <Image
                     src={profileImage}
-                    alt={t("home")}
+                    alt={displayName}
                     fill
                     className="object-cover"
                     sizes="40px"
@@ -214,7 +216,7 @@ export function Navbar() {
                 locale === "ar" && "font-arabic sm:text-xl lg:text-2xl",
               )}
             >
-              {locale === "ar" ? "شكيل لطيف" : "Shakeel Latif"}
+              {displayName}
             </span>
           </Link>
 

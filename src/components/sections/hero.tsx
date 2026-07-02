@@ -8,8 +8,8 @@ import { useMemo, useRef } from "react";
 import { HeroAtmosphere } from "@/components/HeroAtmosphere";
 import { Hero3DAvatar } from "@/components/Hero3DAvatar";
 import { Button } from "@/components/ui/button";
-import { useSiteInfo } from "@/components/providers/content-provider";
-import { getProfileImage } from "@/lib/data";
+import { useSiteInfo, useLocalizedSite } from "@/components/providers/content-provider";
+import { getHeroRoles, getProfileImage } from "@/lib/data";
 import { Link } from "@/i18n/navigation";
 import { useScrollPosition } from "@/hooks/useScrollPosition";
 import { useSunShadow } from "@/hooks/useSunShadow";
@@ -25,10 +25,12 @@ interface HeroProps {
 export function Hero({ onChatOpen }: HeroProps) {
   const t = useTranslations("hero");
   const locale = useLocale();
-  const site = useSiteInfo();
-  const cv = site.cv;
-  const portraitSrc = getProfileImage(site);
-  const roles = useMemo(() => t.raw("roles") as string[], [t]);
+  const site = useLocalizedSite();
+  const rawSite = useSiteInfo();
+  const cv = rawSite.cv;
+  const portraitSrc = getProfileImage(rawSite);
+  const displayName = site.name;
+  const roles = useMemo(() => getHeroRoles(site), [site]);
   const typed = useTypewriter(roles);
   const scrolledPastHero = useScrollPosition(HERO_SCROLL_THRESHOLD);
   const showHeroAvatar = !scrolledPastHero;
@@ -71,8 +73,8 @@ export function Hero({ onChatOpen }: HeroProps) {
                 <Hero3DAvatar
                   ref={avatarRef}
                   src={portraitSrc}
-                  depthSrc={site.profileDepthMap}
-                  alt={t("name")}
+                  depthSrc={rawSite.profileDepthMap}
+                  alt={displayName}
                   boxShadow={avatarShadow ?? "0 0 15px hsl(var(--primary) / 0.45)"}
                 />
                 <div className="min-w-0 max-w-full flex-1 text-center md:text-start">
@@ -81,7 +83,7 @@ export function Hero({ onChatOpen }: HeroProps) {
                     className={nameClassName}
                     style={nameShadow ? { filter: nameShadow } : undefined}
                   >
-                    {t("name")}
+                    {displayName}
                   </h1>
                   <p className="mt-3 min-h-[1.75rem] max-w-full break-words text-base text-primary sm:text-lg md:text-xl">
                     <span className="inline-block max-w-full">{typed}</span>
@@ -103,7 +105,7 @@ export function Hero({ onChatOpen }: HeroProps) {
                   className={nameClassName}
                   style={nameShadow ? { filter: nameShadow } : undefined}
                 >
-                  {t("name")}
+                  {displayName}
                 </h1>
               </motion.div>
             )}
@@ -115,10 +117,10 @@ export function Hero({ onChatOpen }: HeroProps) {
               className="mb-4 break-words text-base text-foreground/90 transition-[filter] duration-1000 sm:text-lg md:text-2xl"
               style={taglineShadow ? { filter: taglineShadow } : undefined}
             >
-              {t("tagline")}
+              {site.role}
             </p>
             <p className="mx-auto mb-8 max-w-2xl px-1 text-sm text-muted-foreground sm:mb-12 sm:text-base">
-              {t("description")}
+              {site.bio}
             </p>
 
             <div className="flex flex-col justify-center gap-3 sm:flex-row sm:flex-wrap sm:gap-4">

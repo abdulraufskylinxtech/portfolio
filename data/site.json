@@ -1,5 +1,8 @@
 {
+  "name": "AI TEAM",
+  "nameAr": "شكيل لطيف",
   "email": "naeem.skylinxtech@gmail.com",
+  "phone": "+923314409754",
   "whatsapp": "+923314409754",
   "linkedin": "https://www.linkedin.com/in/shakeel-latif",
   "github": "https://github.com/shakeel-latif",
@@ -13,6 +16,11 @@
   },
   "bio": "Full-Stack Developer passionate about AI/ML and DevOps. Building modern web applications with React, Node.js, and cloud technologies.",
   "role": "Full-Stack Developer & AI Enthusiast",
+  "heroRoles": [
+    "Full-Stack Developer",
+    "AI Enthusiast",
+    "DevOps Learner"
+  ],
   "availability": "Open to new opportunities — remote & on-site",
   "profileImage": "/me.jpg",
   "aboutImages": [
@@ -258,5 +266,72 @@
     "url": "/cv/resume.pdf",
     "filename": "quote (1).pdf",
     "uploadedAt": "2026-07-01T13:39:24.589Z"
-  }
+  },
+  "translations": {
+    "ar": {
+      "name": "فريق الذكاء الاصطناعي",
+      "role": "مطور ويب كامل الطاقات ومحب للذكاء الاصطناعي",
+      "bio": "مطور ويب كامل الطاقات شغوف بالذكاء الاصطناعي والتعلم الآلي وعمليات التطوير والتشغيل. بناء تطبيقات الويب الحديثة باستخدام React و Node.js وتكنولوجيا السحابة.",
+      "heroRoles": [
+        "مطور ويب كامل الطاقات",
+        "محب للذكاء الاصطناعي",
+        "متعلم عمليات التطوير والتشغيل"
+      ],
+      "availability": "مفتوح للفرص الجديدة — عن بعد وموقعي",
+      "location": "منازل منصورة، لاهور، باكستان",
+      "stats": [
+        {
+          "value": "10+",
+          "label": "سنوات الخبرة"
+        },
+        {
+          "value": "20+",
+          "label": "مشاريع تم تسليمها"
+        },
+        {
+          "value": "10+",
+          "label": "تكنولوجيات"
+        }
+      ],
+      "hobbies": [
+        "قراءة блогات التقنية",
+        "استكشاف أدوات الذكاء الاصطناعي",
+        "كريكيت",
+        "السفر"
+      ]
+    },
+    "de": {
+      "name": "KI-TEAM",
+      "role": "Full-Stack-Entwickler & KI-Enthusiast",
+      "bio": "Full-Stack-Entwickler mit Leidenschaft für KI/ML und DevOps. Bau von modernen Webanwendungen mit React, Node.js und Cloud-Technologien.",
+      "heroRoles": [
+        "Full-Stack-Entwickler",
+        "KI-Enthusiast",
+        "DevOps-Lerner"
+      ],
+      "availability": "Offen für neue Möglichkeiten — Remote und Vor-Ort",
+      "location": "Mansoora Homes, Lahore, Pakistan",
+      "stats": [
+        {
+          "value": "10+",
+          "label": "Jahre Erfahrung"
+        },
+        {
+          "value": "20+",
+          "label": "Abgeschlossene Projekte"
+        },
+        {
+          "value": "10+",
+          "label": "Technologien"
+        }
+      ],
+      "hobbies": [
+        "Technik-Blogs lesen",
+        "KI-Tools erkunden",
+        "Kricketspiel",
+        "Reisen"
+      ]
+    }
+  },
+  "translationsUpdatedAt": "2026-07-02T11:50:11.037Z"
 }

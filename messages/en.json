@@ -148,7 +148,7 @@
   "footer": {
     "rights": "All rights reserved.",
     "whatsapp": "Message on WhatsApp",
-    "whatsappPrefill": "Hi Shakeel, I found your portfolio and would like to connect.",
+    "whatsappPrefill": "Hi {name}, I found your portfolio and would like to connect.",
     "connect": "Connect",
     "quickLinks": "Quick links",
     "projects": "Projects",
@@ -158,7 +158,7 @@
     "availability": "Open to remote & on-site opportunities"
   },
   "chat": {
-    "greeting": "Hi! I'm Shakeel Latif's portfolio assistant. I answer questions about his skills, experience, projects, education, and CV — only within his professional background.",
+    "greeting": "Hi! I'm {name}'s portfolio assistant. I answer questions about skills, experience, projects, education, and CV — only within their professional background.",
     "placeholder": "Ask about skills, experience, projects…",
     "title": "AI Assistant",
     "newChat": "New chat",

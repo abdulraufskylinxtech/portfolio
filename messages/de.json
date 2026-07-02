@@ -148,7 +148,7 @@
   "footer": {
     "rights": "Alle Rechte vorbehalten.",
     "whatsapp": "Auf WhatsApp schreiben",
-    "whatsappPrefill": "Hallo Shakeel, ich habe Ihr Portfolio gefunden und möchte mich vernetzen.",
+    "whatsappPrefill": "Hallo {name}, ich habe Ihr Portfolio gefunden und möchte mich vernetzen.",
     "connect": "Kontakt",
     "quickLinks": "Schnelllinks",
     "projects": "Projekte",
@@ -158,7 +158,7 @@
     "availability": "Offen für Remote- und Vor-Ort-Projekte"
   },
   "chat": {
-    "greeting": "Hallo! Ich bin Shakeel Latifs Portfolio-Assistent. Ich beantworte Fragen zu Fähigkeiten, Erfahrung, Projekten, Ausbildung und Lebenslauf — nur im beruflichen Kontext.",
+    "greeting": "Hallo! Ich bin {name}s Portfolio-Assistent. Ich beantworte Fragen zu Fähigkeiten, Erfahrung, Projekten, Ausbildung und Lebenslauf — nur im beruflichen Kontext.",
     "placeholder": "Fragen zu Skills, Erfahrung, Projekten…",
     "title": "KI-Assistent",
     "newChat": "Neuer Chat",

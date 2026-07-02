@@ -57,8 +57,8 @@ export function validateContent(key: ContentKey, data: unknown): string | null {
 
   if (key === "site") {
     const site = data as SiteInfo;
-    if (!site.email || !site.linkedin || !site.github) {
-      return "Site info requires email, linkedin, and github";
+    if (!site.name?.trim() || !site.email || !site.linkedin || !site.github) {
+      return "Site info requires name, email, linkedin, and github";
     }
     return null;
   }

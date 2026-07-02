@@ -1,8 +1,10 @@
 "use client";
 
-import { createContext, useContext } from "react";
+import { createContext, useContext, useMemo } from "react";
+import { useLocale } from "next-intl";
 
 import type { BlogPost, Project, SiteInfo } from "@/lib/data";
+import { resolveSiteForLocale } from "@/lib/data";
 
 export type ContentData = {
   site: SiteInfo;
@@ -32,6 +34,13 @@ export function useContent(): ContentData {
 
 export function useSiteInfo(): SiteInfo {
   return useContent().site;
+}
+
+/** Site copy resolved for the active locale (AI translations for ar/de). */
+export function useLocalizedSite(): SiteInfo {
+  const site = useSiteInfo();
+  const locale = useLocale();
+  return useMemo(() => resolveSiteForLocale(site, locale), [site, locale]);
 }
 
 export function usePublishedProjects(): Project[] {

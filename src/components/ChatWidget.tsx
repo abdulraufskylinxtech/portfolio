@@ -7,6 +7,7 @@ import { Input } from "@/components/ui/input";
 import { Card } from "@/components/ui/card";
 import { MessageCircle, X, Send, Loader2, Plus } from "lucide-react";
 import { ScrollArea } from "@/components/ui/scroll-area";
+import { useLocalizedSite } from "@/components/providers/content-provider";
 import { cn } from "@/lib/utils";
 
 interface Message {
@@ -29,6 +30,8 @@ function createSessionId(): string {
 const ChatWidget = ({ externalOpen, onOpenChange }: ChatWidgetProps) => {
   const t = useTranslations("chat");
   const locale = useLocale();
+  const site = useLocalizedSite();
+  const displayName = site.name;
   const [internalOpen, setInternalOpen] = useState(false);
   const isOpen = externalOpen ?? internalOpen;
 
@@ -39,7 +42,7 @@ const ChatWidget = ({ externalOpen, onOpenChange }: ChatWidgetProps) => {
 
   const sessionIdRef = useRef(createSessionId());
   const [messages, setMessages] = useState<Message[]>([
-    { role: "assistant", content: t("greeting") },
+    { role: "assistant", content: t("greeting", { name: displayName }) },
   ]);
   const [inputValue, setInputValue] = useState("");
   const [isLoading, setIsLoading] = useState(false);
@@ -47,8 +50,8 @@ const ChatWidget = ({ externalOpen, onOpenChange }: ChatWidgetProps) => {
   const wasOpenRef = useRef(false);
 
   const greetingMessage = useCallback((): Message => {
-    return { role: "assistant", content: t("greeting") };
-  }, [t]);
+    return { role: "assistant", content: t("greeting", { name: displayName }) };
+  }, [t, displayName]);
 
   const startFreshChat = useCallback(() => {
     const newId = createSessionId();
@@ -85,6 +88,14 @@ const ChatWidget = ({ externalOpen, onOpenChange }: ChatWidgetProps) => {
     }
     wasOpenRef.current = isOpen;
   }, [isOpen, startFreshChat]);
+
+  useEffect(() => {
+    setMessages((prev) => {
+      if (prev.length === 0) return [greetingMessage()];
+      if (prev.length === 1 && prev[0].role === "assistant") return [greetingMessage()];
+      return prev;
+    });
+  }, [greetingMessage]);
 
   useEffect(() => {
     scrollToLatest();

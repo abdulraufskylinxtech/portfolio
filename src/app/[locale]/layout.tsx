@@ -1,5 +1,5 @@
 import { hasLocale, NextIntlClientProvider } from "next-intl";
-import { getMessages, getTranslations, setRequestLocale } from "next-intl/server";
+import { getMessages, setRequestLocale } from "next-intl/server";
 import type { Metadata } from "next";
 import { unstable_noStore as noStore } from "next/cache";
 import { notFound } from "next/navigation";
@@ -11,6 +11,7 @@ import { Footer } from "@/components/layout/footer";
 import { Navbar } from "@/components/layout/navbar";
 import { routing } from "@/i18n/routing";
 import { loadContentData } from "@/lib/content-store";
+import { resolveSiteForLocale } from "@/lib/data";
 import { getSiteUrl } from "@/lib/site";
 
 type LocaleLayoutProps = {
@@ -28,12 +29,15 @@ export async function generateMetadata({
   params: Promise<{ locale: string }>;
 }): Promise<Metadata> {
   const { locale } = await params;
-  const t = await getTranslations({ locale, namespace: "metadata" });
+  const { site: rawSite } = await loadContentData();
+  const site = resolveSiteForLocale(rawSite, locale);
   const base = getSiteUrl();
+  const title = `${site.name} — ${site.role}`;
+  const description = site.bio;
 
   return {
-    title: t("title"),
-    description: t("description"),
+    title,
+    description,
     alternates: {
       canonical: `${base}/${locale}`,
       languages: {
@@ -43,11 +47,11 @@ export async function generateMetadata({
       },
     },
     openGraph: {
-      title: t("title"),
-      description: t("description"),
+      title,
+      description,
       type: "website",
       url: `${base}/${locale}`,
-      siteName: t("siteName"),
+      siteName: `${site.name} Portfolio`,
       locale: locale === "ar" ? "ar_SA" : locale === "de" ? "de_DE" : "en_US",
     },
   };

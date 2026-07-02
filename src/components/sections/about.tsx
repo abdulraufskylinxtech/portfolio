@@ -6,7 +6,7 @@ import { useLocale, useTranslations } from "next-intl";
 import { useMemo, useRef } from "react";
 
 import { AboutPhotoStack } from "@/components/sections/about-photo-stack";
-import { useSiteInfo } from "@/components/providers/content-provider";
+import { useLocalizedSite } from "@/components/providers/content-provider";
 import type { EducationEntry } from "@/lib/data";
 import { groupEducation } from "@/lib/education-groups";
 import { cn } from "@/lib/utils";
@@ -127,7 +127,7 @@ function QualificationsGrid({
 export function AboutSection() {
   const t = useTranslations("about");
   const locale = useLocale();
-  const site = useSiteInfo();
+  const site = useLocalizedSite();
   const isRtl = locale === "ar";
   const reduceMotion = useReducedMotion();
   const ref = useRef<HTMLElement>(null);

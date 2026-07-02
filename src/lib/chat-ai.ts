@@ -22,6 +22,9 @@ type LlmConfig = {
 };
 
 function developerName(site: SiteInfo): string {
+  const fromName = site.name?.trim();
+  if (fromName) return fromName;
+
   const fromGithub = site.github.match(/github\.com\/([^/?#]+)/i)?.[1];
   if (fromGithub) {
     return fromGithub
