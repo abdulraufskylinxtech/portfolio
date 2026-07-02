@@ -1,6 +1,6 @@
 {
-  "name": "AI TEAM",
-  "nameAr": "شكيل لطيف",
+  "name": "naeem raza",
+  "nameAr": "",
   "defaultLocale": "en",
   "enabledLocales": [
     {
@@ -8,12 +8,6 @@
       "label": "English",
       "nativeName": "English",
       "flag": "🇬🇧"
-    },
-    {
-      "code": "zh",
-      "label": "Chinese",
-      "nativeName": "中文",
-      "flag": "🇨🇳"
     },
     {
       "code": "ar",
@@ -287,72 +281,8 @@
     "filename": "quote (1).pdf",
     "uploadedAt": "2026-07-01T13:39:24.589Z"
   },
-  "translations": {
-    "zh": {
-      "name": "AI TEAM",
-      "role": "全栈开发者 & AI 爱好者",
-      "bio": "热衷于 AI/ML 和 DevOps 的全栈开发者，使用 React、Node.js 和云技术构建现代 Web 应用。",
-      "heroRoles": [
-        "全栈开发者",
-        "AI 爱好者",
-        "DevOps 学习者"
-      ],
-      "availability": "开放新的机会 — 远程 & 现场",
-      "location": "曼苏拉住宅，拉合尔，巴基斯坦",
-      "stats": [
-        {
-          "value": "10+",
-          "label": "工作年限"
-        },
-        {
-          "value": "20+",
-          "label": "已交付项目"
-        },
-        {
-          "value": "10+",
-          "label": "技术栈"
-        }
-      ],
-      "hobbies": [
-        "阅读技术博客",
-        "探索 AI 工具",
-        "板球",
-        "旅行"
-      ]
-    },
-    "ar": {
-      "name": "AI TEAM",
-      "role": "مطور كامل الطاقات ومحب لذكاء الاصطناعي",
-      "bio": "مطور كامل الطاقات شغوف بذكاء الاصطناعي والتعلم الآلي والعمليات التطويرية. بناء تطبيقات الويب الحديثة باستخدام React و Node.js وتكنولوجيا السحابة.",
-      "heroRoles": [
-        "مطور كامل الطاقات",
-        "محب لذكاء الاصطناعي",
-        "متعلم العمليات التطويرية"
-      ],
-      "availability": "مفتوح للفرص الجديدة — عن بعد وفي الموقع",
-      "location": "منازل منصوره، لاهور، باكستان",
-      "stats": [
-        {
-          "value": "10+",
-          "label": "سنوات الخبرة"
-        },
-        {
-          "value": "20+",
-          "label": "مشاريع تم تسليمها"
-        },
-        {
-          "value": "10+",
-          "label": "تكنولوجيات"
-        }
-      ],
-      "hobbies": [
-        "قراءة مدونات التكنولوجيا",
-        "استكشاف أدوات ذكاء الاصطناعي",
-        "كريكيت",
-        "السفر"
-      ]
-    }
-  },
-  "translationsUpdatedAt": "2026-07-02T12:07:09.648Z",
-  "profileImage": "/profile/photo-mr3hi7gb-0d31d0f7.jpg"
+  "translations": {},
+  "translationsUpdatedAt": "2026-07-02T14:15:50.686Z",
+  "profileImage": "/profile/photo-mr3hi7gb-0d31d0f7.jpg",
+  "useArabicDisplayName": false
 }
