@@ -1,10 +1,8 @@
 "use client";
 
 import { AboutPhotosEditor } from "@/components/admin/editors/about-photos-editor";
-import { ProfileImageEditor } from "@/components/admin/editors/profile-image-editor";
 import { SiteLanguagesPanel } from "@/components/admin/editors/site-languages-panel";
 import type { EducationEntry, ExperienceEntry, SiteInfo, SiteStat } from "@/lib/data";
-import { getProfileImage } from "@/lib/data";
 
 import {
   AdminBadge,
@@ -206,14 +204,6 @@ export function SiteEditor({ data, onChange, onTranslationsSaved, readOnly }: Pr
           onChange(site);
           await onTranslationsSaved?.();
         }}
-        readOnly={disabled}
-      />
-
-      <ProfileImageEditor
-        image={data.profileImage ?? getProfileImage(data)}
-        depthMap={data.profileDepthMap ?? ""}
-        onImageChange={(profileImage) => onChange({ ...data, profileImage })}
-        onDepthMapChange={(profileDepthMap) => onChange({ ...data, profileDepthMap })}
         readOnly={disabled}
       />
 

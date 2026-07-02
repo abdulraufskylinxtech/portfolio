@@ -1,22 +1,18 @@
 "use client";
 
 import { Download, FolderGit2, MessageSquare, Sparkles } from "lucide-react";
-import { AnimatePresence, motion } from "framer-motion";
+import { motion } from "framer-motion";
 import { useLocale, useTranslations } from "next-intl";
 import { useMemo, useRef } from "react";
 
 import { HeroAtmosphere } from "@/components/HeroAtmosphere";
-import { Hero3DAvatar } from "@/components/Hero3DAvatar";
 import { Button } from "@/components/ui/button";
 import { useSiteInfo, useLocalizedSite } from "@/components/providers/content-provider";
-import { getHeroRoles, getProfileImage } from "@/lib/data";
+import { getHeroRoles } from "@/lib/data";
 import { Link } from "@/i18n/navigation";
-import { useScrollPosition } from "@/hooks/useScrollPosition";
 import { useSunShadow } from "@/hooks/useSunShadow";
 import { useTypewriter } from "@/hooks/useTypewriter";
 import { cn } from "@/lib/utils";
-
-const HERO_SCROLL_THRESHOLD = 400;
 
 interface HeroProps {
   onChatOpen?: () => void;
@@ -28,20 +24,15 @@ export function Hero({ onChatOpen }: HeroProps) {
   const site = useLocalizedSite();
   const rawSite = useSiteInfo();
   const cv = rawSite.cv;
-  const portraitSrc = getProfileImage(rawSite);
   const displayName = site.name;
   const roles = useMemo(() => getHeroRoles(site), [site]);
   const typed = useTypewriter(roles);
-  const scrolledPastHero = useScrollPosition(HERO_SCROLL_THRESHOLD);
-  const showHeroAvatar = !scrolledPastHero;
 
   const heroRef = useRef<HTMLElement>(null);
   const nameRef = useRef<HTMLHeadingElement>(null);
-  const avatarRef = useRef<HTMLDivElement>(null);
   const taglineRef = useRef<HTMLParagraphElement>(null);
 
-  const { dropShadow: nameShadow } = useSunShadow(heroRef, nameRef, showHeroAvatar);
-  const { boxShadow: avatarShadow } = useSunShadow(heroRef, avatarRef, showHeroAvatar);
+  const { dropShadow: nameShadow } = useSunShadow(heroRef, nameRef, true);
   const { dropShadow: taglineShadow } = useSunShadow(heroRef, taglineRef);
 
   const nameClassName = cn(
@@ -60,58 +51,26 @@ export function Hero({ onChatOpen }: HeroProps) {
       <HeroAtmosphere className="z-[1]" />
       <div className="container relative z-10 mx-auto px-4">
         <div className="mx-auto max-w-4xl animate-fade-in-up">
-          <AnimatePresence mode="wait">
-            {showHeroAvatar ? (
-              <motion.div
-                key="hero-header"
-                initial={{ opacity: 0, y: 20 }}
-                animate={{ opacity: 1, y: 0 }}
-                exit={{ opacity: 0, y: -12 }}
-                transition={{ duration: 0.3 }}
-                className="mb-8 flex flex-col items-center gap-6 md:flex-row md:justify-start"
-              >
-                <Hero3DAvatar
-                  ref={avatarRef}
-                  src={portraitSrc}
-                  depthSrc={rawSite.profileDepthMap}
-                  alt={displayName}
-                  boxShadow={avatarShadow ?? "0 0 15px hsl(var(--primary) / 0.45)"}
-                />
-                <div className="min-w-0 max-w-full flex-1 text-center md:text-start">
-                  <h1
-                    ref={nameRef}
-                    className={nameClassName}
-                    style={nameShadow ? { filter: nameShadow } : undefined}
-                  >
-                    {displayName}
-                  </h1>
-                  <p className="mt-3 min-h-[1.75rem] max-w-full break-words text-base text-primary sm:text-lg md:text-xl">
-                    <span className="inline-block max-w-full">{typed}</span>
-                    <span className="animate-pulse">|</span>
-                  </p>
-                </div>
-              </motion.div>
-            ) : (
-              <motion.div
-                key="hero-title-only"
-                initial={{ opacity: 0, y: -12 }}
-                animate={{ opacity: 1, y: 0 }}
-                exit={{ opacity: 0 }}
-                transition={{ duration: 0.3 }}
-                className="mb-8 text-center md:text-start"
-              >
-                <h1
-                  ref={nameRef}
-                  className={nameClassName}
-                  style={nameShadow ? { filter: nameShadow } : undefined}
-                >
-                  {displayName}
-                </h1>
-              </motion.div>
-            )}
-          </AnimatePresence>
+          <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.3 }}
+            className="mb-8 text-center md:text-start"
+          >
+            <h1
+              ref={nameRef}
+              className={nameClassName}
+              style={nameShadow ? { filter: nameShadow } : undefined}
+            >
+              {displayName}
+            </h1>
+            <p className="mt-3 min-h-[1.75rem] max-w-full break-words text-base text-primary sm:text-lg md:text-xl">
+              <span className="inline-block max-w-full">{typed}</span>
+              <span className="animate-pulse">|</span>
+            </p>
+          </motion.div>
 
-          <div className="text-center">
+          <div className="text-center md:text-start">
             <p
               ref={taglineRef}
               className="mb-4 break-words text-base text-foreground/90 transition-[filter] duration-1000 sm:text-lg md:text-2xl"
@@ -119,11 +78,11 @@ export function Hero({ onChatOpen }: HeroProps) {
             >
               {site.role}
             </p>
-            <p className="mx-auto mb-8 max-w-2xl px-1 text-sm text-muted-foreground sm:mb-12 sm:text-base">
+            <p className="mx-auto mb-8 max-w-2xl px-1 text-sm text-muted-foreground sm:mb-12 sm:text-base md:mx-0">
               {site.bio}
             </p>
 
-            <div className="flex flex-col justify-center gap-3 sm:flex-row sm:flex-wrap sm:gap-4">
+            <div className="flex flex-col justify-center gap-3 sm:flex-row sm:flex-wrap sm:gap-4 md:justify-start">
               {onChatOpen && (
                 <Button
                   onClick={onChatOpen}

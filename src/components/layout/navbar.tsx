@@ -2,13 +2,11 @@
 
 import { Menu, X } from "lucide-react";
 import { AnimatePresence, motion } from "framer-motion";
-import Image from "next/image";
 import { useLocale, useTranslations } from "next-intl";
 import { useEffect, useState } from "react";
 
 import { Button } from "@/components/ui/button";
 import { useLocalizedSite, useSiteInfo } from "@/components/providers/content-provider";
-import { getProfileImage } from "@/lib/data";
 import { Link, usePathname } from "@/i18n/navigation";
 import { useActiveSection } from "@/hooks/useActiveSection";
 import { useScrollPosition } from "@/hooks/useScrollPosition";
@@ -18,7 +16,6 @@ import { LanguageSwitcher } from "./language-switcher";
 import ThemeToggle from "../ThemeToggle";
 
 const NAV_SECTION_IDS = ["hero", "projects", "skills", "experience", "about", "contact"] as const;
-const HERO_SCROLL_THRESHOLD = 400;
 const MOBILE_NAV_HEIGHT = "3.5rem";
 
 type SectionLink = {
@@ -48,26 +45,13 @@ export function Navbar() {
   const locale = useLocale();
   const pathname = usePathname();
   const scrolled = useScrollPosition(32);
-  const scrolledPastHero = useScrollPosition(HERO_SCROLL_THRESHOLD);
   const isHome = pathname === "/";
   const activeSection = useActiveSection(isHome ? NAV_SECTION_IDS : []);
   const [mobileOpen, setMobileOpen] = useState(false);
   const site = useLocalizedSite();
   const rawSite = useSiteInfo();
   const cv = rawSite.cv;
-  const profileImage = getProfileImage(rawSite);
   const displayName = site.name;
-
-  const [isLargeScreen, setIsLargeScreen] = useState(false);
-  useEffect(() => {
-    const mq = window.matchMedia("(min-width: 1024px)");
-    const update = () => setIsLargeScreen(mq.matches);
-    update();
-    mq.addEventListener("change", update);
-    return () => mq.removeEventListener("change", update);
-  }, []);
-
-  const showAvatar = isLargeScreen && (!isHome || scrolledPastHero);
 
   useEffect(() => {
     if (!mobileOpen) return;
@@ -191,25 +175,6 @@ export function Navbar() {
             className="group flex min-w-0 shrink items-center gap-2 sm:gap-3"
             onClick={closeMobile}
           >
-            <AnimatePresence>
-              {showAvatar && (
-                <motion.div
-                  initial={{ opacity: 0, scale: 0.8, width: 0 }}
-                  animate={{ opacity: 1, scale: 1, width: 40 }}
-                  exit={{ opacity: 0, scale: 0.8, width: 0 }}
-                  transition={{ duration: 0.25 }}
-                  className="relative hidden h-10 w-10 overflow-hidden rounded-full border-2 border-primary/50 shadow-[0_0_15px_hsl(var(--primary)/0.35)] lg:block"
-                >
-                  <Image
-                    src={profileImage}
-                    alt={displayName}
-                    fill
-                    className="object-cover"
-                    sizes="40px"
-                  />
-                </motion.div>
-              )}
-            </AnimatePresence>
             <span
               className={cn(
                 "truncate text-base font-bold bg-gradient-to-r from-primary to-primary-glow bg-clip-text text-transparent sm:text-lg lg:text-xl",
