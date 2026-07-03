@@ -7,8 +7,20 @@ type SendContactEmailInput = {
   toEmail: string;
 };
 
+function normalizeEnv(value: string | undefined): string {
+  return (value ?? "").trim().replace(/^["']|["']$/g, "");
+}
+
+export function getGmailCredentials(): { user: string; pass: string } | null {
+  const user = normalizeEnv(process.env.GMAIL_USER);
+  const pass = normalizeEnv(process.env.GMAIL_APP_PASSWORD).replace(/\s/g, "");
+
+  if (!user || !pass) return null;
+  return { user, pass };
+}
+
 export function isMailConfigured(): boolean {
-  return Boolean(process.env.GMAIL_USER && process.env.GMAIL_APP_PASSWORD);
+  return getGmailCredentials() !== null;
 }
 
 function buildContactEmailHtml(input: SendContactEmailInput): string {
@@ -60,34 +72,64 @@ function escapeHtml(value: string): string {
     .replace(/'/g, "&#39;");
 }
 
-/** Sends contact email via Gmail SMTP — credentials stay server-side only. */
-export async function sendContactEmail(input: SendContactEmailInput): Promise<void> {
-  const user = process.env.GMAIL_USER;
-  const pass = process.env.GMAIL_APP_PASSWORD;
+function toFriendlyMailError(error: unknown): string {
+  const message = error instanceof Error ? error.message : "Email delivery failed";
+  const code =
+    error && typeof error === "object" && "code" in error
+      ? String((error as { code?: string }).code)
+      : "";
 
-  if (!user || !pass) {
+  if (code === "EAUTH" || /invalid login|authentication failed|username and password/i.test(message)) {
+    return "Gmail rejected the login. Use a Google App Password (not your normal Gmail password) in GMAIL_APP_PASSWORD.";
+  }
+
+  if (/self-signed|certificate/i.test(message)) {
+    return "Gmail TLS connection failed. Check server network/firewall settings.";
+  }
+
+  return message;
+}
+
+function createGmailTransporter() {
+  const credentials = getGmailCredentials();
+  if (!credentials) {
     throw new Error("Gmail mailer is not configured");
   }
 
-  const transporter = nodemailer.createTransport({
-    service: "gmail",
-    auth: { user, pass },
+  return nodemailer.createTransport({
+    host: "smtp.gmail.com",
+    port: 465,
+    secure: true,
+    auth: credentials,
   });
+}
 
+/** Sends contact email via Gmail SMTP — credentials stay server-side only. */
+export async function sendContactEmail(input: SendContactEmailInput): Promise<void> {
+  const credentials = getGmailCredentials();
+  if (!credentials) {
+    throw new Error("Gmail mailer is not configured");
+  }
+
+  const transporter = createGmailTransporter();
   const subject = `Portfolio contact from ${input.name}`;
 
-  await transporter.sendMail({
-    from: `"Portfolio Contact" <${user}>`,
-    to: input.toEmail,
-    replyTo: `"${input.name}" <${input.email}>`,
-    subject,
-    text: [
-      `Name: ${input.name}`,
-      `Email: ${input.email}`,
-      "",
-      "Message:",
-      input.message,
-    ].join("\n"),
-    html: buildContactEmailHtml(input),
-  });
+  try {
+    await transporter.sendMail({
+      from: `"Portfolio Contact" <${credentials.user}>`,
+      to: input.toEmail,
+      replyTo: `"${input.name}" <${input.email}>`,
+      subject,
+      text: [
+        `Name: ${input.name}`,
+        `Email: ${input.email}`,
+        "",
+        "Message:",
+        input.message,
+      ].join("\n"),
+      html: buildContactEmailHtml(input),
+    });
+  } catch (error) {
+    throw new Error(toFriendlyMailError(error));
+  }
 }

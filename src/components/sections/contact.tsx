@@ -65,6 +65,7 @@ export function ContactSection() {
         error?: string;
         email_sent?: boolean;
         email_warning?: string;
+        email_configured?: boolean;
         saved?: boolean;
       };
 
@@ -79,9 +80,9 @@ export function ContactSection() {
       } else if (data.saved) {
         toast({
           title: t("toast.savedTitle"),
-          description: data.email_warning
-            ? t("toast.savedNoEmail")
-            : t("toast.savedPendingEmail"),
+          description: data.email_warning ?? (data.email_configured === false
+            ? t("toast.savedPendingEmail")
+            : t("toast.savedNoEmail")),
         });
       }
     } catch (error) {
