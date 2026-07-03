@@ -271,13 +271,13 @@
     "Cricket",
     "Traveling"
   ],
-  "translations": {},
-  "translationsUpdatedAt": "2026-07-02T14:15:50.686Z",
-  "useArabicDisplayName": false,
-  "profileImage": "/profile/photo-mr50zqq4-4cd1e350.jpg",
   "cv": {
     "url": "/cv/resume.pdf",
     "filename": "Abdul Rauf (1).pdf",
     "uploadedAt": "2026-07-03T14:27:58.378Z"
-  }
+  },
+  "translations": {},
+  "translationsUpdatedAt": "2026-07-02T14:15:50.686Z",
+  "useArabicDisplayName": false,
+  "profileImage": "/profile/photo-mr50zqq4-4cd1e350.jpg"
 }
