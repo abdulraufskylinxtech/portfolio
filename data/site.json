@@ -1,6 +1,6 @@
 {
-  "name": "naeem raza",
-  "nameAr": "naeem raza",
+  "name": "Abdul Rauf",
+  "nameAr": "",
   "defaultLocale": "en",
   "enabledLocales": [
     {
@@ -8,37 +8,32 @@
       "label": "English",
       "nativeName": "English",
       "flag": "🇬🇧"
-    },
-    {
-      "code": "ar",
-      "label": "Arabic",
-      "nativeName": "العربية",
-      "flag": "🇸🇦"
     }
   ],
-  "email": "naeem.skylinxtech@gmail.com",
-  "phone": "+923314409754",
-  "whatsapp": "+923314409754",
-  "linkedin": "https://www.linkedin.com/in/shakeel-latif",
-  "github": "https://github.com/shakeel-latif",
-  "instagram": "https://instagram.com/shakeel.latif",
-  "location": "Mansoora Homes, Lahore, Pakistan",
+  "email": "rauf22750@gmail.com",
+  "phone": "+923019836585",
+  "whatsapp": "+923019836585",
+  "linkedin": "https://www.linkedin.com/in/rauf22750/",
+  "github": "https://github.com/rauf22750/",
+  "instagram": "https://www.instagram.com/abdul_rauf.ai/",
+  "location": "AL Sadiq Block Raiwand road, Lahore, Pakistan",
   "map": {
     "latitude": 31.484731,
     "longitude": 74.262981,
     "zoom": 14,
-    "label": "Mansoora Homes, Lahore, Pakistan"
+    "label": "AL Sadiq Block Raiwand road, Lahore, Pakistan"
   },
-  "bio": "Full-Stack Developer passionate about AI/ML and DevOps. Building modern web applications with React, Node.js, and cloud technologies.",
-  "role": "Full-Stack Developer & AI Enthusiast",
+  "bio": "Python developer specializing in backend engineering and AI applications. Experienced in FastAPI, Django, REST APIs, LangChain, and LLM integration.",
+  "role": "Building Intelligent Backend Systems & AI-Powered Applications",
   "heroRoles": [
-    "Full-Stack Developer",
-    "AI Enthusiast",
-    "DevOps Learner"
+    "AI Developer",
+    "Python Backend Developer",
+    "FastAPI Developer",
+    "Django Developer"
   ],
   "availability": "Open to new opportunities — remote & on-site",
   "aboutImages": [
-    "/about/photo-mr3hc3cq-f524dc1d.jpg"
+    "/about/photo-mr50kgvf-382e455b.jpg"
   ],
   "stats": [
     {
@@ -283,6 +278,5 @@
   },
   "translations": {},
   "translationsUpdatedAt": "2026-07-02T14:15:50.686Z",
-  "profileImage": "/profile/photo-mr3hi7gb-0d31d0f7.jpg",
-  "useArabicDisplayName": true
+  "useArabicDisplayName": false
 }
