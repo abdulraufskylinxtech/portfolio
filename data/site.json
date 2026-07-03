@@ -92,9 +92,15 @@
   "experience": [],
   "education": [
     {
-      "degree": "Matric ( Computer Science )",
+      "degree": "Matriculation (Computer Science)",
       "year": "2019",
-      "institution": "Govt High School Shahpur Kanjra Lahore",
+      "institution": "Government High School, Shahpur Kanjran, Lahore, Pakistan",
+      "type": "degree"
+    },
+    {
+      "degree": "Intermediate in Computer Science (ICS)",
+      "year": "2025",
+      "institution": "KIPS College – Thokar Campus, Lahore, Pakistan",
       "type": "degree"
     }
   ],
