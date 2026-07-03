@@ -3,12 +3,12 @@
     {
       "id": "75dca101-dfcb-4b15-9149-be72d5a9c328",
       "started_at": "2026-07-03T18:10:46.688Z",
-      "updated_at": "2026-07-03T18:11:16.476Z",
+      "updated_at": "2026-07-03T18:11:38.643Z",
       "locale": "en",
       "user_agent": "Mozilla/5.0 (iPhone; CPU iPhone OS 18_7 like Mac OS X) AppleWebKit/605.1.15 (KHTML, like Gecko) Mobile/15E148 [LinkedInApp]/9.32.1834",
       "page_url": "https://abdulrauf22750.vercel.app/en",
       "referrer": "https://www.linkedin.com/",
-      "message_count": 2,
+      "message_count": 3,
       "preview": "Hy",
       "messages": [
         {
@@ -30,6 +30,16 @@
           "role": "assistant",
           "content": "Abdul Rauf has experience with AI technologies, including LangChain, OpenAI API, and Hugging Face. He has worked on projects such as Document Classification and Interview AI Assistance, which involve natural language processing and machine learning. \n\nWhat specific aspect of AI are you looking for help with? Are you interested in learning more about his projects, or do you have a particular question about AI technologies?",
           "created_at": "2026-07-03T18:11:16.476Z"
+        },
+        {
+          "role": "user",
+          "content": "Tell me about Rauf experience",
+          "created_at": "2026-07-03T18:11:38.643Z"
+        },
+        {
+          "role": "assistant",
+          "content": "Abdul Rauf has over 10 years of experience in developing software applications, with a focus on building intelligent backend systems and AI-powered applications. He has worked on more than 20 projects, utilizing over 10 different technologies.\n\nHis experience spans across various industries, including healthcare, e-commerce, social networking, and more. Some notable projects he has worked on include oladoc, a healthcare platform, SeeBiz, a B2B wholesale marketplace, and Lango, a language access platform.\n\nRauf has also worked on AI-specific projects, such as Document Classification, which involves classifying uploaded documents into categories using machine learning and natural language processing. He has also developed an Interview AI Assistance tool, which allows visitors to explore a developer's portfolio through natural conversation.\n\nIn terms of specific technologies, Rauf has experience with Python, Django, FastAPI, and other backend frameworks, as well as AI libraries such as OpenAI and Hugging Face. He has also worked with various databases, including PostgreSQL, MySQL, and Redis.\n\nWould you like to know more about a specific project or technology he has experience with?",
+          "created_at": "2026-07-03T18:11:38.643Z"
         }
       ],
       "read": false
