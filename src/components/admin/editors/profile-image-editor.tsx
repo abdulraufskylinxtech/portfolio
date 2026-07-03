@@ -3,13 +3,26 @@
 import { useRef, useState } from "react";
 
 import { AdminBadge, AdminButton, AdminSection } from "../ui";
-import { cutOutProfileImage } from "@/lib/profile-image-cutout";
 
 type Props = {
   profileImage?: string | null;
   readOnly?: boolean;
   onChange: (profileImage: string | null) => void;
 };
+
+async function parseApiResponse<T>(res: Response): Promise<T> {
+  const text = await res.text();
+  try {
+    return JSON.parse(text) as T;
+  } catch {
+    const hint = text.trim().slice(0, 80);
+    throw new Error(
+      hint
+        ? `Server error (${res.status}): ${hint}`
+        : `Upload failed (${res.status}). Image may be too large — use a file under 5 MB.`,
+    );
+  }
+}
 
 export function ProfileImageEditor({ profileImage, readOnly, onChange }: Props) {
   const inputRef = useRef<HTMLInputElement>(null);
@@ -23,36 +36,24 @@ export function ProfileImageEditor({ profileImage, readOnly, onChange }: Props) 
 
   const upload = async (file: File) => {
     setBusy(true);
-    setMessage("");
+    setMessage("Uploading…");
     setError("");
     setPreviewFailed(false);
 
     try {
-      setMessage("Removing background with AI…");
-      let prepared = file;
-      try {
-        prepared = await cutOutProfileImage(file);
-      } catch {
-        prepared = file;
-        setMessage("AI cutout skipped — uploading original image…");
-      }
-
       const body = new FormData();
-      body.append("file", prepared);
+      body.append("file", file);
 
       const res = await fetch("/api/admin/profile-image", { method: "POST", body });
-      const data = (await res.json()) as { error?: string; profileImage?: string | null };
+      const data = await parseApiResponse<{ error?: string; profileImage?: string | null }>(res);
 
       if (!res.ok) throw new Error(data.error ?? "Upload failed");
 
       onChange(data.profileImage ?? null);
-      setMessage(
-        prepared !== file
-          ? "AI cutout saved — drag the hero portrait to rotate it."
-          : "Profile image uploaded and saved.",
-      );
+      setMessage("Profile image uploaded and saved.");
     } catch (err) {
       setError(err instanceof Error ? err.message : "Upload failed");
+      setMessage("");
     } finally {
       setBusy(false);
       if (inputRef.current) inputRef.current.value = "";
@@ -68,7 +69,7 @@ export function ProfileImageEditor({ profileImage, readOnly, onChange }: Props) 
 
     try {
       const res = await fetch("/api/admin/profile-image", { method: "DELETE" });
-      const data = (await res.json()) as { error?: string; profileImage?: string | null };
+      const data = await parseApiResponse<{ error?: string; profileImage?: string | null }>(res);
 
       if (!res.ok) throw new Error(data.error ?? "Remove failed");
 
@@ -85,7 +86,7 @@ export function ProfileImageEditor({ profileImage, readOnly, onChange }: Props) 
   return (
     <AdminSection
       title="Profile image"
-      description="Hero portrait with AI background removal. Re-upload to refresh the 3D cutout."
+      description="Hero portrait on the home page and navbar. Re-upload to replace."
     >
       {image ? (
         <div className="admin-subcard">
@@ -147,9 +148,7 @@ export function ProfileImageEditor({ profileImage, readOnly, onChange }: Props) 
               if (file) void upload(file);
             }}
           />
-          <span className="admin-hint">
-            JPG, PNG, WebP, or GIF · max 5 MB · AI removes the background automatically
-          </span>
+          <span className="admin-hint">JPG, PNG, WebP, or GIF · max 5 MB</span>
         </label>
       </div>
 

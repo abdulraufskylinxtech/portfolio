@@ -7,61 +7,7 @@
       "message": "ascadscascascdacdsc",
       "created_at": "2026-07-03T08:59:12.268Z",
       "email_sent": true,
-      "read": false
-    },
-    {
-      "id": "2d7d8e96-b6e5-44ba-b245-756abeefa300",
-      "name": "sxsvss",
-      "email": "abdulrauf.skylinxtech@gmail.com",
-      "message": "zxcsxcssdcscscs",
-      "created_at": "2026-07-03T08:27:25.553Z",
-      "email_sent": false,
-      "read": false
-    },
-    {
-      "id": "eaa430e8-8667-4893-9a07-ee6636cb7fed",
-      "name": "sdvssdvsv",
-      "email": "abdulrauf.skylinxtech@gmail.com",
-      "message": "svavavavavavvvav",
-      "created_at": "2026-07-03T08:27:09.954Z",
-      "email_sent": false,
-      "read": false
-    },
-    {
-      "id": "62d4b212-da79-4663-a78f-afa7389a9bef",
-      "name": "abdul rauf",
-      "email": "abdulrauf.skylinxtech@gmail.com",
-      "message": "bhjasbvhjajvhv",
-      "created_at": "2026-07-03T08:26:39.096Z",
-      "email_sent": false,
-      "read": false
-    },
-    {
-      "id": "52afe2b7-d665-4e06-89ad-948a20981708",
-      "name": "abdul rauf",
-      "email": "test123@gmail.com",
-      "message": " hsjv bnasjvbsjav",
-      "created_at": "2026-07-03T08:26:18.880Z",
-      "email_sent": false,
-      "read": false
-    },
-    {
-      "id": "73a82e00-1e9f-40a4-aaa6-1054fe1f7e5f",
-      "name": "naeem",
-      "email": "rauf22750@gmail.com",
-      "message": "sdcsdvsvsvsv",
-      "created_at": "2026-07-01T13:15:37.095Z",
-      "email_sent": false,
-      "read": false
-    },
-    {
-      "id": "319ae3ce-7e9a-4ef8-b64b-3d45def2bd1c",
-      "name": "naeem",
-      "email": "naeem.skylinxtech@gmail.com",
-      "message": "hellonsajkvbsahv",
-      "created_at": "2026-07-01T13:14:31.280Z",
-      "email_sent": false,
-      "read": false
+      "read": true
     }
   ]
 }
