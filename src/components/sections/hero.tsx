@@ -1,8 +1,8 @@
 "use client";
 
 import { Download, FolderGit2, MessageSquare, Sparkles } from "lucide-react";
-import dynamic from "next/dynamic";
 import { motion } from "framer-motion";
+import { HeroPortrait3D } from "@/components/HeroPortrait3D";
 import { useLocale, useTranslations } from "next-intl";
 import { useMemo, useRef } from "react";
 
@@ -14,16 +14,6 @@ import { Link } from "@/i18n/navigation";
 import { useSunShadow } from "@/hooks/useSunShadow";
 import { useTypewriter } from "@/hooks/useTypewriter";
 import { cn } from "@/lib/utils";
-
-const HeroPortrait3D = dynamic(
-  () => import("@/components/HeroPortrait3D").then((mod) => mod.HeroPortrait3D),
-  {
-    ssr: false,
-    loading: () => (
-      <div className="h-[220px] w-[220px] animate-pulse rounded-full bg-primary/10 sm:h-[240px] sm:w-[240px] md:h-[260px] md:w-[260px] lg:h-[300px] lg:w-[300px] xl:h-[340px] xl:w-[340px]" />
-    ),
-  },
-);
 
 interface HeroProps {
   onChatOpen?: () => void;
@@ -77,11 +67,7 @@ export function Hero({ onChatOpen }: HeroProps) {
               transition={{ duration: 0.45, delay: 0.05 }}
               className="order-2 shrink-0 lg:order-none"
             >
-              <HeroPortrait3D
-                src={profileImage}
-                alt={displayName}
-                hint={t("portraitHint")}
-              />
+              <HeroPortrait3D src={profileImage} alt={displayName} />
             </motion.div>
           ) : null}
 

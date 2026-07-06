@@ -35,8 +35,7 @@
     "chatWithAI": "Chat with AI Twin",
     "viewProjects": "View Projects",
     "readBlog": "Read Blog",
-    "downloadCv": "Download CV",
-    "portraitHint": "Drag to rotate in 3D — stays where you leave it"
+    "downloadCv": "Download CV"
   },
   "projects": {
     "sectionLabel": "Portfolio",

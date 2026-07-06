@@ -35,8 +35,7 @@
     "chatWithAI": "تحدث مع التوأم الذكاء الاصطناعي",
     "viewProjects": "عرض المشاريع",
     "readBlog": "قراءة المدونة",
-    "downloadCv": "تنزيل السيرة الذاتية",
-    "portraitHint": "اسحب لتحويله في 3D — يبقى حيث تتركه"
+    "downloadCv": "تنزيل السيرة الذاتية"
   },
   "projects": {
     "sectionLabel": "منصة العرض",
