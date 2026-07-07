@@ -1,7 +1,7 @@
 "use client";
 
 import dynamic from "next/dynamic";
-import { useEffect, useState, type ReactNode } from "react";
+import { useEffect, useId, useState, type ReactNode } from "react";
 
 import { cn } from "@/lib/utils";
 
@@ -18,71 +18,72 @@ type Props = {
 };
 
 const frameClass =
-  "relative h-[clamp(200px,26vw,340px)] w-[clamp(200px,26vw,340px)]";
+  "relative h-[clamp(230px,30vw,380px)] w-[clamp(230px,30vw,380px)]";
 
-const ORBIT_A_COUNT = 16;
-const ORBIT_B_COUNT = 10;
+const CODE_RING_OUTER =
+  " import · async · def · class · Python · FastAPI · Django · REST · API · await · return · ";
+const CODE_RING_INNER =
+  " SQL · RAG · LLM · Docker · Git · const · LangChain · Groq · Redis · Celery · JWT · ";
 
-function GalaxyOrbit({
-  count,
-  duration,
+function CodeOrbitRing({
+  text,
+  radius,
   reverse,
+  duration,
   className,
 }: {
-  count: number;
-  duration: string;
+  text: string;
+  radius: number;
   reverse?: boolean;
+  duration: string;
   className?: string;
 }) {
+  const pathId = useId().replace(/:/g, "");
+  const center = 100;
+  const pathD = `M ${center},${center} m -${radius},0 a ${radius},${radius} 0 1,1 ${radius * 2},0 a ${radius},${radius} 0 1,1 -${radius * 2},0`;
+
   return (
-    <div
+    <svg
       className={cn(
-        "hero-portrait-orbit pointer-events-none absolute inset-0",
-        reverse && "hero-portrait-orbit-reverse",
+        "hero-portrait-code-orbit pointer-events-none absolute inset-0",
+        reverse && "hero-portrait-code-orbit-reverse",
         className,
       )}
+      viewBox="0 0 200 200"
       style={{ animationDuration: duration }}
       aria-hidden
     >
-      {Array.from({ length: count }, (_, i) => (
-        <span
-          key={i}
-          className={cn(
-            "hero-portrait-orbit-arm",
-            i % 4 === 0 && "hero-portrait-star-lg",
-            i % 2 === 0 && "hero-portrait-star-bright",
-          )}
-          style={{
-            transform: `rotate(${(360 / count) * i}deg)`,
-          }}
-        />
-      ))}
-    </div>
+      <defs>
+        <path id={pathId} d={pathD} fill="none" />
+      </defs>
+      <text className="hero-portrait-code-text" dominantBaseline="middle">
+        <textPath href={`#${pathId}`} startOffset="0%">
+          {text.repeat(2)}
+        </textPath>
+      </text>
+    </svg>
   );
 }
 
 function PortraitFrame({ children, className }: { children: ReactNode; className?: string }) {
   return (
     <div className={cn(frameClass, "relative isolate shrink-0", className)}>
-      <div className="hero-portrait-galaxy-glow pointer-events-none absolute -inset-5 rounded-full" aria-hidden />
-      <GalaxyOrbit count={ORBIT_A_COUNT} duration="20s" className="z-[1]" />
-      <GalaxyOrbit count={ORBIT_B_COUNT} duration="28s" reverse className="z-[2] opacity-80" />
+      <div
+        className="hero-portrait-galaxy-glow pointer-events-none absolute -inset-5 rounded-full opacity-60"
+        aria-hidden
+      />
 
       <div className="relative h-full w-full rounded-full">
-        <div className="absolute inset-[9px] z-[8] overflow-hidden rounded-full sm:inset-[10px]">
+        <div className="absolute inset-[8px] z-[8] overflow-hidden rounded-full sm:inset-[9px]">
           {children}
         </div>
-        <div
-          className="hero-portrait-ring-aura pointer-events-none absolute -inset-2 z-[9] rounded-full"
-          aria-hidden
-        />
-        <div
-          className="hero-portrait-ring-inner pointer-events-none absolute inset-0 z-10 rounded-full"
-          aria-hidden
-        />
-        <div
-          className="hero-portrait-ring pointer-events-none absolute inset-0 z-[11] rounded-full"
-          aria-hidden
+        <CodeOrbitRing text={CODE_RING_OUTER} radius={92} duration="20s" className="z-10" />
+        <CodeOrbitRing
+          text={CODE_RING_INNER}
+          radius={84}
+          reverse
+          duration="28s"
+          className="z-10 opacity-80"
         />
       </div>
     </div>
