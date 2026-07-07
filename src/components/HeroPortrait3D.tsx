@@ -73,7 +73,7 @@ export function HeroPortrait3D({ src, modelSrc, alt, className }: Props) {
     return (
       <div className={cn("flex flex-col items-center", className)}>
         <PortraitFrame>
-          <div className="relative h-full w-full origin-bottom scale-[1.08]">
+          <div className="relative h-full w-full">
             {!modelReady ? (
               <div className="absolute inset-0 z-20 flex items-center justify-center">
                 <div className="h-9 w-9 animate-spin rounded-full border-2 border-muted-foreground/40 border-t-foreground/70" />
@@ -87,7 +87,6 @@ export function HeroPortrait3D({ src, modelSrc, alt, className }: Props) {
             />
           </div>
         </PortraitFrame>
-        <PortraitCaption>{modelReady ? "Drag to rotate 3D" : "Loading 3D model…"}</PortraitCaption>
       </div>
     );
   }
