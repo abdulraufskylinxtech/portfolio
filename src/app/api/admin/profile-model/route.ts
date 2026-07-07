@@ -1,11 +1,14 @@
 import { NextResponse } from "next/server";
 
 import { isAdminAuthenticated } from "@/lib/admin-auth";
+import { readContentFile } from "@/lib/content-store";
 import {
   removeProfileModel,
   uploadProfileModel,
   validateProfileModelFile,
 } from "@/lib/profile-model-storage";
+import { removeProfileImage } from "@/lib/profile-image-storage";
+import type { SiteInfo } from "@/lib/data";
 
 export async function DELETE() {
   if (!(await isAdminAuthenticated())) {
@@ -49,10 +52,14 @@ export async function POST(request: Request) {
   }
 
   try {
+    const before = (await readContentFile("site")) as SiteInfo;
+    const hadImage = Boolean(before.profileImage?.trim());
     const buffer = Buffer.from(await file.arrayBuffer());
-    const site = await uploadProfileModel(file, buffer);
+    let site = await uploadProfileModel(file, buffer);
+    if (hadImage) site = await removeProfileImage();
     return NextResponse.json({
       ok: true,
+      profileImage: site.profileImage ?? null,
       profileModel: site.profileModel ?? null,
     });
   } catch (err) {

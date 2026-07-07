@@ -1,11 +1,14 @@
 import { NextResponse } from "next/server";
 
 import { isAdminAuthenticated } from "@/lib/admin-auth";
+import { readContentFile } from "@/lib/content-store";
 import {
   removeProfileImage,
   uploadProfileImage,
   validateProfileImageFile,
 } from "@/lib/profile-image-storage";
+import { removeProfileModel } from "@/lib/profile-model-storage";
+import type { SiteInfo } from "@/lib/data";
 
 export async function DELETE() {
   if (!(await isAdminAuthenticated())) {
@@ -46,9 +49,16 @@ export async function POST(request: Request) {
   }
 
   try {
+    const before = (await readContentFile("site")) as SiteInfo;
+    const hadModel = Boolean(before.profileModel?.trim());
     const buffer = Buffer.from(await file.arrayBuffer());
-    const site = await uploadProfileImage(file, buffer);
-    return NextResponse.json({ ok: true, profileImage: site.profileImage ?? null });
+    let site = await uploadProfileImage(file, buffer);
+    if (hadModel) site = await removeProfileModel();
+    return NextResponse.json({
+      ok: true,
+      profileImage: site.profileImage ?? null,
+      profileModel: site.profileModel ?? null,
+    });
   } catch (err) {
     return NextResponse.json(
       { error: err instanceof Error ? err.message : "Failed to upload profile image" },

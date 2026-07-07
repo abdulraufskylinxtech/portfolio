@@ -116,7 +116,7 @@ export interface SiteInfo {
   /** Rotating hero titles — falls back to splitting role by | or & */
   heroRoles?: string[];
   availability: string;
-  /** Hero + navbar portrait photo */
+  /** Hero portrait photo (when no 3D model) */
   profileImage?: string;
   /** Optional .glb 3D model — shown on hero instead of photo when set */
   profileModel?: string;
@@ -145,6 +145,12 @@ export function getProfileImage(site: Pick<SiteInfo, "profileImage">): string | 
 export function getProfileModel(site: Pick<SiteInfo, "profileModel">): string | null {
   const model = site.profileModel?.trim();
   return model || null;
+}
+
+/** Small avatar in navbar on scroll — first About section photo */
+export function getNavbarAvatar(site: Pick<SiteInfo, "aboutImages">): string | null {
+  const first = site.aboutImages?.map((src) => src.trim()).find(Boolean);
+  return first || null;
 }
 
 export function getDisplayName(

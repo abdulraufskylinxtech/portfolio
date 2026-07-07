@@ -27,6 +27,23 @@ function fitModelToView(model: THREE.Object3D, targetHeight = 1.85) {
   model.position.z -= scaledCenter.z;
 }
 
+function neutralizeModelMaterials(root: THREE.Object3D) {
+  root.traverse((child) => {
+    if (!(child instanceof THREE.Mesh)) return;
+    const mats = Array.isArray(child.material) ? child.material : [child.material];
+    for (const mat of mats) {
+      if (!mat) continue;
+      if ("emissive" in mat && mat.emissive instanceof THREE.Color) {
+        mat.emissive.setHex(0x000000);
+      }
+      if ("metalness" in mat && typeof mat.metalness === "number") {
+        mat.metalness = Math.min(mat.metalness, 0.35);
+      }
+      mat.needsUpdate = true;
+    }
+  });
+}
+
 export function HeroProfileModelScene({ url, className, onReady, onError }: SceneProps) {
   const containerRef = useRef<HTMLDivElement>(null);
   const onReadyRef = useRef(onReady);
@@ -54,14 +71,21 @@ export function HeroProfileModelScene({ url, className, onReady, onError }: Scen
       const width = Math.max(container.clientWidth, 1);
       const height = Math.max(container.clientHeight, 1);
 
-      renderer = new THREE.WebGLRenderer({ alpha: true, antialias: true, powerPreference: "high-performance" });
+      renderer = new THREE.WebGLRenderer({
+        alpha: true,
+        antialias: true,
+        powerPreference: "high-performance",
+      });
       renderer.setPixelRatio(Math.min(window.devicePixelRatio, 1.5));
       renderer.setSize(width, height);
       renderer.setClearColor(0x000000, 0);
       renderer.outputColorSpace = THREE.SRGBColorSpace;
+      renderer.toneMapping = THREE.ACESFilmicToneMapping;
+      renderer.toneMappingExposure = 1.05;
       renderer.domElement.style.display = "block";
       renderer.domElement.style.width = "100%";
       renderer.domElement.style.height = "100%";
+      renderer.domElement.style.background = "transparent";
       container.appendChild(renderer.domElement);
 
       const scene = new THREE.Scene();
@@ -79,13 +103,16 @@ export function HeroProfileModelScene({ url, className, onReady, onError }: Scen
       controls.minPolarAngle = Math.PI / 2 - 0.55;
       controls.maxPolarAngle = Math.PI / 2 + 0.55;
 
-      scene.add(new THREE.AmbientLight(0xffffff, 0.9));
-      const key = new THREE.DirectionalLight(0xffffff, 1.2);
-      key.position.set(3, 5, 4);
+      scene.add(new THREE.AmbientLight(0xffffff, 0.75));
+      const key = new THREE.DirectionalLight(0xfff8f0, 1.35);
+      key.position.set(2.5, 4, 3.5);
       scene.add(key);
-      const fill = new THREE.DirectionalLight(0x86efac, 0.45);
-      fill.position.set(-2.5, 2, 2);
+      const fill = new THREE.DirectionalLight(0xe8e8ea, 0.65);
+      fill.position.set(-3, 2, 2);
       scene.add(fill);
+      const rim = new THREE.DirectionalLight(0xffffff, 0.55);
+      rim.position.set(0, 2.5, -3);
+      scene.add(rim);
 
       const loader = new GLTFLoader();
       loader.load(
@@ -94,6 +121,7 @@ export function HeroProfileModelScene({ url, className, onReady, onError }: Scen
           if (disposed || !renderer || !controls || !camera) return;
 
           modelRoot = gltf.scene;
+          neutralizeModelMaterials(modelRoot);
           fitModelToView(modelRoot);
           scene.add(modelRoot);
 

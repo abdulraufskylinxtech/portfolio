@@ -166,7 +166,7 @@ export function AboutSection() {
             <div
               className={cn(
                 "group w-full max-w-[320px] rounded-3xl border border-border bg-card p-6 shadow-lg transition-[border-color,box-shadow] duration-300 sm:p-8",
-                "hover:border-primary/45 hover:shadow-[0_0_40px_hsl(var(--primary)/0.18)]",
+                "hover:border-border hover:shadow-[0_12px_40px_rgba(0,0,0,0.25)]",
               )}
             >
               <AboutPhotoStack images={site.aboutImages} alt={t("title")} />

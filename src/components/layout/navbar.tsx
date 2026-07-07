@@ -8,7 +8,7 @@ import { useEffect, useState } from "react";
 
 import { Button } from "@/components/ui/button";
 import { useLocalizedSite, useSiteInfo } from "@/components/providers/content-provider";
-import { getProfileImage } from "@/lib/data";
+import { getNavbarAvatar } from "@/lib/data";
 import { Link, usePathname } from "@/i18n/navigation";
 import { useActiveSection } from "@/hooks/useActiveSection";
 import { useScrollPosition } from "@/hooks/useScrollPosition";
@@ -55,7 +55,7 @@ export function Navbar() {
   const site = useLocalizedSite();
   const rawSite = useSiteInfo();
   const cv = rawSite.cv;
-  const profileImage = getProfileImage(rawSite);
+  const navAvatar = getNavbarAvatar(rawSite);
   const displayName = site.name;
 
   const [isLargeScreen, setIsLargeScreen] = useState(false);
@@ -67,7 +67,7 @@ export function Navbar() {
     return () => mq.removeEventListener("change", update);
   }, []);
 
-  const showAvatar = Boolean(profileImage && isLargeScreen && (!isHome || scrolledPastHero));
+  const showAvatar = Boolean(navAvatar && isLargeScreen && (!isHome || scrolledPastHero));
 
   useEffect(() => {
     if (!mobileOpen) return;
@@ -192,19 +192,19 @@ export function Navbar() {
             onClick={closeMobile}
           >
             <AnimatePresence>
-              {showAvatar && profileImage ? (
+              {showAvatar && navAvatar ? (
                 <motion.div
                   initial={{ opacity: 0, scale: 0.8, width: 0 }}
                   animate={{ opacity: 1, scale: 1, width: 40 }}
                   exit={{ opacity: 0, scale: 0.8, width: 0 }}
                   transition={{ duration: 0.25 }}
-                  className="relative hidden h-10 w-10 overflow-hidden rounded-full border-2 border-primary/50 shadow-[0_0_15px_hsl(var(--primary)/0.35)] lg:block"
+                  className="relative hidden h-10 w-10 overflow-hidden rounded-full border border-border/80 bg-background shadow-md lg:block"
                 >
                   <Image
-                    src={profileImage}
+                    src={navAvatar}
                     alt={displayName}
                     fill
-                    className="object-cover"
+                    className="object-cover object-[center_20%]"
                     sizes="40px"
                   />
                 </motion.div>

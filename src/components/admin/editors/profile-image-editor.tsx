@@ -2,6 +2,7 @@
 
 import { useRef, useState } from "react";
 
+import { cn } from "@/lib/utils";
 import { AdminBadge, AdminButton, AdminSection } from "../ui";
 
 type ProfileAssets = {
@@ -46,6 +47,8 @@ export function ProfileImageEditor({
   const image = profileImage?.trim() || "";
   const model = profileModel?.trim() || "";
   const disabled = readOnly || busy;
+  const photoBlocked = Boolean(model);
+  const modelBlocked = Boolean(image);
 
   const uploadImage = async (file: File) => {
     setBusy(true);
@@ -58,12 +61,19 @@ export function ProfileImageEditor({
       body.append("file", file);
 
       const res = await fetch("/api/admin/profile-image", { method: "POST", body });
-      const data = await parseApiResponse<{ error?: string; profileImage?: string | null }>(res);
+      const data = await parseApiResponse<{
+        error?: string;
+        profileImage?: string | null;
+        profileModel?: string | null;
+      }>(res);
 
       if (!res.ok) throw new Error(data.error ?? "Upload failed");
 
-      onChange({ profileImage: data.profileImage ?? null, profileModel: model || null });
-      setMessage("Profile image saved. Used on hero (when no 3D model) and navbar.");
+      onChange({
+        profileImage: data.profileImage ?? null,
+        profileModel: data.profileModel ?? null,
+      });
+      setMessage("Photo saved — shown on the home hero.");
     } catch (err) {
       setError(err instanceof Error ? err.message : "Upload failed");
       setMessage("");
@@ -83,12 +93,19 @@ export function ProfileImageEditor({
       body.append("file", file);
 
       const res = await fetch("/api/admin/profile-model", { method: "POST", body });
-      const data = await parseApiResponse<{ error?: string; profileModel?: string | null }>(res);
+      const data = await parseApiResponse<{
+        error?: string;
+        profileImage?: string | null;
+        profileModel?: string | null;
+      }>(res);
 
       if (!res.ok) throw new Error(data.error ?? "Upload failed");
 
-      onChange({ profileImage: image || null, profileModel: data.profileModel ?? null });
-      setMessage("3D model live on hero — visitors can drag to rotate.");
+      onChange({
+        profileImage: data.profileImage ?? null,
+        profileModel: data.profileModel ?? null,
+      });
+      setMessage("3D model saved — interactive hero. Visitors can drag to rotate.");
     } catch (err) {
       setError(err instanceof Error ? err.message : "Upload failed");
       setMessage("");
@@ -146,15 +163,20 @@ export function ProfileImageEditor({
   return (
     <AdminSection
       title="Profile portrait"
-      description="Option 1: photo for navbar + hero fallback. Option 2: .glb 3D model for interactive hero (replaces photo on home page)."
+      description="Choose one for the home hero: photo or 3D model (.glb). Navbar avatar on scroll uses the first About section photo."
     >
       <div className="grid gap-4 lg:grid-cols-2">
+        {image && model ? (
+          <p className="lg:col-span-2 rounded-lg border border-amber-500/40 bg-amber-500/10 px-3 py-2 text-xs text-amber-200/90">
+            Both photo and 3D model are saved. Remove one — only a single portrait type is used on the site.
+          </p>
+        ) : null}
         {/* Option 1 — Image */}
-        <div className="admin-subcard">
+        <div className={cn("admin-subcard", photoBlocked && !image && "opacity-60")}>
           <div className="admin-subcard-head">
             <div>
               <p className="font-medium text-foreground">Option 1 — Photo</p>
-              <p className="mt-1 text-xs text-muted-foreground">JPG, PNG, WebP, GIF · navbar + hero fallback</p>
+              <p className="mt-1 text-xs text-muted-foreground">JPG, PNG, WebP, GIF · home hero only</p>
             </div>
             {image ? <AdminBadge tone="success">Live</AdminBadge> : null}
           </div>
@@ -189,25 +211,31 @@ export function ProfileImageEditor({
             <p className="admin-empty mt-3">No photo yet.</p>
           )}
 
-          <label className="admin-field mt-4">
-            <span className="admin-label">{image ? "Replace photo" : "Upload photo"}</span>
-            <input
-              ref={imageInputRef}
-              type="file"
-              accept="image/jpeg,image/png,image/webp,image/gif,.jpg,.jpeg,.png,.webp,.gif"
-              disabled={disabled}
-              className="admin-input"
-              onChange={(e) => {
-                const file = e.target.files?.[0];
-                if (file) void uploadImage(file);
-              }}
-            />
-            <span className="admin-hint">Max 5 MB</span>
-          </label>
+          {photoBlocked && !image ? (
+            <p className="mt-4 rounded-lg border border-amber-500/30 bg-amber-500/10 px-3 py-2 text-xs text-amber-200/90">
+              3D model is active. Remove it first to upload a photo.
+            </p>
+          ) : (
+            <label className="admin-field mt-4">
+              <span className="admin-label">{image ? "Replace photo" : "Upload photo"}</span>
+              <input
+                ref={imageInputRef}
+                type="file"
+                accept="image/jpeg,image/png,image/webp,image/gif,.jpg,.jpeg,.png,.webp,.gif"
+                disabled={disabled || photoBlocked}
+                className="admin-input"
+                onChange={(e) => {
+                  const file = e.target.files?.[0];
+                  if (file) void uploadImage(file);
+                }}
+              />
+              <span className="admin-hint">Max 5 MB</span>
+            </label>
+          )}
         </div>
 
         {/* Option 2 — 3D GLB */}
-        <div className="admin-subcard">
+        <div className={cn("admin-subcard", modelBlocked && !model && "opacity-60")}>
           <div className="admin-subcard-head">
             <div>
               <p className="font-medium text-foreground">Option 2 — 3D model (.glb)</p>
@@ -234,29 +262,29 @@ export function ProfileImageEditor({
             <p className="admin-empty mt-3">No 3D model yet. Hero shows photo only.</p>
           )}
 
-          <label className="admin-field mt-4">
-            <span className="admin-label">{model ? "Replace 3D model" : "Upload .glb model"}</span>
-            <input
-              ref={modelInputRef}
-              type="file"
-              accept=".glb,model/gltf-binary"
-              disabled={disabled}
-              className="admin-input"
-              onChange={(e) => {
-                const file = e.target.files?.[0];
-                if (file) void uploadModel(file);
-              }}
-            />
-            <span className="admin-hint">GLB only · max 20 MB · Blender: File → Export → glTF Binary</span>
-          </label>
+          {modelBlocked && !model ? (
+            <p className="mt-4 rounded-lg border border-amber-500/30 bg-amber-500/10 px-3 py-2 text-xs text-amber-200/90">
+              Photo is active. Remove it first to upload a 3D model.
+            </p>
+          ) : (
+            <label className="admin-field mt-4">
+              <span className="admin-label">{model ? "Replace 3D model" : "Upload .glb model"}</span>
+              <input
+                ref={modelInputRef}
+                type="file"
+                accept=".glb,model/gltf-binary"
+                disabled={disabled || modelBlocked}
+                className="admin-input"
+                onChange={(e) => {
+                  const file = e.target.files?.[0];
+                  if (file) void uploadModel(file);
+                }}
+              />
+              <span className="admin-hint">GLB only · max 20 MB · Blender: File → Export → glTF Binary</span>
+            </label>
+          )}
         </div>
       </div>
-
-      {model ? (
-        <p className="mt-4 text-xs text-muted-foreground">
-          When a 3D model is uploaded, the home hero shows the interactive model instead of the photo. Navbar still uses the photo.
-        </p>
-      ) : null}
 
       {message ? <p className="mt-3 text-sm text-emerald-400">{message}</p> : null}
       {error ? <p className="mt-3 text-sm text-red-400">{error}</p> : null}

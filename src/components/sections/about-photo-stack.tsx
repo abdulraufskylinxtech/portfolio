@@ -67,10 +67,10 @@ export function AboutPhotoStack({ images, alt }: AboutPhotoStackProps) {
               layer.z,
               layer.idle,
               layer.hover,
-              "group-hover:shadow-[0_20px_50px_hsl(var(--primary)/0.25)]",
+              "group-hover:shadow-[0_20px_50px_rgba(0,0,0,0.35)]",
             )}
           >
-            <div className="relative h-full w-full overflow-hidden rounded-2xl border-2 border-primary/30 bg-card shadow-lg transition-colors duration-300 group-hover:border-primary/60">
+            <div className="relative h-full w-full overflow-hidden rounded-2xl border border-border/80 bg-card shadow-lg transition-colors duration-300 group-hover:border-border">
               <Image
                 src={src}
                 alt={`${alt} ${index + 1}`}
@@ -84,7 +84,7 @@ export function AboutPhotoStack({ images, alt }: AboutPhotoStackProps) {
         );
       })}
       <div
-        className="pointer-events-none absolute -inset-4 -z-10 rounded-3xl bg-primary/5 opacity-0 blur-2xl transition-opacity duration-500 group-hover:opacity-100"
+        className="pointer-events-none absolute -inset-4 -z-10 rounded-3xl bg-foreground/5 opacity-0 blur-2xl transition-opacity duration-500 group-hover:opacity-100"
         aria-hidden
       />
     </div>
