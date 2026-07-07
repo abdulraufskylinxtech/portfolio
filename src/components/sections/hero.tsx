@@ -40,7 +40,8 @@ export function Hero({ onChatOpen }: HeroProps) {
   const { dropShadow: taglineShadow } = useSunShadow(heroRef, taglineRef);
 
   const nameClassName = cn(
-    "break-words text-4xl font-bold leading-tight bg-gradient-to-r from-primary via-primary-glow to-primary bg-clip-text text-transparent transition-[filter] duration-1000 sm:text-5xl md:text-5xl lg:text-6xl xl:text-7xl",
+    "break-words font-bold leading-[1.1] bg-gradient-to-r from-primary via-primary-glow to-primary bg-clip-text text-transparent transition-[filter] duration-1000",
+    "text-[clamp(2rem,4.2vw+0.5rem,4.5rem)]",
     locale === "ar" && "font-arabic",
   );
 
@@ -55,10 +56,13 @@ export function Hero({ onChatOpen }: HeroProps) {
       <div className="absolute inset-0 z-0 bg-cover bg-center bg-[url(/hero-bg.jpg)]" />
       <div className="absolute inset-0 z-0 bg-gradient-to-b from-[hsl(var(--hero-wash)/0.92)] via-background/75 to-background/55 dark:from-background/88 dark:via-background/72 dark:to-background/58" />
       <HeroAtmosphere className="z-[1]" />
-      <div className="container relative z-10 mx-auto px-4 sm:px-6">
+      <div className="container relative z-10 mx-auto px-4 sm:px-6 lg:px-8">
         <div
           className={cn(
-            "mx-auto flex w-full max-w-7xl animate-fade-in-up flex-col items-center gap-8 py-8 lg:flex-row lg:items-center lg:justify-between lg:gap-10 xl:gap-16 2xl:gap-20",
+            "mx-auto flex w-full animate-fade-in-up flex-col items-center gap-6 py-6 sm:gap-7 sm:py-8",
+            "lg:max-w-[min(100%,56rem)] lg:flex-row lg:items-center lg:justify-center lg:gap-10",
+            "xl:max-w-[min(100%,64rem)] xl:gap-12",
+            "2xl:max-w-7xl 2xl:justify-between 2xl:gap-16",
             showPortrait && isRtl && "lg:flex-row-reverse",
           )}
         >
@@ -82,7 +86,7 @@ export function Hero({ onChatOpen }: HeroProps) {
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.4 }}
             className={cn(
-              "order-2 min-w-0 flex-1 text-center lg:max-w-3xl lg:pt-0 xl:max-w-4xl",
+              "order-2 min-w-0 w-full flex-1 text-center lg:pt-0",
               profileImage || showPortrait ? "lg:order-none lg:text-start" : "max-w-4xl",
               isRtl && (profileImage || showPortrait) && "lg:text-end",
             )}
@@ -95,20 +99,20 @@ export function Hero({ onChatOpen }: HeroProps) {
               {displayName}
             </h1>
 
-            <p className="mt-3 min-h-[1.75rem] text-base font-medium text-primary sm:text-lg lg:text-xl">
+            <p className="mt-3 min-h-[1.75rem] font-medium text-primary text-[clamp(1rem,1.2vw+0.65rem,1.35rem)]">
               <span className="inline-block max-w-full">{typed}</span>
               <span className="animate-pulse">|</span>
             </p>
 
             <p
               ref={taglineRef}
-              className="mt-3 break-words text-lg font-medium text-foreground/90 transition-[filter] duration-1000 sm:text-xl lg:text-2xl"
+              className="mt-3 break-words font-medium text-foreground/90 transition-[filter] duration-1000 text-[clamp(1.05rem,1.6vw+0.55rem,1.65rem)]"
               style={taglineShadow ? { filter: taglineShadow } : undefined}
             >
               {site.role}
             </p>
 
-            <p className="mx-auto mt-4 max-w-xl text-sm leading-relaxed text-muted-foreground sm:text-base lg:mx-0 lg:max-w-2xl lg:text-lg">
+            <p className="mx-auto mt-4 max-w-xl leading-relaxed text-muted-foreground text-[clamp(0.875rem,0.9vw+0.55rem,1.125rem)] lg:mx-0 lg:max-w-2xl">
               {site.bio}
             </p>
 

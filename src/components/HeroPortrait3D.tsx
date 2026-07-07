@@ -18,7 +18,7 @@ type Props = {
 };
 
 const frameClass =
-  "relative h-[220px] w-[220px] sm:h-[240px] sm:w-[240px] md:h-[260px] md:w-[260px] lg:h-[300px] lg:w-[300px] xl:h-[340px] xl:w-[340px]";
+  "relative h-[clamp(200px,26vw,340px)] w-[clamp(200px,26vw,340px)]";
 
 function ImagePortrait({ src, alt }: { src: string; alt: string }) {
   return (
