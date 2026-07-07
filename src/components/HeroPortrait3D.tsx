@@ -1,7 +1,7 @@
 "use client";
 
 import dynamic from "next/dynamic";
-import { useEffect, useState } from "react";
+import { useEffect, useState, type ReactNode } from "react";
 
 import { cn } from "@/lib/utils";
 
@@ -20,22 +20,40 @@ type Props = {
 const frameClass =
   "relative h-[clamp(200px,26vw,340px)] w-[clamp(200px,26vw,340px)]";
 
+function PortraitFrame({ children, className }: { children: ReactNode; className?: string }) {
+  return (
+    <div className={cn(frameClass, "relative isolate shrink-0", className)}>
+      <div className="relative h-full w-full rounded-full">
+        <div className="absolute inset-[7px] overflow-hidden rounded-full sm:inset-[8px]">
+          {children}
+        </div>
+        <div
+          className="hero-portrait-ring pointer-events-none absolute inset-0 z-10 rounded-full"
+          aria-hidden
+        />
+      </div>
+    </div>
+  );
+}
+
+const portraitMediaClass =
+  "mx-auto h-full w-full max-w-none origin-bottom scale-[1.14] object-contain object-bottom";
+
 function ImagePortrait({ src, alt }: { src: string; alt: string }) {
   return (
-    <div
-      className={cn(
-        frameClass,
-        "overflow-hidden rounded-full ring-2 ring-border/50 ring-offset-2 ring-offset-background",
-      )}
-    >
+    <PortraitFrame>
       {/* eslint-disable-next-line @next/next/no-img-element */}
       <img
         src={src}
         alt={alt}
-        className="h-full w-full object-cover object-[center_20%] shadow-[0_20px_40px_rgba(0,0,0,0.35)]"
+        className={portraitMediaClass}
       />
-    </div>
+    </PortraitFrame>
   );
+}
+
+function PortraitCaption({ children }: { children: ReactNode }) {
+  return <p className="mt-2 text-center text-[11px] text-muted-foreground">{children}</p>;
 }
 
 export function HeroPortrait3D({ src, modelSrc, alt, className }: Props) {
@@ -54,23 +72,22 @@ export function HeroPortrait3D({ src, modelSrc, alt, className }: Props) {
   if (showModel) {
     return (
       <div className={cn("flex flex-col items-center", className)}>
-        <div className={cn(frameClass, "relative overflow-hidden rounded-full")}>
-          {!modelReady ? (
-            <div className="absolute inset-0 z-20 flex items-center justify-center bg-transparent">
-              <div className="h-9 w-9 animate-spin rounded-full border-2 border-muted-foreground/40 border-t-foreground/70" />
-            </div>
-          ) : null}
-          <HeroProfileModelScene
-            url={model}
-            className="absolute inset-0 z-10 h-full w-full"
-            onReady={() => setModelReady(true)}
-            onError={() => setModelFailed(true)}
-          />
-        </div>
-        <p className="mt-2 text-center text-[11px] text-muted-foreground">
-          {modelReady ? "Drag to rotate 3D" : "Loading 3D model…"}
-        </p>
-        <div className="mt-1 h-3 w-24 rounded-full bg-foreground/10 blur-md lg:h-4 lg:w-28" aria-hidden />
+        <PortraitFrame>
+          <div className="relative h-full w-full origin-bottom scale-[1.08]">
+            {!modelReady ? (
+              <div className="absolute inset-0 z-20 flex items-center justify-center">
+                <div className="h-9 w-9 animate-spin rounded-full border-2 border-muted-foreground/40 border-t-foreground/70" />
+              </div>
+            ) : null}
+            <HeroProfileModelScene
+              url={model}
+              className="absolute inset-0 z-10 h-full w-full"
+              onReady={() => setModelReady(true)}
+              onError={() => setModelFailed(true)}
+            />
+          </div>
+        </PortraitFrame>
+        <PortraitCaption>{modelReady ? "Drag to rotate 3D" : "Loading 3D model…"}</PortraitCaption>
       </div>
     );
   }
@@ -79,8 +96,7 @@ export function HeroPortrait3D({ src, modelSrc, alt, className }: Props) {
     return (
       <div className={cn("flex flex-col items-center", className)}>
         <ImagePortrait src={image} alt={alt} />
-        <p className="mt-2 text-center text-[11px] text-muted-foreground">3D model failed — showing photo</p>
-        <div className="mt-1 h-3 w-20 rounded-full bg-foreground/10 blur-md lg:h-4 lg:w-24" aria-hidden />
+        <PortraitCaption>3D model failed — showing photo</PortraitCaption>
       </div>
     );
   }
@@ -90,7 +106,6 @@ export function HeroPortrait3D({ src, modelSrc, alt, className }: Props) {
   return (
     <div className={cn("flex flex-col items-center", className)}>
       <ImagePortrait src={image} alt={alt} />
-      <div className="mt-2 h-3 w-20 rounded-full bg-foreground/10 blur-md lg:h-4 lg:w-24" aria-hidden />
     </div>
   );
 }

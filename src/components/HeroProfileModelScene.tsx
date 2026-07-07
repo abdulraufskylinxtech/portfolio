@@ -12,10 +12,9 @@ type SceneProps = {
   onError?: () => void;
 };
 
-function fitModelToView(model: THREE.Object3D, targetHeight = 1.85) {
+function fitModelToView(model: THREE.Object3D, targetHeight = 2.28) {
   const box = new THREE.Box3().setFromObject(model);
   const size = box.getSize(new THREE.Vector3());
-  const center = box.getCenter(new THREE.Vector3());
 
   const scale = targetHeight / Math.max(size.y, 0.001);
   model.scale.setScalar(scale);
@@ -23,7 +22,7 @@ function fitModelToView(model: THREE.Object3D, targetHeight = 1.85) {
   const scaledBox = new THREE.Box3().setFromObject(model);
   const scaledCenter = scaledBox.getCenter(new THREE.Vector3());
   model.position.x -= scaledCenter.x;
-  model.position.y -= scaledBox.min.y;
+  model.position.y -= scaledBox.min.y + scaledBox.getSize(new THREE.Vector3()).y * 0.04;
   model.position.z -= scaledCenter.z;
 }
 
@@ -89,17 +88,16 @@ export function HeroProfileModelScene({ url, className, onReady, onError }: Scen
       container.appendChild(renderer.domElement);
 
       const scene = new THREE.Scene();
-      camera = new THREE.PerspectiveCamera(42, width / height, 0.1, 100);
-      camera.position.set(0, 0.9, 2.8);
+      camera = new THREE.PerspectiveCamera(40, width / height, 0.1, 100);
+      camera.position.set(0, 0.92, 2.45);
 
       controls = new OrbitControls(camera, renderer.domElement);
       controls.enableZoom = false;
       controls.enablePan = false;
       controls.enableDamping = true;
       controls.dampingFactor = 0.06;
-      controls.autoRotate = true;
-      controls.autoRotateSpeed = 1.2;
-      controls.target.set(0, 0.85, 0);
+      controls.autoRotate = false;
+      controls.target.set(0, 0.88, 0);
       controls.minPolarAngle = Math.PI / 2 - 0.55;
       controls.maxPolarAngle = Math.PI / 2 + 0.55;
 
