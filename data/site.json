@@ -149,8 +149,42 @@
     "filename": "Abdul Rauf (1).pdf",
     "uploadedAt": "2026-07-03T14:27:58.378Z"
   },
-  "translations": {},
-  "translationsUpdatedAt": "2026-07-02T14:15:50.686Z",
+  "translations": {
+    "ar": {
+      "name": "عبدالرؤف",
+      "role": "بناء أنظمة الخلفية الذكية وتطبيقات مدعومة بالذكاء الاصطناعي",
+      "bio": "مطور بايثون متخصص في هندسة الخلفية وتطبيقات الذكاء الاصطناعي. لديه خبرة في FastAPI و Django و REST APIs و LangChain ودمج LLM.",
+      "heroRoles": [
+        "مطور الذكاء الاصطناعي",
+        "مطور بايثون للخلفية",
+        "مطور FastAPI",
+        "مطور Django"
+      ],
+      "availability": "مفتوح للفرص الجديدة — عن بعد وفي الموقع",
+      "location": "AL Sadiq Block Raiwand road, Lahore, Pakistan",
+      "stats": [
+        {
+          "value": "2+",
+          "label": "سنوات الخبرة"
+        },
+        {
+          "value": "20+",
+          "label": "المشاريع المنفذة"
+        },
+        {
+          "value": "10+",
+          "label": "التكنولوجيات"
+        }
+      ],
+      "hobbies": [
+        "قراءة блоги التكنولوجيا",
+        "استكشاف أدوات الذكاء الاصطناعي",
+        "كريكيت",
+        "السفر"
+      ]
+    }
+  },
+  "translationsUpdatedAt": "2026-07-07T17:27:10.111Z",
   "useArabicDisplayName": false,
   "profileModel": "/profile/model-textured_mesh-84b64a2b.glb"
 }
