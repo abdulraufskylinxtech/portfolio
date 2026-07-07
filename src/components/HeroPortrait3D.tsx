@@ -20,15 +20,68 @@ type Props = {
 const frameClass =
   "relative h-[clamp(200px,26vw,340px)] w-[clamp(200px,26vw,340px)]";
 
+const ORBIT_A_COUNT = 16;
+const ORBIT_B_COUNT = 10;
+
+function GalaxyOrbit({
+  count,
+  duration,
+  reverse,
+  className,
+}: {
+  count: number;
+  duration: string;
+  reverse?: boolean;
+  className?: string;
+}) {
+  return (
+    <div
+      className={cn(
+        "hero-portrait-orbit pointer-events-none absolute inset-0",
+        reverse && "hero-portrait-orbit-reverse",
+        className,
+      )}
+      style={{ animationDuration: duration }}
+      aria-hidden
+    >
+      {Array.from({ length: count }, (_, i) => (
+        <span
+          key={i}
+          className={cn(
+            "hero-portrait-orbit-arm",
+            i % 4 === 0 && "hero-portrait-star-lg",
+            i % 2 === 0 && "hero-portrait-star-bright",
+          )}
+          style={{
+            transform: `rotate(${(360 / count) * i}deg)`,
+          }}
+        />
+      ))}
+    </div>
+  );
+}
+
 function PortraitFrame({ children, className }: { children: ReactNode; className?: string }) {
   return (
     <div className={cn(frameClass, "relative isolate shrink-0", className)}>
+      <div className="hero-portrait-galaxy-glow pointer-events-none absolute -inset-5 rounded-full" aria-hidden />
+      <GalaxyOrbit count={ORBIT_A_COUNT} duration="20s" className="z-[1]" />
+      <GalaxyOrbit count={ORBIT_B_COUNT} duration="28s" reverse className="z-[2] opacity-80" />
+
       <div className="relative h-full w-full rounded-full">
-        <div className="absolute inset-[7px] overflow-hidden rounded-full sm:inset-[8px]">
+        <div className="absolute inset-[9px] z-[8] overflow-hidden rounded-full sm:inset-[10px]">
           {children}
         </div>
         <div
-          className="hero-portrait-ring pointer-events-none absolute inset-0 z-10 rounded-full"
+          className="hero-portrait-ring-aura pointer-events-none absolute -inset-2 z-[9] rounded-full"
+          aria-hidden
+        />
+        <div
+          className="hero-portrait-ring-inner pointer-events-none absolute inset-0 z-10 rounded-full"
+          aria-hidden
+        />
+        <div
+          className="hero-portrait-ring pointer-events-none absolute inset-0 z-[11] rounded-full"
           aria-hidden
         />
       </div>

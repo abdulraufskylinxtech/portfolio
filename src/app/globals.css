@@ -142,42 +142,220 @@
   }
 }
 
+@keyframes hero-portrait-glow-pulse {
+  0%,
+  100% {
+    opacity: 0.55;
+    transform: scale(0.96);
+  }
+  50% {
+    opacity: 0.88;
+    transform: scale(1.04);
+  }
+}
+
+@keyframes hero-portrait-twinkle {
+  0%,
+  100% {
+    opacity: 0.25;
+    transform: scale(0.65);
+  }
+  50% {
+    opacity: 1;
+    transform: scale(1.25);
+  }
+}
+
+.hero-portrait-galaxy-glow {
+  background: conic-gradient(
+    from 0deg,
+    hsl(var(--primary-dark) / 0.65) 0%,
+    hsl(var(--primary) / 0.55) 8%,
+    hsl(var(--primary-glow) / 0.7) 18%,
+    hsl(152 70% 62% / 0.62) 28%,
+    hsl(148 82% 78% / 0.58) 36%,
+    hsl(var(--primary-glow) / 0.68) 46%,
+    hsl(var(--primary) / 0.58) 58%,
+    hsl(158 62% 45% / 0.55) 70%,
+    hsl(var(--primary-dark) / 0.62) 82%,
+    hsl(var(--primary-dark) / 0.65) 100%
+  );
+  filter: blur(26px);
+  animation:
+    hero-portrait-ring-spin 7s linear infinite,
+    hero-portrait-glow-pulse 3.5s ease-in-out infinite;
+}
+
+.hero-portrait-orbit {
+  animation: hero-portrait-ring-spin 20s linear infinite;
+}
+
+.hero-portrait-orbit-reverse {
+  animation-direction: reverse;
+}
+
+.hero-portrait-orbit-arm {
+  position: absolute;
+  inset: 0;
+}
+
+.hero-portrait-orbit-arm::after {
+  content: "";
+  position: absolute;
+  top: 1px;
+  left: 50%;
+  width: 2px;
+  height: 2px;
+  margin-left: -1px;
+  border-radius: 50%;
+  background: hsl(148 75% 94%);
+  box-shadow:
+    0 0 5px 1px hsl(var(--primary-glow) / 0.95),
+    0 0 12px 2px hsl(var(--primary) / 0.5);
+  animation: hero-portrait-twinkle 2.6s ease-in-out infinite;
+}
+
+.hero-portrait-star-lg::after {
+  top: 0;
+  width: 3px;
+  height: 3px;
+  margin-left: -1.5px;
+  box-shadow:
+    0 0 6px 2px hsl(var(--primary-glow) / 0.95),
+    0 0 14px 3px hsl(var(--primary) / 0.6);
+}
+
+.hero-portrait-star-bright::after {
+  background: hsl(148 85% 97%);
+}
+
+.hero-portrait-orbit-arm:nth-child(3n)::after {
+  animation-delay: 0.45s;
+}
+
+.hero-portrait-orbit-arm:nth-child(5n)::after {
+  animation-delay: 0.9s;
+}
+
+.hero-portrait-orbit-arm:nth-child(7n)::after {
+  animation-delay: 1.35s;
+}
+
+.hero-portrait-ring-aura {
+  background: conic-gradient(
+    from 180deg,
+    hsl(var(--primary-glow) / 0.9) 0%,
+    hsl(var(--primary) / 0.75) 10%,
+    hsl(152 68% 58% / 0.82) 22%,
+    hsl(148 80% 75% / 0.78) 34%,
+    hsl(var(--primary-dark) / 0.7) 46%,
+    hsl(var(--primary-glow) / 0.85) 58%,
+    hsl(152 72% 52% / 0.8) 70%,
+    hsl(var(--primary) / 0.78) 82%,
+    hsl(var(--primary-glow) / 0.9) 100%
+  );
+  animation: hero-portrait-ring-spin 5.5s linear infinite reverse;
+  filter: blur(8px);
+  opacity: 0.72;
+  -webkit-mask: radial-gradient(
+    farthest-side,
+    transparent calc(100% - 14px),
+    #000 calc(100% - 2px)
+  );
+  mask: radial-gradient(farthest-side, transparent calc(100% - 14px), #000 calc(100% - 2px));
+}
+
+.hero-portrait-ring-inner {
+  background: conic-gradient(
+    from 90deg,
+    hsl(148 90% 92% / 0.95) 0%,
+    hsl(var(--primary-glow)) 8%,
+    hsl(152 75% 65%) 18%,
+    hsl(var(--primary)) 28%,
+    hsl(var(--primary-dark)) 38%,
+    hsl(var(--primary-glow)) 48%,
+    hsl(148 85% 80%) 54%,
+    hsl(var(--primary-glow)) 62%,
+    hsl(var(--primary)) 72%,
+    hsl(var(--primary-dark)) 82%,
+    hsl(148 90% 92% / 0.95) 100%
+  );
+  animation: hero-portrait-ring-spin 3s linear infinite reverse;
+  filter: drop-shadow(0 0 4px hsl(var(--primary-glow) / 0.6));
+  -webkit-mask: radial-gradient(
+    farthest-side,
+    transparent calc(100% - 7px),
+    #000 calc(100% - 4px)
+  );
+  mask: radial-gradient(farthest-side, transparent calc(100% - 7px), #000 calc(100% - 4px));
+}
+
 .hero-portrait-ring {
   background: conic-gradient(
     from 0deg,
-    #1a4f8a 0%,
-    #2b6cb8 14%,
+    hsl(var(--primary-dark)) 0%,
+    hsl(158 65% 30%) 5%,
+    hsl(var(--primary)) 12%,
+    hsl(152 72% 46%) 20%,
     hsl(var(--primary-glow)) 28%,
-    #38bdf8 42%,
-    hsl(var(--primary)) 56%,
-    #2563eb 70%,
-    #1d4f91 84%,
-    #1a4f8a 100%
+    hsl(148 78% 68%) 34%,
+    hsl(152 88% 86%) 38%,
+    hsl(var(--primary-glow)) 44%,
+    hsl(152 70% 54%) 52%,
+    hsl(var(--primary)) 60%,
+    hsl(158 58% 36%) 68%,
+    hsl(var(--primary-dark)) 76%,
+    hsl(160 68% 26%) 86%,
+    hsl(var(--primary-dark)) 94%,
+    hsl(var(--primary-dark)) 100%
   );
-  animation: hero-portrait-ring-spin 5s linear infinite;
+  animation: hero-portrait-ring-spin 4s linear infinite;
+  filter:
+    drop-shadow(0 0 8px hsl(var(--primary-glow) / 0.95))
+    drop-shadow(0 0 18px hsl(var(--primary) / 0.65))
+    drop-shadow(0 0 28px hsl(var(--primary-glow) / 0.45))
+    drop-shadow(0 0 40px hsl(var(--primary-dark) / 0.35));
   -webkit-mask: radial-gradient(
     farthest-side,
-    transparent calc(100% - 6px),
-    #000 calc(100% - 5px)
+    transparent calc(100% - 8px),
+    #000 calc(100% - 2px)
   );
-  mask: radial-gradient(farthest-side, transparent calc(100% - 6px), #000 calc(100% - 5px));
+  mask: radial-gradient(farthest-side, transparent calc(100% - 8px), #000 calc(100% - 2px));
 }
 
 @media (min-width: 640px) {
   .hero-portrait-ring {
     -webkit-mask: radial-gradient(
       farthest-side,
-      transparent calc(100% - 7px),
-      #000 calc(100% - 6px)
+      transparent calc(100% - 9px),
+      #000 calc(100% - 2px)
     );
-    mask: radial-gradient(farthest-side, transparent calc(100% - 7px), #000 calc(100% - 6px));
+    mask: radial-gradient(farthest-side, transparent calc(100% - 9px), #000 calc(100% - 2px));
+  }
+
+  .hero-portrait-ring-inner {
+    -webkit-mask: radial-gradient(
+      farthest-side,
+      transparent calc(100% - 8px),
+      #000 calc(100% - 4px)
+    );
+    mask: radial-gradient(farthest-side, transparent calc(100% - 8px), #000 calc(100% - 4px));
   }
 }
 
 @media (prefers-reduced-motion: reduce) {
   .about-avatar-ring,
-  .hero-portrait-ring {
+  .hero-portrait-ring,
+  .hero-portrait-ring-inner,
+  .hero-portrait-ring-aura,
+  .hero-portrait-galaxy-glow,
+  .hero-portrait-orbit {
     animation: none;
+  }
+
+  .hero-portrait-orbit-arm::after {
+    animation: none;
+    opacity: 0.7;
   }
 }
 
