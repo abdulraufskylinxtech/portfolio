@@ -116,8 +116,10 @@ export interface SiteInfo {
   /** Rotating hero titles — falls back to splitting role by | or & */
   heroRoles?: string[];
   availability: string;
-  /** Hero + navbar portrait */
+  /** Hero + navbar portrait photo */
   profileImage?: string;
+  /** Optional .glb 3D model — shown on hero instead of photo when set */
+  profileModel?: string;
   aboutImages: string[];
   cv?: SiteCv | null;
   map?: SiteMap;
@@ -138,6 +140,11 @@ export interface SiteInfo {
 export function getProfileImage(site: Pick<SiteInfo, "profileImage">): string | null {
   const image = site.profileImage?.trim();
   return image || null;
+}
+
+export function getProfileModel(site: Pick<SiteInfo, "profileModel">): string | null {
+  const model = site.profileModel?.trim();
+  return model || null;
 }
 
 export function getDisplayName(

@@ -9,7 +9,7 @@ import { useMemo, useRef } from "react";
 import { HeroAtmosphere } from "@/components/HeroAtmosphere";
 import { Button } from "@/components/ui/button";
 import { useSiteInfo, useLocalizedSite } from "@/components/providers/content-provider";
-import { getHeroRoles, getProfileImage } from "@/lib/data";
+import { getHeroRoles, getProfileImage, getProfileModel } from "@/lib/data";
 import { Link } from "@/i18n/navigation";
 import { useSunShadow } from "@/hooks/useSunShadow";
 import { useTypewriter } from "@/hooks/useTypewriter";
@@ -27,6 +27,8 @@ export function Hero({ onChatOpen }: HeroProps) {
   const cv = rawSite.cv;
   const displayName = site.name;
   const profileImage = getProfileImage(rawSite);
+  const profileModel = getProfileModel(rawSite);
+  const showPortrait = Boolean(profileImage || profileModel);
   const roles = useMemo(() => getHeroRoles(site), [site]);
   const typed = useTypewriter(roles);
 
@@ -57,17 +59,21 @@ export function Hero({ onChatOpen }: HeroProps) {
         <div
           className={cn(
             "mx-auto flex w-full max-w-7xl animate-fade-in-up flex-col items-center gap-8 py-8 lg:flex-row lg:items-center lg:justify-between lg:gap-10 xl:gap-16 2xl:gap-20",
-            profileImage && isRtl && "lg:flex-row-reverse",
+            showPortrait && isRtl && "lg:flex-row-reverse",
           )}
         >
-          {profileImage ? (
+          {showPortrait ? (
             <motion.div
               initial={{ opacity: 0, x: isRtl ? 24 : -24 }}
               animate={{ opacity: 1, x: 0 }}
               transition={{ duration: 0.45, delay: 0.05 }}
               className="order-2 shrink-0 lg:order-none"
             >
-              <HeroPortrait3D src={profileImage} alt={displayName} />
+              <HeroPortrait3D
+                src={profileImage}
+                modelSrc={profileModel}
+                alt={displayName}
+              />
             </motion.div>
           ) : null}
 
@@ -77,8 +83,8 @@ export function Hero({ onChatOpen }: HeroProps) {
             transition={{ duration: 0.4 }}
             className={cn(
               "order-1 min-w-0 flex-1 text-center lg:max-w-3xl lg:pt-0 xl:max-w-4xl",
-              profileImage ? "lg:order-none lg:text-start" : "max-w-4xl",
-              isRtl && profileImage && "lg:text-end",
+              profileImage || showPortrait ? "lg:order-none lg:text-start" : "max-w-4xl",
+              isRtl && (profileImage || showPortrait) && "lg:text-end",
             )}
           >
             <h1

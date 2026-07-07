@@ -200,10 +200,13 @@ export function SiteEditor({ data, onChange, onTranslationsSaved, readOnly }: Pr
 
       <ProfileImageEditor
         profileImage={data.profileImage}
-        onChange={(profileImage) => {
+        profileModel={data.profileModel}
+        onChange={({ profileImage, profileModel }) => {
           const next = { ...data };
           if (profileImage) next.profileImage = profileImage;
           else delete next.profileImage;
+          if (profileModel) next.profileModel = profileModel;
+          else delete next.profileModel;
           onChange(next);
         }}
         readOnly={disabled}
