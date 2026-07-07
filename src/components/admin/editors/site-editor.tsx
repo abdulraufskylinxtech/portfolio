@@ -338,14 +338,14 @@ export function SiteEditor({ data, onChange, onTranslationsSaved, readOnly }: Pr
                   <td>
                     <AdminInput
                       value={stat.value}
-                      onChange={(value) => updateStat(data, i, { value })}
+                      onChange={(value) => onChange(updateStat(data, i, { value }))}
                       disabled={disabled}
                     />
                   </td>
                   <td>
                     <AdminInput
                       value={stat.label}
-                      onChange={(label) => updateStat(data, i, { label })}
+                      onChange={(label) => onChange(updateStat(data, i, { label }))}
                       disabled={disabled}
                     />
                   </td>

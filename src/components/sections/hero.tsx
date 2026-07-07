@@ -67,7 +67,7 @@ export function Hero({ onChatOpen }: HeroProps) {
               initial={{ opacity: 0, x: isRtl ? 24 : -24 }}
               animate={{ opacity: 1, x: 0 }}
               transition={{ duration: 0.45, delay: 0.05 }}
-              className="order-2 shrink-0 lg:order-none"
+              className="order-1 shrink-0 lg:order-none"
             >
               <HeroPortrait3D
                 src={profileImage}
@@ -82,7 +82,7 @@ export function Hero({ onChatOpen }: HeroProps) {
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.4 }}
             className={cn(
-              "order-1 min-w-0 flex-1 text-center lg:max-w-3xl lg:pt-0 xl:max-w-4xl",
+              "order-2 min-w-0 flex-1 text-center lg:max-w-3xl lg:pt-0 xl:max-w-4xl",
               profileImage || showPortrait ? "lg:order-none lg:text-start" : "max-w-4xl",
               isRtl && (profileImage || showPortrait) && "lg:text-end",
             )}
