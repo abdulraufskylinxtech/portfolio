@@ -1,6 +1,30 @@
 {
   "sessions": [
     {
+      "id": "29faaa36-ffec-41cf-94af-957ba6f77df4",
+      "started_at": "2026-07-08T16:55:18.842Z",
+      "updated_at": "2026-07-08T16:55:18.842Z",
+      "locale": "en",
+      "user_agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/149.0.0.0 Safari/537.36",
+      "page_url": "https://abdulrauf22750.vercel.app/en",
+      "referrer": "https://abdulrauf22750.vercel.app/en",
+      "message_count": 1,
+      "preview": "who is rauf",
+      "messages": [
+        {
+          "role": "user",
+          "content": "who is rauf",
+          "created_at": "2026-07-08T16:55:18.842Z"
+        },
+        {
+          "role": "assistant",
+          "content": "Abdul Rauf is a skilled Python developer who specializes in building intelligent backend systems and AI-powered applications. He has a strong background in backend engineering and AI applications, with experience in a range of technologies including FastAPI, Django, REST APIs, LangChain, and LLM integration. \n\nRauf is based in Lahore, Pakistan, and is open to new opportunities, both remote and on-site. With over 2 years of experience and more than 20 projects delivered, he has developed a strong skill set in frontend, backend, devops, and AI-related technologies.\n\nIf you'd like to learn more about Rauf's skills or experience, or get in touch with him, you can check out his contact information, which includes his email, WhatsApp, LinkedIn, GitHub, and Instagram profiles. He also has a resume/CV available for download.",
+          "created_at": "2026-07-08T16:55:18.842Z"
+        }
+      ],
+      "read": false
+    },
+    {
       "id": "2d2aee63-b4cf-4264-962c-6fb735cc3d06",
       "started_at": "2026-07-07T17:36:42.818Z",
       "updated_at": "2026-07-07T17:36:42.818Z",
