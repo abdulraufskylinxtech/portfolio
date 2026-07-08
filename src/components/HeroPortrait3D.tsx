@@ -20,7 +20,7 @@ type Props = {
 };
 
 const frameClass =
-  "relative h-[clamp(230px,30vw,380px)] w-[clamp(230px,30vw,380px)]";
+  "relative h-[clamp(200px,26vw,330px)] w-[clamp(200px,26vw,330px)]";
 
 function splitRingWords(text: string): string[] {
   return text
