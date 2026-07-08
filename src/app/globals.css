@@ -191,26 +191,63 @@
   overflow: visible;
 }
 
+.hero-portrait-code-orbit-outer,
+.hero-portrait-code-orbit-inner {
+  inset: -8%;
+}
+
 .hero-portrait-code-orbit-reverse {
   animation-direction: reverse;
 }
 
-.hero-portrait-code-text {
-  fill: hsl(var(--primary-glow));
-  font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono",
-    "Courier New", monospace;
-  font-size: 8.5px;
-  font-weight: 600;
-  letter-spacing: 0.14em;
+.hero-portrait-code-arm {
+  position: absolute;
+  inset: 0;
+  transform-origin: center center;
+}
+
+.hero-portrait-code-label {
+  position: absolute;
+  left: 50%;
+  transform: translateX(-50%);
+  white-space: nowrap;
+  padding-inline: 0.35em;
+  font-family: var(--font-jetbrains-mono), ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas,
+    "Liberation Mono", "Courier New", monospace;
+  font-size: 16px;
+  font-weight: 500;
+  letter-spacing: 0.02em;
   text-transform: lowercase;
-  filter: drop-shadow(0 0 5px hsl(var(--primary-glow) / 0.9))
-    drop-shadow(0 0 10px hsl(var(--primary) / 0.45));
+  color: hsl(var(--primary-glow));
+  text-shadow:
+    0 0 6px hsl(var(--primary-glow) / 0.95),
+    0 0 12px hsl(var(--primary) / 0.45);
+}
+
+.hero-portrait-code-orbit-outer .hero-portrait-code-label {
+  top: 0;
+}
+
+.hero-portrait-code-orbit-inner .hero-portrait-code-label {
+  top: 3.5%;
+  font-size: 15px;
+  opacity: 0.94;
+}
+
+.hero-portrait-code-label-ar {
+  font-family: var(--font-tajawal), "Segoe UI", Tahoma, sans-serif;
+  letter-spacing: 0;
+  text-transform: none;
 }
 
 @media (min-width: 640px) {
-  .hero-portrait-code-text {
-    font-size: 9.5px;
-    letter-spacing: 0.16em;
+  .hero-portrait-code-label {
+    font-size: 20px;
+    letter-spacing: 0.03em;
+  }
+
+  .hero-portrait-code-orbit-inner .hero-portrait-code-label {
+    font-size: 18.5px;
   }
 }
 

@@ -35,7 +35,9 @@
     "chatWithAI": "Chat with AI Twin",
     "viewProjects": "View Projects",
     "readBlog": "Read Blog",
-    "downloadCv": "Download CV"
+    "downloadCv": "Download CV",
+    "codeRingOuter": " Python · FastAPI · Django · REST · AI · Backend · Groq · ",
+    "codeRingInner": " SQL · Docker · Redis · LLM · RAG · JWT · Git · "
   },
   "projects": {
     "sectionLabel": "Portfolio",

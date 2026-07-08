@@ -35,7 +35,9 @@
     "chatWithAI": "Mit KI-Zwilling chatten",
     "viewProjects": "Projekte ansehen",
     "readBlog": "Blog lesen",
-    "downloadCv": "Lebenslauf laden"
+    "downloadCv": "Lebenslauf laden",
+    "codeRingOuter": " Python · FastAPI · Django · REST · KI · Backend · Groq · ",
+    "codeRingInner": " SQL · Docker · Redis · LLM · RAG · JWT · Git · "
   },
   "projects": {
     "sectionLabel": "Portfolio",

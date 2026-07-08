@@ -35,7 +35,9 @@
     "chatWithAI": "تحدث مع نسختي الذكية",
     "viewProjects": "عرض المشاريع",
     "readBlog": "اقرأ المدونة",
-    "downloadCv": "تحميل السيرة الذاتية"
+    "downloadCv": "تحميل السيرة الذاتية",
+    "codeRingOuter": " بايثون · فاست API · جانغو · REST · ذكاء اصطناعي · خلفية · برمجة · ",
+    "codeRingInner": " SQL · دوكر · ريديس · LLM · RAG · JWT · Git · "
   },
   "projects": {
     "sectionLabel": "معرض الأعمال",

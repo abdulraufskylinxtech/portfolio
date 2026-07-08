@@ -1,5 +1,5 @@
 import type { Metadata } from "next";
-import { Inter, Tajawal } from "next/font/google";
+import { Inter, JetBrains_Mono, Tajawal } from "next/font/google";
 
 import { AppProviders } from "@/components/providers/app-providers";
 import { getSiteUrl } from "@/lib/site";
@@ -19,6 +19,13 @@ const tajawal = Tajawal({
   display: "swap",
 });
 
+const jetbrainsMono = JetBrains_Mono({
+  subsets: ["latin"],
+  weight: ["500", "600"],
+  variable: "--font-jetbrains-mono",
+  display: "swap",
+});
+
 export const metadata: Metadata = {
   metadataBase: new URL(getSiteUrl()),
 };
@@ -31,7 +38,7 @@ export default function RootLayout({
   return (
     <html suppressHydrationWarning>
       <body
-        className={`${inter.variable} ${tajawal.variable} min-h-full bg-background text-foreground antialiased`}
+        className={`${inter.variable} ${tajawal.variable} ${jetbrainsMono.variable} min-h-full bg-background text-foreground antialiased`}
       >
         <AppProviders>{children}</AppProviders>
       </body>
