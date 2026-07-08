@@ -36,8 +36,8 @@
     "viewProjects": "عرض المشاريع",
     "readBlog": "اقرأ المدونة",
     "downloadCv": "تحميل السيرة الذاتية",
-    "codeRingOuter": " بايثون · فاست API · جانغو · REST · ذكاء اصطناعي · خلفية · برمجة · ",
-    "codeRingInner": " SQL · دوكر · ريديس · LLM · RAG · JWT · Git · "
+    "codeRingOuter": " بايثون · بايتورش · أولاما · فاست أي بي آي · دوكر · ريديس · ",
+    "codeRingInner": " أمازون · أزور · جيت · جيت هاب · راغ · إم سي بي · "
   },
   "projects": {
     "sectionLabel": "معرض الأعمال",

@@ -213,7 +213,7 @@
   white-space: nowrap;
   padding-inline: 0.35em;
   font-family: var(--font-jetbrains-mono), ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas,
-    "Liberation Mono", "Courier New", monospace;
+    "Liberation Mono", "Courier New", "PingFang SC", "Microsoft YaHei", "Noto Sans SC", sans-serif;
   font-size: 16px;
   font-weight: 500;
   letter-spacing: 0.02em;

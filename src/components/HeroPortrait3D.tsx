@@ -4,6 +4,7 @@ import dynamic from "next/dynamic";
 import { useLocale, useTranslations } from "next-intl";
 import { useEffect, useMemo, useState, type ReactNode } from "react";
 
+import { isRtlLocale } from "@/lib/locale-catalog";
 import { cn } from "@/lib/utils";
 
 const HeroProfileModelScene = dynamic(
@@ -156,7 +157,7 @@ export function HeroPortrait3D({ src, modelSrc, alt, className }: Props) {
   const model = modelSrc?.trim() || "";
   const [modelReady, setModelReady] = useState(false);
   const [modelFailed, setModelFailed] = useState(false);
-  const isRtl = locale === "ar";
+  const isRtl = isRtlLocale(locale);
   const ringText = {
     outer: t("codeRingOuter"),
     inner: t("codeRingInner"),

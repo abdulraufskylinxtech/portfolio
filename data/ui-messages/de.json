@@ -6,7 +6,7 @@
     "ogImageAlt": "Shakeel Latif Portfolio"
   },
   "nav": {
-    "home": "Start",
+    "home": "Startseite",
     "projects": "Projekte",
     "skills": "Fähigkeiten",
     "experience": "Erfahrung",
@@ -18,7 +18,7 @@
     "admin": "Admin",
     "menuOpen": "Menü öffnen",
     "menuClose": "Menü schließen",
-    "hireMe": "Beauftragen",
+    "hireMe": "Engagieren Sie mich",
     "cv": "Lebenslauf",
     "resume": "Lebenslauf",
     "viewCv": "Lebenslauf ansehen"
@@ -32,10 +32,10 @@
     ],
     "tagline": "Full-Stack-Entwickler | KI-Enthusiast | DevOps-Lerner",
     "description": "Innovative Lösungen mit modernen Technologien. Spezialisiert auf React, Node.js und KI/ML-Integration.",
-    "chatWithAI": "Mit KI-Zwilling chatten",
+    "chatWithAI": "Chatten Sie mit KI-Zwilling",
     "viewProjects": "Projekte ansehen",
     "readBlog": "Blog lesen",
-    "downloadCv": "Lebenslauf laden",
+    "downloadCv": "Lebenslauf herunterladen",
     "codeRingOuter": " Python · PyTorch · Ollama · FastAPI · Docker · Redis · ",
     "codeRingInner": " AWS · Azure · Git · GitHub · RAG · MCP · "
   },
@@ -46,19 +46,19 @@
     "description": "Beschreibung",
     "technologies": "Technologien",
     "apis": "APIs & Integrationen",
-    "highlights": "Highlights",
+    "highlights": "Höhepunkte",
     "code": "Code",
     "demo": "Demo",
     "viewCode": "Code ansehen",
     "liveDemo": "Live-Demo",
     "prevImage": "Vorheriges Bild",
     "nextImage": "Nächstes Bild",
-    "goToImage": "Zu Bild {n} gehen"
+    "goToImage": "Gehe zu Bild {n}"
   },
   "skills": {
     "sectionLabel": "Expertise",
     "title": "Technische Fähigkeiten",
-    "subtitle": "Ständiges Lernen und Verbessern im gesamten Entwicklungsstack",
+    "subtitle": "Ständig lernend und verbessert über den gesamten Entwicklungsstapel",
     "categories": {
       "frontend": "Frontend",
       "backend": "Backend",
@@ -83,7 +83,7 @@
       "degree": "Formale Ausbildung",
       "certificate": "Zertifikat",
       "course": "Kurs",
-      "training": "Schulung / Workshop"
+      "training": "Schulung (Workshop)"
     },
     "getInTouch": "Kontakt aufnehmen",
     "email": "E-Mail",
@@ -92,45 +92,45 @@
   },
   "contact": {
     "sectionLabel": "Kontakt",
-    "title": "Kontakt",
+    "title": "Kontakt aufnehmen",
     "subtitle": "Haben Sie ein Projekt im Sinn? Lassen Sie uns zusammenarbeiten!",
     "map": {
-      "title": "Standort",
-      "directions": "Route anzeigen",
-      "note": "Ansässig in Lahore, Pakistan — offen für lokale Treffen und Remote-Zusammenarbeit.",
-      "aria": "Interaktive Karte mit {location}"
+      "title": "Finden Sie mich hier",
+      "directions": "Route berechnen",
+      "note": "Ansässig in Lahore, Pakistan — verfügbar für lokale Treffen und Remote-Zusammenarbeit.",
+      "aria": "Interaktive Karte, die {location} zeigt"
     },
     "form": {
       "name": "Name",
       "email": "E-Mail",
       "message": "Nachricht",
       "send": "Nachricht senden",
-      "sending": "Wird gesendet..."
+      "sending": "Sende..."
     },
-    "connect": "Vernetzen",
+    "connect": "Verbinden Sie sich mit mir",
     "validation": {
       "nameRequired": "Name ist erforderlich",
       "invalidEmail": "Ungültige E-Mail",
-      "messageMin": "Nachricht muss mindestens 10 Zeichen haben"
+      "messageMin": "Nachricht muss mindestens 10 Zeichen lang sein"
     },
     "toast": {
       "validationError": "Validierungsfehler",
-      "error": "Nachricht konnte nicht gesendet werden. Bitte erneut versuchen.",
-      "errorTitle": "Senden fehlgeschlagen",
-      "success": "Ihre Nachricht wurde gesendet. Ich melde mich bald!",
+      "error": "Nachricht konnte nicht gesendet werden. Bitte versuchen Sie es erneut.",
+      "errorTitle": "Konnte nicht senden",
+      "success": "Ihre Nachricht wurde gesendet. Ich melde mich bald bei Ihnen!",
       "successTitle": "Nachricht gesendet",
       "savedTitle": "Nachricht gespeichert",
-      "savedPendingEmail": "Ihre Nachricht wurde erfasst. E-Mail-Versand wird auf dem Server konfiguriert.",
-      "savedNoEmail": "Nachricht in den Site-Daten gespeichert. E-Mail konnte nicht gesendet werden — Gmail-Einstellungen prüfen.",
-      "openingEmail": "E-Mail wird geöffnet..."
+      "savedPendingEmail": "Ihre Nachricht wurde aufgezeichnet. Die E-Mail-Zustellung wird auf dem Server konfiguriert.",
+      "savedNoEmail": "Ihre Nachricht wurde in den Website-Records gespeichert. Die E-Mail konnte nicht gesendet werden — überprüfen Sie die Gmail-Mailer-Einstellungen.",
+      "openingEmail": "E-Mail öffnen..."
     }
   },
   "blog": {
     "title": "Blog",
-    "subtitle": "Gedanken zu Entwicklung, KI und Technologie",
+    "subtitle": "Gedanken zur Entwicklung, KI und Technologie",
     "search": "Beiträge suchen...",
-    "allTypes": "Alle Typen",
-    "readMore": "Weiterlesen",
+    "allTypes": "Alle Arten",
+    "readMore": "Mehr lesen",
     "noPosts": "Keine Beiträge gefunden",
     "backToBlog": "Zurück zum Blog"
   },
@@ -141,34 +141,35 @@
     "password": "Passwort",
     "submitLogin": "Anmelden",
     "submitSignup": "Konto erstellen",
-    "toggleLogin": "Bereits ein Konto? Anmelden",
-    "toggleSignup": "Noch kein Konto? Registrieren",
+    "toggleLogin": "Sie haben bereits ein Konto? Anmelden",
+    "toggleSignup": "Sie haben noch kein Konto? Registrieren",
     "welcomeBack": "Willkommen zurück!",
     "loginSuccess": "Sie wurden erfolgreich angemeldet.",
-    "signupSuccess": "Konto erstellt! Bitte E-Mail zur Bestätigung prüfen."
+    "signupSuccess": "Konto erstellt! Überprüfen Sie Ihre E-Mail, um zu bestätigen."
   },
   "footer": {
     "rights": "Alle Rechte vorbehalten.",
-    "whatsapp": "Auf WhatsApp schreiben",
-    "whatsappPrefill": "Hallo {name}, ich habe Ihr Portfolio gefunden und möchte mich vernetzen.",
-    "connect": "Kontakt",
-    "quickLinks": "Schnelllinks",
+    "whatsapp": "Nachricht auf WhatsApp",
+    "whatsappPrefill": "Hallo {name}, ich habe Ihr Portfolio gefunden und würde mich gerne mit Ihnen verbinden.",
+    "connect": "Verbinden",
+    "quickLinks": "Schnellverbindungen",
     "projects": "Projekte",
     "about": "Über mich",
     "blog": "Blog",
     "contact": "Kontakt",
-    "availability": "Offen für Remote- und Vor-Ort-Projekte"
+    "availability": "Offen für Remote- und Vor-Ort-Möglichkeiten"
   },
   "chat": {
-    "greeting": "Hallo! Ich bin {name}s Portfolio-Assistent. Ich beantworte Fragen zu Fähigkeiten, Erfahrung, Projekten, Ausbildung und Lebenslauf — nur im beruflichen Kontext.",
-    "placeholder": "Fragen zu Skills, Erfahrung, Projekten…",
+    "greeting": "Hallo! Ich bin {name}s Portfolio-Assistent. Ich beantworte Fragen zu Fähigkeiten, Erfahrung, Projekten, Ausbildung und Lebenslauf — nur im Rahmen seines beruflichen Hintergrunds.",
+    "placeholder": "Fragen zu Fähigkeiten, Erfahrung, Projekten…",
     "title": "KI-Assistent",
-    "newChat": "Neuer Chat",
-    "error": "Ich habe gerade Probleme beim Antworten. Bitte versuche es erneut."
+    "newChat": "Neues Gespräch",
+    "error": "Ich habe Schwierigkeiten, zu antworten. Bitte versuchen Sie es erneut."
   },
   "language": {
     "en": "English",
     "ar": "العربية",
-    "de": "Deutsch"
+    "de": "Deutsch",
+    "zh": "中文"
   }
 }

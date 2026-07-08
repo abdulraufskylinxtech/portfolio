@@ -5,6 +5,12 @@ import path from "path";
 import { getLanguageNameForAi } from "@/lib/locale-catalog";
 import { callLlmCompletion, getLlmConfig, parseJsonFromLlm } from "@/lib/llm-client";
 import { readDataJson, writeDataJson } from "@/lib/json-store";
+import {
+  extractCodeRingsFromMessages,
+  patchHeroCodeRings,
+  resolveCodeRingsForLocale,
+  translateCodeRingLabels,
+} from "@/lib/code-ring-i18n";
 import { getEnabledLocales } from "@/lib/site-locales";
 import type { SiteInfo } from "@/lib/data";
 
@@ -50,26 +56,36 @@ function patchLanguageLabels(
   return { ...messages, language };
 }
 
+function withLocalizedCodeRings(messages: AbstractIntlMessages, locale: string): AbstractIntlMessages {
+  const fromMessages = extractCodeRingsFromMessages(messages);
+  const codeRings = resolveCodeRingsForLocale(locale, fromMessages);
+  return patchHeroCodeRings(messages, codeRings);
+}
+
 /** Load next-intl messages for a locale (generated AI file → built-in file → English). */
 export async function loadUiMessages(
   locale: string,
   site?: SiteInfo,
 ): Promise<AbstractIntlMessages> {
+  const english = enMessages as unknown as AbstractIntlMessages;
+
   if (locale === "en") {
-    return patchLanguageLabels(enMessages as unknown as AbstractIntlMessages, site);
+    return patchLanguageLabels(english, site);
   }
 
   const generated = await readGeneratedUiMessages(locale);
   if (generated) {
-    return patchLanguageLabels(generated, site);
+    const merged = deepMergeMessages(english, generated) as AbstractIntlMessages;
+    return patchLanguageLabels(withLocalizedCodeRings(merged, locale), site);
   }
 
   const builtin = await readBuiltinUiMessages(locale);
   if (builtin) {
-    return patchLanguageLabels(builtin, site);
+    const merged = deepMergeMessages(english, builtin) as AbstractIntlMessages;
+    return patchLanguageLabels(withLocalizedCodeRings(merged, locale), site);
   }
 
-  return patchLanguageLabels(enMessages as unknown as AbstractIntlMessages, site);
+  return patchLanguageLabels(withLocalizedCodeRings(english, locale), site);
 }
 
 function isPlainObject(value: unknown): value is Record<string, unknown> {
@@ -97,6 +113,7 @@ Rules:
 - Keep JSON keys unchanged.
 - Keep placeholders exactly as-is: {name}, {n}, {location}.
 - Keep technology names natural in the target language (React, Node.js, etc.).
+- hero.codeRingOuter and hero.codeRingInner are translated separately after this step — you may omit them or leave placeholders.
 - Return ONLY valid JSON, no markdown.`;
 
 export async function generateUiMessagesForLocale(
@@ -117,7 +134,11 @@ export async function generateUiMessagesForLocale(
   });
 
   const parsed = parseJsonFromLlm<AbstractIntlMessages>(raw);
-  const merged = deepMergeMessages(enMessages, parsed) as AbstractIntlMessages;
+  let merged = deepMergeMessages(enMessages, parsed) as AbstractIntlMessages;
+
+  const codeRings = await translateCodeRingLabels(localeCode);
+  merged = patchHeroCodeRings(merged, codeRings);
+
   return patchLanguageLabels(merged, site);
 }
 

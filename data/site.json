@@ -14,6 +14,18 @@
       "label": "Arabic",
       "nativeName": "العربية",
       "flag": "🇸🇦"
+    },
+    {
+      "code": "de",
+      "label": "German",
+      "nativeName": "Deutsch",
+      "flag": "🇩🇪"
+    },
+    {
+      "code": "zh",
+      "label": "Chinese",
+      "nativeName": "中文",
+      "flag": "🇨🇳"
     }
   ],
   "email": "rauf22750@gmail.com",
@@ -182,9 +194,75 @@
         "كريكيت",
         "السفر"
       ]
+    },
+    "de": {
+      "name": "Abdul Rauf",
+      "role": "Erstellung intelligenter Backend-Systeme und künstlicher Intelligenz-basierter Anwendungen",
+      "bio": "Python-Entwickler mit Spezialisierung auf Backend-Engineering und künstliche Intelligenz-Anwendungen. Erfahrung mit FastAPI, Django, REST-APIs, LangChain und LLM-Integration.",
+      "heroRoles": [
+        "KI-Entwickler",
+        "Python-Backend-Entwickler",
+        "FastAPI-Entwickler",
+        "Django-Entwickler"
+      ],
+      "availability": "Für neue Möglichkeiten offen — Remote und Vor-Ort",
+      "location": "AL Sadiq Block Raiwand road, Lahore, Pakistan",
+      "stats": [
+        {
+          "value": "2+",
+          "label": "Jahre Erfahrung"
+        },
+        {
+          "value": "20+",
+          "label": "Abgeschlossene Projekte"
+        },
+        {
+          "value": "10+",
+          "label": "Technologien"
+        }
+      ],
+      "hobbies": [
+        "Technik-Blogs lesen",
+        "KI-Tools erkunden",
+        "Cricket",
+        "Reisen"
+      ]
+    },
+    "zh": {
+      "name": "阿卜杜勒·劳夫",
+      "role": "构建智能后端系统和AI驱动的应用程序",
+      "bio": "专注于后端工程和AI应用的Python开发者，具有FastAPI、Django、REST API、LangChain和LLM集成的经验。",
+      "heroRoles": [
+        "AI开发者",
+        "Python后端开发者",
+        "FastAPI开发者",
+        "Django开发者"
+      ],
+      "availability": "开放新的机会 — 远程和现场",
+      "location": "巴基斯坦拉合尔雷温德路萨迪克区",
+      "stats": [
+        {
+          "value": "2+",
+          "label": "年工作经验"
+        },
+        {
+          "value": "20+",
+          "label": "已交付项目"
+        },
+        {
+          "value": "10+",
+          "label": "技术栈"
+        }
+      ],
+      "hobbies": [
+        "阅读技术博客",
+        "探索AI工具",
+        "板球",
+        "旅行"
+      ]
     }
   },
-  "translationsUpdatedAt": "2026-07-08T14:54:05.506Z",
+  "translationsUpdatedAt": "2026-07-08T15:54:08.705Z",
   "useArabicDisplayName": false,
   "profileImage": "/profile/photo-mraxbcxj-2c2920fd.png"
 }
