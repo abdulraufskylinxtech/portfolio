@@ -20,7 +20,7 @@ type Props = {
 };
 
 const frameClass =
-  "relative h-[clamp(200px,26vw,330px)] w-[clamp(200px,26vw,330px)]";
+  "relative h-[clamp(190px,22vw,290px)] w-[clamp(190px,22vw,290px)]";
 
 function splitRingWords(text: string): string[] {
   return text
@@ -140,7 +140,6 @@ function ImagePortrait({
 }) {
   return (
     <PortraitFrame outerText={outerText} innerText={innerText} rtl={rtl}>
-      {/* eslint-disable-next-line @next/next/no-img-element */}
       <img src={src} alt={alt} className={portraitMediaClass} />
     </PortraitFrame>
   );

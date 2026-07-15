@@ -110,12 +110,12 @@ export function ProjectsSection() {
                     ))}
                   </div>
                 </CardContent>
-                <CardFooter className="flex gap-2">
+                <CardFooter className="flex flex-wrap gap-2">
                   {project.github_link && (
                     <Button
                       variant="outline"
                       size="sm"
-                      className="flex-1"
+                      className="min-w-28 flex-1"
                       asChild
                       onClick={(e) => e.stopPropagation()}
                     >
@@ -126,7 +126,7 @@ export function ProjectsSection() {
                     </Button>
                   )}
                   {project.live_link && (
-                    <Button size="sm" className="flex-1" asChild onClick={(e) => e.stopPropagation()}>
+                    <Button size="sm" className="min-w-28 flex-1" asChild onClick={(e) => e.stopPropagation()}>
                       <a href={project.live_link} target="_blank" rel="noopener noreferrer">
                         <ExternalLink className="me-2 h-4 w-4" />
                         {t("demo")}
@@ -141,9 +141,11 @@ export function ProjectsSection() {
       </div>
 
       <Dialog open={!!selectedProject} onOpenChange={() => setSelectedProject(null)}>
-        <DialogContent className="max-h-[90vh] max-w-4xl overflow-y-auto">
+        <DialogContent className="max-w-4xl">
           <DialogHeader>
-            <DialogTitle className="text-2xl">{selectedProject?.title}</DialogTitle>
+            <DialogTitle className="pe-8 text-xl leading-snug sm:text-2xl">
+              {selectedProject?.title}
+            </DialogTitle>
           </DialogHeader>
           {selectedProject && (
             <div className="space-y-6">
@@ -176,7 +178,7 @@ export function ProjectsSection() {
                         <Button
                           variant="outline"
                           size="icon"
-                          className="absolute start-3 top-1/2 -translate-y-1/2 bg-background/80 backdrop-blur-sm"
+                          className="absolute start-2 top-1/2 h-9 w-9 -translate-y-1/2 bg-background/80 backdrop-blur-sm sm:start-3 sm:h-10 sm:w-10"
                           onClick={prevImage}
                           aria-label={t("prevImage")}
                         >
@@ -185,7 +187,7 @@ export function ProjectsSection() {
                         <Button
                           variant="outline"
                           size="icon"
-                          className="absolute end-3 top-1/2 -translate-y-1/2 bg-background/80 backdrop-blur-sm"
+                          className="absolute end-2 top-1/2 h-9 w-9 -translate-y-1/2 bg-background/80 backdrop-blur-sm sm:end-3 sm:h-10 sm:w-10"
                           onClick={nextImage}
                           aria-label={t("nextImage")}
                         >
@@ -277,9 +279,9 @@ export function ProjectsSection() {
                 </div>
               </div>
 
-              <div className="flex flex-wrap gap-3 pt-2">
+              <div className="flex flex-col gap-3 pt-2 min-[400px]:flex-row min-[400px]:flex-wrap">
                 {selectedProject.github_link && (
-                  <Button variant="outline" asChild>
+                  <Button variant="outline" className="w-full min-[400px]:w-auto" asChild>
                     <a href={selectedProject.github_link} target="_blank" rel="noopener noreferrer">
                       <Github className="me-2 h-4 w-4" />
                       {t("code")}
@@ -287,7 +289,7 @@ export function ProjectsSection() {
                   </Button>
                 )}
                 {selectedProject.live_link && (
-                  <Button asChild>
+                  <Button className="w-full min-[400px]:w-auto" asChild>
                     <a href={selectedProject.live_link} target="_blank" rel="noopener noreferrer">
                       <ExternalLink className="me-2 h-4 w-4" />
                       {t("demo")}

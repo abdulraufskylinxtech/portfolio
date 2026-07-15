@@ -12,7 +12,7 @@ import {
   translateCodeRingLabels,
 } from "@/lib/code-ring-i18n";
 import { getEnabledLocales } from "@/lib/site-locales";
-import type { SiteInfo } from "@/lib/data";
+import { getDisplayName, resolveSiteForLocale, type SiteInfo } from "@/lib/data";
 
 import enMessages from "../../messages/en.json";
 
@@ -56,6 +56,41 @@ function patchLanguageLabels(
   return { ...messages, language };
 }
 
+function patchSiteIdentity(
+  messages: AbstractIntlMessages,
+  locale: string,
+  site?: SiteInfo,
+): AbstractIntlMessages {
+  if (!site) return messages;
+
+  const localizedSite = resolveSiteForLocale(site, locale);
+  const displayName = getDisplayName(site, locale);
+  const metadata = isPlainObject(messages.metadata) ? messages.metadata : {};
+  const hero = isPlainObject(messages.hero) ? messages.hero : {};
+
+  return {
+    ...messages,
+    metadata: {
+      ...metadata,
+      title: `${displayName} — ${localizedSite.role}`,
+      siteName: `${displayName} Portfolio`,
+      ogImageAlt: `${displayName} Portfolio`,
+    },
+    hero: {
+      ...hero,
+      name: displayName,
+    },
+  };
+}
+
+function finalizeUiMessages(
+  messages: AbstractIntlMessages,
+  locale: string,
+  site?: SiteInfo,
+): AbstractIntlMessages {
+  return patchSiteIdentity(patchLanguageLabels(messages, site), locale, site);
+}
+
 function withLocalizedCodeRings(messages: AbstractIntlMessages, locale: string): AbstractIntlMessages {
   const fromMessages = extractCodeRingsFromMessages(messages);
   const codeRings = resolveCodeRingsForLocale(locale, fromMessages);
@@ -70,22 +105,22 @@ export async function loadUiMessages(
   const english = enMessages as unknown as AbstractIntlMessages;
 
   if (locale === "en") {
-    return patchLanguageLabels(english, site);
+    return finalizeUiMessages(english, locale, site);
   }
 
   const generated = await readGeneratedUiMessages(locale);
   if (generated) {
     const merged = deepMergeMessages(english, generated) as AbstractIntlMessages;
-    return patchLanguageLabels(withLocalizedCodeRings(merged, locale), site);
+    return finalizeUiMessages(withLocalizedCodeRings(merged, locale), locale, site);
   }
 
   const builtin = await readBuiltinUiMessages(locale);
   if (builtin) {
     const merged = deepMergeMessages(english, builtin) as AbstractIntlMessages;
-    return patchLanguageLabels(withLocalizedCodeRings(merged, locale), site);
+    return finalizeUiMessages(withLocalizedCodeRings(merged, locale), locale, site);
   }
 
-  return patchLanguageLabels(withLocalizedCodeRings(english, locale), site);
+  return finalizeUiMessages(withLocalizedCodeRings(english, locale), locale, site);
 }
 
 function isPlainObject(value: unknown): value is Record<string, unknown> {

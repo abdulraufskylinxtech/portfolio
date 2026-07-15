@@ -1,6 +1,7 @@
 "use client";
 
-import { useMemo, useState } from "react";
+import { Check, ChevronDown, Languages, Search } from "lucide-react";
+import { useEffect, useMemo, useRef, useState } from "react";
 
 import type { SiteInfo } from "@/lib/data";
 import { LOCALE_CATALOG } from "@/lib/locale-catalog";
@@ -21,16 +22,65 @@ type Props = {
   readOnly?: boolean;
 };
 
+function flagCountryCode(flag: string): string | null {
+  const points = Array.from(flag, (character) => character.codePointAt(0) ?? 0);
+  if (points.length !== 2 || points.some((point) => point < 0x1f1e6 || point > 0x1f1ff)) {
+    return null;
+  }
+  return points.map((point) => String.fromCharCode(point - 0x1f1e6 + 97)).join("");
+}
+
+function LanguageIcon({ flag, code }: { flag: string; code: string }) {
+  const countryCode = flagCountryCode(flag);
+
+  if (countryCode) {
+    return (
+      <span
+        className="h-[18px] w-6 shrink-0 rounded-sm border border-white/15 bg-cover bg-center shadow-sm"
+        style={{ backgroundImage: `url(https://flagcdn.com/24x18/${countryCode}.png)` }}
+        role="img"
+        aria-label={`${code.toUpperCase()} flag`}
+      />
+    );
+  }
+
+  return (
+    <span className="flex h-6 w-6 shrink-0 items-center justify-center rounded-md bg-primary/15 text-[9px] font-bold uppercase text-primary">
+      {code}
+    </span>
+  );
+}
+
 export function SiteLanguagesPanel({ data, onChange, onTranslated, readOnly }: Props) {
   const [busy, setBusy] = useState<string | null>(null);
   const [message, setMessage] = useState("");
   const [error, setError] = useState("");
   const [pickCode, setPickCode] = useState("");
+  const [pickerOpen, setPickerOpen] = useState(false);
+  const [languageSearch, setLanguageSearch] = useState("");
+  const pickerRef = useRef<HTMLDivElement>(null);
 
   const defaultLocale = getDefaultLocaleCode(data);
   const enabled = getEnabledLocales(data);
   const addable = useMemo(() => getAddableLocales(data), [data]);
+  const filteredAddable = useMemo(() => {
+    const query = languageSearch.trim().toLocaleLowerCase();
+    if (!query) return addable;
+    return addable.filter((entry) =>
+      `${entry.code} ${entry.label} ${entry.nativeName}`.toLocaleLowerCase().includes(query),
+    );
+  }, [addable, languageSearch]);
+  const selectedLanguage = addable.find((entry) => entry.code === pickCode);
   const translatable = getTranslatableLocaleCodes(data);
+
+  useEffect(() => {
+    if (!pickerOpen) return;
+    const closePicker = (event: PointerEvent) => {
+      if (!pickerRef.current?.contains(event.target as Node)) setPickerOpen(false);
+    };
+    document.addEventListener("pointerdown", closePicker);
+    return () => document.removeEventListener("pointerdown", closePicker);
+  }, [pickerOpen]);
 
   const updatedAt = data.translationsUpdatedAt
     ? new Date(data.translationsUpdatedAt).toLocaleString()
@@ -43,26 +93,39 @@ export function SiteLanguagesPanel({ data, onChange, onTranslated, readOnly }: P
     setError("");
 
     try {
-      const res = await fetch("/api/admin/translate-site", {
-        method: "POST",
-        credentials: "same-origin",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ locales }),
-      });
-      const body = (await res.json()) as {
-        error?: string;
-        translations?: SiteInfo["translations"];
-        translationsUpdatedAt?: string;
-      };
+      let latestSite = data;
 
-      if (!res.ok) throw new Error(body.error ?? "Translation failed");
+      for (let index = 0; index < locales.length; index += 1) {
+        const locale = locales[index];
+        setMessage(`Translating ${locale.toUpperCase()} (${index + 1}/${locales.length})…`);
 
-      await onTranslated({
-        ...data,
-        translations: body.translations,
-        translationsUpdatedAt: body.translationsUpdatedAt,
-      });
-      setMessage(`AI translations saved for: ${locales.join(", ")}`);
+        const res = await fetch("/api/admin/translate-site", {
+          method: "POST",
+          credentials: "same-origin",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({ locales: [locale] }),
+        });
+        const body = (await res.json()) as {
+          error?: string;
+          translations?: SiteInfo["translations"];
+          translationsUpdatedAt?: string;
+        };
+
+        if (!res.ok) {
+          throw new Error(
+            `${locale.toUpperCase()} failed after ${index} completed: ${body.error ?? "Translation failed"}`,
+          );
+        }
+
+        latestSite = {
+          ...latestSite,
+          translations: body.translations,
+          translationsUpdatedAt: body.translationsUpdatedAt,
+        };
+        await onTranslated(latestSite);
+      }
+
+      setMessage(`AI translations saved for ${locales.length} language(s).`);
     } catch (err) {
       setError(err instanceof Error ? err.message : "Translation failed");
     } finally {
@@ -74,6 +137,8 @@ export function SiteLanguagesPanel({ data, onChange, onTranslated, readOnly }: P
     if (!pickCode) return;
     onChange(addLocaleToSite(data, pickCode));
     setPickCode("");
+    setLanguageSearch("");
+    setPickerOpen(false);
     setMessage(`Added ${pickCode.toUpperCase()}. Save changes, then generate AI translation.`);
     setError("");
   };
@@ -86,7 +151,7 @@ export function SiteLanguagesPanel({ data, onChange, onTranslated, readOnly }: P
   return (
     <AdminSection
       title="Languages"
-      description="Add languages for the public switcher. English is the source — Groq AI generates hero/about text for each added language."
+      description="Add languages for the public switcher. English is the source — AI generates hero/about text for each added language."
     >
       <div className="space-y-3">
         {enabled.map((locale) => {
@@ -98,9 +163,7 @@ export function SiteLanguagesPanel({ data, onChange, onTranslated, readOnly }: P
               className="admin-subcard flex flex-wrap items-center justify-between gap-3"
             >
               <div className="flex min-w-0 flex-wrap items-center gap-2">
-                <span className="text-lg" aria-hidden>
-                  {locale.flag}
-                </span>
+                <LanguageIcon flag={locale.flag} code={locale.code} />
                 <div>
                   <p className="font-medium text-foreground">
                     {locale.nativeName}{" "}
@@ -147,24 +210,86 @@ export function SiteLanguagesPanel({ data, onChange, onTranslated, readOnly }: P
       ) : null}
 
       <div className="mt-4 flex flex-wrap items-end gap-2">
-        <label className="admin-field min-w-[14rem] flex-1">
+        <div ref={pickerRef} className="admin-field relative min-w-[14rem] flex-1">
           <span className="admin-label">Add language</span>
-          <select
-            value={pickCode}
+          <button
+            type="button"
             disabled={readOnly || addable.length === 0}
-            className="admin-input"
-            onChange={(e) => setPickCode(e.target.value)}
+            className="admin-input flex min-h-10 items-center justify-between gap-3 text-start disabled:cursor-not-allowed"
+            onClick={() => setPickerOpen((open) => !open)}
+            aria-expanded={pickerOpen}
+            aria-haspopup="listbox"
           >
-            <option value="">
-              {addable.length === 0 ? "All catalog languages added" : "Select a language…"}
-            </option>
-            {addable.map((entry) => (
-              <option key={entry.code} value={entry.code}>
-                {entry.flag} {entry.label} — {entry.nativeName}
-              </option>
-            ))}
-          </select>
-        </label>
+            <span className="flex min-w-0 items-center gap-2">
+              {selectedLanguage ? (
+                <LanguageIcon flag={selectedLanguage.flag} code={selectedLanguage.code} />
+              ) : (
+                <Languages className="h-5 w-5 shrink-0 text-primary" aria-hidden />
+              )}
+              <span className="truncate">
+                {selectedLanguage
+                  ? `${selectedLanguage.label} — ${selectedLanguage.nativeName}`
+                  : addable.length === 0
+                    ? "All catalog languages added"
+                    : "Select a language…"}
+              </span>
+            </span>
+            <ChevronDown
+              className={`h-4 w-4 shrink-0 transition ${pickerOpen ? "rotate-180" : ""}`}
+              aria-hidden
+            />
+          </button>
+
+          {pickerOpen ? (
+            <div className="absolute inset-x-0 top-[calc(100%+0.35rem)] z-30 overflow-hidden rounded-xl border border-border bg-card shadow-2xl">
+              <div className="relative border-b border-border p-2">
+                <Search className="pointer-events-none absolute start-5 top-1/2 h-4 w-4 -translate-y-1/2 text-muted-foreground" />
+                <input
+                  value={languageSearch}
+                  onChange={(event) => setLanguageSearch(event.target.value)}
+                  placeholder="Search language or code…"
+                  className="admin-input ps-9"
+                  autoFocus
+                />
+              </div>
+              <div className="max-h-72 overflow-y-auto overscroll-contain p-1" role="listbox">
+                {filteredAddable.length ? (
+                  filteredAddable.map((entry) => (
+                    <button
+                      key={entry.code}
+                      type="button"
+                      role="option"
+                      aria-selected={entry.code === pickCode}
+                      className="flex w-full items-center gap-3 rounded-lg px-3 py-2.5 text-start text-sm transition hover:bg-primary/10"
+                      onClick={() => {
+                        setPickCode(entry.code);
+                        setPickerOpen(false);
+                        setLanguageSearch("");
+                      }}
+                    >
+                      <LanguageIcon flag={entry.flag} code={entry.code} />
+                      <span className="min-w-0 flex-1">
+                        <span className="block truncate font-medium text-foreground">
+                          {entry.label}
+                        </span>
+                        <span className="block truncate text-xs text-muted-foreground">
+                          {entry.nativeName} · {entry.code}
+                        </span>
+                      </span>
+                      {entry.code === pickCode ? (
+                        <Check className="h-4 w-4 shrink-0 text-primary" aria-hidden />
+                      ) : null}
+                    </button>
+                  ))
+                ) : (
+                  <p className="px-3 py-6 text-center text-sm text-muted-foreground">
+                    No language found.
+                  </p>
+                )}
+              </div>
+            </div>
+          ) : null}
+        </div>
         <button
           type="button"
           disabled={!pickCode || readOnly}
@@ -182,7 +307,7 @@ export function SiteLanguagesPanel({ data, onChange, onTranslated, readOnly }: P
           className="admin-btn admin-btn-primary"
           onClick={() => void translateLocales(translatable, "all")}
         >
-          {busy === "all" ? "Translating all…" : "Generate AI for all languages"}
+          {busy === "all" ? "Translating all…" : "Generate AI for all enabled languages"}
         </button>
       </div>
 
@@ -193,7 +318,9 @@ export function SiteLanguagesPanel({ data, onChange, onTranslated, readOnly }: P
       </p>
 
       <details className="mt-3 text-xs text-muted-foreground">
-        <summary className="cursor-pointer">Available in catalog ({LOCALE_CATALOG.length})</summary>
+        <summary className="cursor-pointer">
+          Worldwide ISO language catalog ({LOCALE_CATALOG.length})
+        </summary>
         <p className="mt-2">
           {LOCALE_CATALOG.map((entry) => entry.code).join(", ")}
         </p>

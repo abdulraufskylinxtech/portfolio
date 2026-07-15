@@ -115,10 +115,8 @@ async function generateFullLocalePack(
   site: SiteInfo,
   localeCode: string,
 ): Promise<SiteLocaleBundle> {
-  const [content, ui] = await Promise.all([
-    generateTranslationForLocale(site, localeCode),
-    generateUiMessagesForLocale(localeCode, site),
-  ]);
+  const content = await generateTranslationForLocale(site, localeCode);
+  const ui = await generateUiMessagesForLocale(localeCode, site);
   await saveUiMessagesForLocale(localeCode, ui);
   return content;
 }

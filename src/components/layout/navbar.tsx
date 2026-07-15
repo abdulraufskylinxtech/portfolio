@@ -19,7 +19,7 @@ import ThemeToggle from "../ThemeToggle";
 
 const NAV_SECTION_IDS = ["hero", "projects", "skills", "experience", "about", "contact"] as const;
 const HERO_SCROLL_THRESHOLD = 400;
-const MOBILE_NAV_HEIGHT = "3.5rem";
+const MOBILE_NAV_HEIGHT = "4rem";
 
 type SectionLink = {
   kind: "section";
@@ -181,14 +181,14 @@ export function Navbar() {
           scrolled || !isHome
             ? "lg:glass lg:border-b lg:border-border/50 lg:py-3 lg:shadow-lg"
             : "lg:bg-transparent lg:py-5",
-          "py-3",
+          "py-2 lg:py-3",
         )}
         style={{ minHeight: MOBILE_NAV_HEIGHT }}
       >
-        <div className="container mx-auto flex h-14 min-w-0 items-center justify-between gap-2 px-3 sm:gap-3 sm:px-4">
+        <div className="container mx-auto flex h-12 min-w-0 items-center justify-between gap-1.5 px-2 min-[360px]:gap-2 min-[360px]:px-3 sm:gap-3 sm:px-4 lg:h-14">
           <Link
             href="/"
-            className="group flex min-w-0 shrink items-center gap-2 sm:gap-3"
+            className="group flex min-w-0 flex-1 items-center gap-2 sm:gap-3 lg:flex-none"
             onClick={closeMobile}
           >
             <AnimatePresence>
@@ -224,7 +224,7 @@ export function Navbar() {
             {links.map((item) => renderNavLink(item))}
           </nav>
 
-          <div className="flex shrink-0 items-center gap-1 sm:gap-2">
+          <div className="flex shrink-0 items-center gap-0.5 min-[360px]:gap-1 sm:gap-2">
             <Button
               variant="ghost"
               size="icon"

@@ -1,9 +1,9 @@
 {
   "metadata": {
-    "title": "Shakeel Latif — Full-Stack-Entwickler & KI-Enthusiast",
+    "title": "Portfolio-Inhaber — Full-Stack-Entwickler & KI-Enthusiast",
     "description": "Portfolio mit modernen Webanwendungen und KI-Integration. Chatten Sie mit meinem KI-Assistenten, um mehr über meine Arbeit zu erfahren.",
-    "siteName": "Shakeel Latif Portfolio",
-    "ogImageAlt": "Shakeel Latif Portfolio"
+    "siteName": "Portfolio",
+    "ogImageAlt": "Portfolio"
   },
   "nav": {
     "home": "Start",
@@ -24,7 +24,7 @@
     "viewCv": "Lebenslauf ansehen"
   },
   "hero": {
-    "name": "Shakeel Latif",
+    "name": "Portfolio-Inhaber",
     "roles": [
       "Full-Stack-Entwickler",
       "KI-Enthusiast",

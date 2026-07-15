@@ -200,12 +200,12 @@ const ChatWidget = ({ externalOpen, onOpenChange }: ChatWidgetProps) => {
       <Card
         className={cn(
           "fixed z-40 flex flex-col glass border-primary/30 shadow-2xl transition-all duration-300",
-          "bottom-[max(1rem,env(safe-area-inset-bottom))] end-[max(1rem,env(safe-area-inset-right))]",
-          "h-[min(32rem,calc(100dvh-5.5rem))] w-[min(24rem,calc(100vw-2rem))]",
+          "bottom-[max(0.5rem,env(safe-area-inset-bottom))] end-[max(0.5rem,env(safe-area-inset-right))] sm:bottom-[max(1rem,env(safe-area-inset-bottom))] sm:end-[max(1rem,env(safe-area-inset-right))]",
+          "h-[min(36rem,calc(100dvh-1rem-env(safe-area-inset-bottom)))] w-[calc(100vw-1rem-env(safe-area-inset-left)-env(safe-area-inset-right))] sm:h-[min(32rem,calc(100dvh-5.5rem))] sm:w-[min(24rem,calc(100vw-2rem))]",
           isOpen ? "scale-100 opacity-100 animate-slide-in-right" : "pointer-events-none scale-95 opacity-0",
         )}
       >
-        <div className="flex items-center justify-between border-b border-border p-4">
+        <div className="flex items-center justify-between border-b border-border p-3 sm:p-4">
           <div className="flex min-w-0 items-center gap-2">
             <div className="h-3 w-3 shrink-0 animate-glow-pulse rounded-full bg-primary" />
             <h3 className="truncate font-semibold text-foreground">{t("title")}</h3>
@@ -233,7 +233,7 @@ const ChatWidget = ({ externalOpen, onOpenChange }: ChatWidgetProps) => {
           </div>
         </div>
 
-        <ScrollArea className="flex-1 p-4">
+        <ScrollArea className="flex-1 p-3 sm:p-4">
           <div className="space-y-4">
             {messages.map((message, index) => (
               <div
@@ -241,13 +241,13 @@ const ChatWidget = ({ externalOpen, onOpenChange }: ChatWidgetProps) => {
                 className={`flex ${message.role === "user" ? "justify-end" : "justify-start"}`}
               >
                 <div
-                  className={`max-w-[80%] rounded-lg p-3 ${
+                  className={`min-w-0 max-w-[88%] rounded-lg p-3 sm:max-w-[80%] ${
                     message.role === "user"
                       ? "bg-primary text-primary-foreground"
                       : "bg-secondary text-foreground"
                   }`}
                 >
-                  <p className="whitespace-pre-wrap text-sm">{message.content}</p>
+                  <p className="break-words whitespace-pre-wrap text-sm">{message.content}</p>
                 </div>
               </div>
             ))}
@@ -262,7 +262,7 @@ const ChatWidget = ({ externalOpen, onOpenChange }: ChatWidgetProps) => {
           </div>
         </ScrollArea>
 
-        <div className="border-t border-border p-4">
+        <div className="border-t border-border p-3 sm:p-4">
           <div className="flex gap-2">
             <Input
               value={inputValue}

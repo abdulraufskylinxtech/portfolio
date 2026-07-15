@@ -34,6 +34,9 @@ export interface ExperienceEntry {
   role: string;
   company: string;
   period: string;
+  startDate?: string;
+  endDate?: string;
+  current?: boolean;
   location: string;
   bullets: string[];
   tech: string[];
@@ -185,14 +188,16 @@ import { getDefaultLocaleCode, isSourceLocale } from "@/lib/site-locales";
 
 /** Merge AI/stored translations for the active locale (source locale uses top-level fields). */
 export function resolveSiteForLocale(site: SiteInfo, locale: string): SiteInfo {
-  if (isSourceLocale(site, locale)) return site;
+  if (isSourceLocale(site, locale)) {
+    return { ...site, name: getDisplayName(site, locale) };
+  }
 
   const tr = site.translations?.[locale];
   if (!tr) return site;
 
   return {
     ...site,
-    name: tr.name?.trim() || site.name,
+    name: getDisplayName(site, locale),
     role: tr.role || site.role,
     bio: tr.bio || site.bio,
     heroRoles: tr.heroRoles?.length ? tr.heroRoles : site.heroRoles,

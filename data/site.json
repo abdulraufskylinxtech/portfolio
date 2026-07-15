@@ -8,24 +8,6 @@
       "label": "English",
       "nativeName": "English",
       "flag": "🇬🇧"
-    },
-    {
-      "code": "ar",
-      "label": "Arabic",
-      "nativeName": "العربية",
-      "flag": "🇸🇦"
-    },
-    {
-      "code": "de",
-      "label": "German",
-      "nativeName": "Deutsch",
-      "flag": "🇩🇪"
-    },
-    {
-      "code": "zh",
-      "label": "Chinese",
-      "nativeName": "中文",
-      "flag": "🇨🇳"
     }
   ],
   "email": "rauf22750@gmail.com",
@@ -123,7 +105,74 @@
       "ChromaDB"
     ]
   },
-  "experience": [],
+  "experience": [
+    {
+      "role": "Python Intern",
+      "company": "Skylinx Technology",
+      "period": "June 2024 — December 2024",
+      "startDate": "2024-06",
+      "endDate": "2024-12",
+      "current": false,
+      "location": "Lahore",
+      "bullets": [
+        "Assisted in developing backend features using Python and Django.",
+        "Worked with REST APIs and database operations in MySQL.",
+        "Participated in debugging, testing, and improving existing application modules.",
+        "Collaborated with senior developers using Git and GitHub.",
+        "Gained hands-on experience with production-level development workflows."
+      ],
+      "tech": [
+        "Python",
+        "Django",
+        "MySQL",
+        "REST API",
+        "Git",
+        "GitHub"
+      ],
+      "published": true
+    },
+    {
+      "role": "Software Engineer / AI Developer",
+      "company": "Skylinx Technology",
+      "period": "January 2025 — Present",
+      "startDate": "2025-01",
+      "endDate": "",
+      "current": true,
+      "location": "Lahore",
+      "bullets": [
+        "Developing scalable backend applications using Python, Django, and FastAPI.",
+        "Building and integrating REST APIs for AI-powered web applications.",
+        "Integrating Large Language Models (LLMs) using OpenAI APIs into production systems.",
+        "Designing and optimizing prompts to improve AI response accuracy and performance.",
+        "Developing AI chatbots and intelligent assistants for business automation.",
+        "Implementing Retrieval-Augmented Generation (RAG) based AI solutions.",
+        "Building AI workflows using LangChain and LangGraph.",
+        "Creating Python automation scripts for AI-driven business processes.",
+        "Processing and transforming data for AI model integration and analysis.",
+        "Debugging, testing, and optimizing AI-powered backend services.",
+        "Collaborating with cross-functional teams to deliver AI-enabled features.",
+        "Managing source code, pull requests, and deployments using Git and GitHub."
+      ],
+      "tech": [
+        "Python",
+        "REST API",
+        "OpenAI API",
+        "LLMs",
+        "LangChain",
+        "LangGraph",
+        "CrewAI",
+        "Pinecone",
+        "ChromaDB",
+        "Vector Database",
+        "RAG",
+        "Docker",
+        "Redis",
+        "Celery",
+        "AWS"
+      ],
+      "published": true
+    }
+  ],
   "education": [
     {
       "degree": "Matriculation (Computer Science)",
@@ -161,108 +210,8 @@
     "filename": "Abdul Rauf (1).pdf",
     "uploadedAt": "2026-07-03T14:27:58.378Z"
   },
-  "translations": {
-    "ar": {
-      "name": "عبدالرؤف",
-      "role": "بناء أنظمة الخلفية الذكية وتطبيقات مدعومة بالذكاء الاصطناعي",
-      "bio": "مطور بايثون متخصص في هندسة الخلفية وتطبيقات الذكاء الاصطناعي. لديه خبرة في FastAPI و Django و REST APIs و LangChain ودمج LLM.",
-      "heroRoles": [
-        "مطور الذكاء الاصطناعي",
-        "مطور بايثون للخلفية",
-        "مطور FastAPI",
-        "مطور Django"
-      ],
-      "availability": "مفتوح للفرص الجديدة — عن بعد وفي الموقع",
-      "location": "AL Sadiq Block Raiwand road, Lahore, Pakistan",
-      "stats": [
-        {
-          "value": "2+",
-          "label": "سنوات الخبرة"
-        },
-        {
-          "value": "20+",
-          "label": "المشاريع المنفذة"
-        },
-        {
-          "value": "10+",
-          "label": "التكنولوجيات"
-        }
-      ],
-      "hobbies": [
-        "قراءة مدونات التكنولوجيا",
-        "استكشاف أدوات الذكاء الاصطناعي",
-        "كريكيت",
-        "السفر"
-      ]
-    },
-    "de": {
-      "name": "Abdul Rauf",
-      "role": "Erstellung intelligenter Backend-Systeme und künstlicher Intelligenz-basierter Anwendungen",
-      "bio": "Python-Entwickler mit Spezialisierung auf Backend-Engineering und künstliche Intelligenz-Anwendungen. Erfahrung mit FastAPI, Django, REST-APIs, LangChain und LLM-Integration.",
-      "heroRoles": [
-        "KI-Entwickler",
-        "Python-Backend-Entwickler",
-        "FastAPI-Entwickler",
-        "Django-Entwickler"
-      ],
-      "availability": "Für neue Möglichkeiten offen — Remote und Vor-Ort",
-      "location": "AL Sadiq Block Raiwand road, Lahore, Pakistan",
-      "stats": [
-        {
-          "value": "2+",
-          "label": "Jahre Erfahrung"
-        },
-        {
-          "value": "20+",
-          "label": "Abgeschlossene Projekte"
-        },
-        {
-          "value": "10+",
-          "label": "Technologien"
-        }
-      ],
-      "hobbies": [
-        "Technik-Blogs lesen",
-        "KI-Tools erkunden",
-        "Cricket",
-        "Reisen"
-      ]
-    },
-    "zh": {
-      "name": "阿卜杜勒·劳夫",
-      "role": "构建智能后端系统和AI驱动的应用程序",
-      "bio": "专注于后端工程和AI应用的Python开发者，具有FastAPI、Django、REST API、LangChain和LLM集成的经验。",
-      "heroRoles": [
-        "AI开发者",
-        "Python后端开发者",
-        "FastAPI开发者",
-        "Django开发者"
-      ],
-      "availability": "开放新的机会 — 远程和现场",
-      "location": "巴基斯坦拉合尔雷温德路萨迪克区",
-      "stats": [
-        {
-          "value": "2+",
-          "label": "年工作经验"
-        },
-        {
-          "value": "20+",
-          "label": "已交付项目"
-        },
-        {
-          "value": "10+",
-          "label": "技术栈"
-        }
-      ],
-      "hobbies": [
-        "阅读技术博客",
-        "探索AI工具",
-        "板球",
-        "旅行"
-      ]
-    }
-  },
-  "translationsUpdatedAt": "2026-07-08T15:54:08.705Z",
+  "translations": {},
+  "translationsUpdatedAt": "2026-07-15T16:34:03.264Z",
   "useArabicDisplayName": false,
   "profileImage": "/profile/photo-mraxbcxj-2c2920fd.png"
 }

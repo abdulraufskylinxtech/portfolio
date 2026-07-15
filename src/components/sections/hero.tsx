@@ -41,7 +41,7 @@ export function Hero({ onChatOpen }: HeroProps) {
 
   const nameClassName = cn(
     "break-words font-bold leading-[1.1] bg-gradient-to-r from-primary via-primary-glow to-primary bg-clip-text text-transparent transition-[filter] duration-1000",
-    "text-[clamp(2rem,4.2vw+0.5rem,4.5rem)]",
+    "text-[clamp(2rem,3.2vw+0.35rem,3.9rem)]",
     locale === "ar" && "font-arabic",
   );
 
@@ -51,19 +51,20 @@ export function Hero({ onChatOpen }: HeroProps) {
     <section
       ref={heroRef}
       id="hero"
-      className="relative flex min-h-screen scroll-mt-24 items-center justify-center overflow-hidden pt-20"
+      className="relative flex min-h-screen min-h-[100svh] scroll-mt-20 items-center justify-center overflow-hidden pb-6 pt-20 sm:scroll-mt-24 sm:pb-8"
     >
       <div className="absolute inset-0 z-0 bg-cover bg-center bg-[url(/hero-bg.jpg)]" />
       <div className="absolute inset-0 z-0 bg-gradient-to-b from-[hsl(var(--hero-wash)/0.92)] via-background/75 to-background/55 dark:from-background/88 dark:via-background/72 dark:to-background/58" />
       <HeroAtmosphere className="z-[1]" />
-      <div className="container relative z-10 mx-auto px-4 sm:px-6 lg:px-8">
+      <div className="relative z-10 mx-auto w-full max-w-[90rem] px-4 sm:px-6 lg:px-8 xl:px-10">
         <div
           className={cn(
-            "mx-auto flex w-full animate-fade-in-up flex-col items-center gap-6 py-6 sm:gap-7 sm:py-8",
-            "lg:max-w-[min(100%,56rem)] lg:flex-row lg:items-center lg:justify-center lg:gap-10",
-            "xl:max-w-[min(100%,64rem)] xl:gap-12",
-            "2xl:max-w-7xl 2xl:justify-between 2xl:gap-16",
-            showPortrait && isRtl && "lg:flex-row-reverse",
+            "relative mx-auto flex w-full max-w-[76rem] animate-fade-in-up flex-col items-center gap-5 py-4 sm:gap-7 sm:py-8",
+            "lg:grid lg:min-h-[31rem] lg:items-center lg:gap-10 lg:overflow-visible lg:px-10 lg:py-10",
+            "xl:min-h-[33rem] xl:gap-14 xl:px-12",
+            showPortrait
+              ? "lg:grid-cols-[minmax(17rem,0.78fr)_minmax(0,1.22fr)]"
+              : "lg:grid-cols-1",
           )}
         >
           {showPortrait ? (
@@ -71,7 +72,10 @@ export function Hero({ onChatOpen }: HeroProps) {
               initial={{ opacity: 0, x: isRtl ? 24 : -24 }}
               animate={{ opacity: 1, x: 0 }}
               transition={{ duration: 0.45, delay: 0.05 }}
-              className="order-1 shrink-0 lg:order-none"
+              className={cn(
+                "order-1 shrink-0 lg:order-none lg:flex lg:justify-center",
+                isRtl && "lg:order-2",
+              )}
             >
               <HeroPortrait3D
                 src={profileImage}
@@ -86,8 +90,11 @@ export function Hero({ onChatOpen }: HeroProps) {
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.4 }}
             className={cn(
-              "order-2 min-w-0 w-full flex-1 text-center lg:pt-0",
-              profileImage || showPortrait ? "lg:order-none lg:text-start" : "max-w-4xl",
+              "order-2 min-w-0 w-full text-center lg:pt-0",
+              profileImage || showPortrait
+                ? "lg:order-none lg:max-w-[45rem] lg:text-start"
+                : "mx-auto max-w-4xl",
+              isRtl && "lg:order-1",
               isRtl && (profileImage || showPortrait) && "lg:text-end",
             )}
           >
@@ -99,24 +106,24 @@ export function Hero({ onChatOpen }: HeroProps) {
               {displayName}
             </h1>
 
-            <p className="mt-3 min-h-[1.75rem] font-medium text-primary text-[clamp(1rem,1.2vw+0.65rem,1.35rem)]">
+            <p className="mt-3 min-h-[1.75rem] font-medium text-primary text-[clamp(1rem,0.8vw+0.7rem,1.25rem)]">
               <span className="inline-block max-w-full">{typed}</span>
               <span className="animate-pulse">|</span>
             </p>
 
             <p
               ref={taglineRef}
-              className="mt-3 break-words font-medium text-foreground/90 transition-[filter] duration-1000 text-[clamp(1.05rem,1.6vw+0.55rem,1.65rem)]"
+              className="mt-3 break-words font-medium text-foreground/90 transition-[filter] duration-1000 text-[clamp(1.05rem,1.05vw+0.6rem,1.45rem)]"
               style={taglineShadow ? { filter: taglineShadow } : undefined}
             >
               {site.role}
             </p>
 
-            <p className="mx-auto mt-4 max-w-xl leading-relaxed text-muted-foreground text-[clamp(0.875rem,0.9vw+0.55rem,1.125rem)] lg:mx-0 lg:max-w-2xl">
+            <p className="mx-auto mt-4 max-w-xl leading-relaxed text-muted-foreground text-[clamp(0.875rem,0.55vw+0.65rem,1.05rem)] lg:mx-0 lg:max-w-[42rem]">
               {site.bio}
             </p>
 
-            <div className="mt-8 space-y-3 lg:mt-10">
+            <div className="mt-6 space-y-3 sm:mt-8 lg:mt-9">
               <div
                 className={cn(
                   "flex flex-col gap-3 sm:flex-row",
@@ -127,7 +134,7 @@ export function Hero({ onChatOpen }: HeroProps) {
                   <Button
                     onClick={onChatOpen}
                     size="lg"
-                    className="glow w-full bg-primary hover:bg-primary-glow sm:min-w-[200px] sm:flex-1 sm:max-w-[240px] lg:h-12 lg:min-w-[220px] lg:max-w-[280px] lg:text-base"
+                    className="glow w-full bg-primary hover:bg-primary-glow sm:min-w-[190px] sm:flex-1 sm:max-w-[230px] lg:h-12 lg:max-w-[240px] lg:text-base"
                   >
                     <MessageSquare className="mr-2 h-5 w-5 lg:h-5 lg:w-5" />
                     {t("chatWithAI")}
@@ -136,7 +143,7 @@ export function Hero({ onChatOpen }: HeroProps) {
                 <Button
                   size="lg"
                   variant="outline"
-                  className="w-full border-primary/50 hover:border-primary hover:bg-primary/10 sm:min-w-[200px] sm:flex-1 sm:max-w-[240px] lg:h-12 lg:min-w-[220px] lg:max-w-[280px] lg:text-base"
+                  className="w-full border-primary/50 hover:border-primary hover:bg-primary/10 sm:min-w-[190px] sm:flex-1 sm:max-w-[230px] lg:h-12 lg:max-w-[240px] lg:text-base"
                   onClick={() =>
                     document.getElementById("projects")?.scrollIntoView({ behavior: "smooth" })
                   }

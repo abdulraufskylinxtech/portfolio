@@ -312,6 +312,12 @@
   cursor: not-allowed;
 }
 
+.admin-input[type="month"],
+.admin-input[type="date"] {
+  color-scheme: dark;
+  cursor: pointer;
+}
+
 .admin-textarea-inline {
   resize: vertical;
   min-height: 2.5rem;

@@ -1,153 +1,223 @@
-# Shakeel Latif — Portfolio
+# Dynamic AI Portfolio
 
-Modern multilingual portfolio built with **Next.js 15**, **next-intl**, and **Tailwind CSS**. All content lives in JSON files — no Supabase, no paid database.
+A responsive, multilingual developer portfolio and JSON-powered CMS built with **Next.js 15**, **React 18**, **TypeScript**, **next-intl**, **Tailwind CSS**, and optional AI services.
 
-## Languages
+The public identity is controlled from the admin CMS: changing the **Full name** updates the navbar, hero, footer, metadata, contact messages, and AI assistant across every language.
 
-- English (`/en`)
-- Arabic (`/ar`) — RTL layout
-- German (`/de`)
+## Highlights
 
-## Getting Started
+- Fully responsive public site and admin CMS
+- Dynamic profile name, role, bio, contact details, CV, photos, and optional 3D model
+- Projects, skills, experience, education, hobbies, blog, and contact inbox
+- Complete **184-language ISO 639-1 catalog**
+- Searchable language picker with flag/language icons
+- RTL support for Arabic, Urdu, Persian, Hebrew, and other RTL languages
+- AI-generated UI and portfolio translations with incremental saving
+- Groq/OpenAI rate-limit retry handling for bulk translations
+- Calendar-based experience start/end months
+- Automatic experience period and duration calculation
+- AI portfolio chat constrained to portfolio information
+- Gmail contact notifications with JSON backup
+- Local JSON persistence or GitHub-backed persistence on Vercel
+- Light/dark theme, animated hero atmosphere, and accessible reduced-motion handling
+
+## Requirements
+
+- Node.js 20 or newer recommended
+- npm
+- Optional Groq or OpenAI API key for AI chat and translations
+- Optional Gmail App Password for contact email delivery
+- Optional GitHub token for persistent CMS saves on Vercel
+
+## Local Setup
 
 ```bash
 npm install
 npm run dev
 ```
 
-Open [http://localhost:3000](http://localhost:3000) — you'll be redirected to `/en`.
+Open [http://localhost:3000](http://localhost:3000). The middleware redirects visitors to the configured default locale.
+
+Create a `.env` file in the project root and add only the services you need:
+
+```env
+NEXT_PUBLIC_SITE_URL=http://localhost:3000
+
+ADMIN_PASSWORD=replace-with-a-strong-password
+ADMIN_SECRET=replace-with-a-long-random-secret
+
+# Choose Groq or OpenAI. Groq is used first when both are present.
+GROQ_API_KEY=
+GROQ_MODEL=llama-3.3-70b-versatile
+OPENAI_API_KEY=
+OPENAI_MODEL=gpt-4o-mini
+
+# Optional contact email
+GMAIL_USER=
+GMAIL_APP_PASSWORD=
+CONTACT_TO_EMAIL=
+
+# Required for persistent CMS saves on Vercel
+GITHUB_TOKEN=
+GITHUB_OWNER=
+GITHUB_REPO=
+GITHUB_BRANCH=main
+```
+
+Never commit real passwords, API keys, Gmail App Passwords, or GitHub tokens.
 
 ## Scripts
 
 | Command | Description |
-|---------|-------------|
-| `npm run dev` | Start development server |
-| `npm run build` | Production build |
-| `npm run start` | Start production server |
+|---|---|
+| `npm run dev` | Start the Next.js development server |
+| `npm run dev:turbo` | Start development with Turbopack |
+| `npm run build` | Create and type-check the production build |
+| `npm run start` | Start the production server |
+| `npm run lint` | Run ESLint across the project |
 
-## Updating Content
+## Admin CMS
 
-### Option 1 — Admin CMS (recommended)
+1. Set `ADMIN_PASSWORD` in `.env`.
+2. Start the application.
+3. Open `/my-admin-section`.
+4. Sign in and edit the required section.
+5. Click **Save changes** before leaving the tab.
 
-1. Set `ADMIN_PASSWORD` in `.env` (see `.env.example`)
-2. Open **`/my-admin-section`** in your browser
-3. Sign in and edit site info, projects, blog, or contact inbox
-4. Save and refresh the public site
+The CMS manages:
 
-**Local dev:** saves directly to `data/*.json` on disk.
+- Profile name and optional separate Arabic display name
+- Role, bio, rotating hero titles, location, and availability
+- Email, phone, WhatsApp, LinkedIn, GitHub, and Instagram
+- Profile image, about photos, optional `.glb` profile model, and CV
+- Stats and grouped skills
+- Experience, education, and hobbies
+- Projects and project galleries
+- Blog posts
+- Enabled languages and AI translations
+- Contact submissions and AI chat sessions
 
-**Vercel / free serverless:** set GitHub env vars (below) so saves commit to your repo via the GitHub API.
+### Experience Dates
 
-### Option 2 — Edit files directly
+Experience entries use **Start month** and **End month** calendar controls.
 
-| File | Content |
-|------|---------|
-| `data/projects.json` | Portfolio projects |
-| `data/blog-posts.json` | Blog posts (markdown) |
-| `data/site.json` | Contact info, bio, skills, experience, education, hobbies, about photos |
-| `data/contact-submissions.json` | Contact form inbox (auto-appended) |
+- Enable **I currently work here** for an active role.
+- The public period is generated automatically, for example `June 2024 — Present`.
+- Duration is calculated automatically, for example `1 year 3 months`.
+- Future months are blocked.
+- End month cannot be earlier than the selected start month.
+- Existing legacy period text remains visible until calendar dates are selected.
 
-## Free deployment (Vercel + custom domain)
+## Languages and AI Translation
 
-This stack is designed to stay **free forever** — no backend database, no VPS required.
+The CMS exposes the complete **184-code ISO 639-1 language catalog**. Only languages added to the site appear in the public language switcher.
 
-1. Push the repo to GitHub
-2. Import the project on [Vercel](https://vercel.com) (free tier)
-3. Add environment variables in Vercel → Settings → Environment Variables:
+### Add a Language
 
-| Variable | Purpose |
-|----------|---------|
-| `ADMIN_PASSWORD` | CMS login at `/my-admin-section` |
-| `NEXT_PUBLIC_SITE_URL` | Your custom domain, e.g. `https://shakeellatif.com` |
-| `GMAIL_USER` / `GMAIL_APP_PASSWORD` | Contact form email via Gmail SMTP |
-| `GITHUB_TOKEN` | PAT with **Contents: Read and write** on this repo |
-| `GITHUB_OWNER` | Your GitHub username |
-| `GITHUB_REPO` | Repository name |
-| `GITHUB_BRANCH` | Optional, defaults to `main` |
+1. Open **Admin → Site → Languages**.
+2. Search by language name, native name, or ISO code.
+3. Select the language and click **Add language**.
+4. Click **Save changes**.
+5. Click **Generate AI** for that language.
 
-4. Attach your custom domain in Vercel → Domains (free on hobby plan)
-5. Redeploy after adding env vars
+Translation generation includes:
 
-### How persistence works on Vercel
+- Navigation, buttons, headings, forms, and other UI labels
+- Hero, role, bio, availability, location, stats, and hobbies
+- Animated code-ring labels
 
-Serverless hosts have **no writable disk**. This project handles that automatically:
+The admin-controlled **Full name** is injected dynamically and is not replaced by stale translated names. A separate Arabic name is used only when its admin toggle is enabled.
 
-- **Reads:** from GitHub when `GITHUB_*` is set on Vercel; otherwise bundled files from the last deploy
-- **Writes:** admin CMS saves and contact form records commit to `data/*.json` in your GitHub repo via the [Contents API](https://docs.github.com/en/rest/repos/contents)
+### Bulk Translation and Rate Limits
 
-You never lose a contact message: it is saved to JSON first, then emailed.
+**Generate AI for all enabled languages** processes languages one at a time and saves each completed language immediately. Groq/OpenAI `429` responses are retried automatically using the provider retry delay.
 
-### GitHub token setup
+Bulk translation can take several minutes on free API tiers. Keep the admin tab open until it finishes. If a provider quota is exhausted, already completed languages remain saved; rerun the remaining language later or use a higher-quota model/account.
 
-1. GitHub → Settings → Developer settings → Personal access tokens
-2. Create a fine-grained token scoped to this repository
-3. Grant **Contents: Read and write**
-4. Add as `GITHUB_TOKEN` in Vercel (and locally if you want GitHub mode in preview)
+Do not enable and translate all 184 languages unless the site genuinely needs them. More enabled languages increase translation time and stored content size.
 
-## Contact form
+## AI Chat
 
-Submissions are **saved to JSON first** (`data/contact-submissions.json`), then emailed via **Gmail SMTP (Nodemailer)** from a server API route — credentials stay in env only.
+Set either the Groq or OpenAI variables to enable the portfolio assistant. When both are configured, Groq is preferred.
 
-View messages in admin → **Contact inbox** or your Gmail inbox.
+The assistant uses site content, experience, skills, education, projects, and contact details as its knowledge source. The active admin name is included dynamically.
 
-### Gmail setup
+## Content Storage
 
-1. Use a Gmail account (dedicated portfolio inbox recommended)
-2. Enable **2-Step Verification** on the Google account
-3. Google Account → **Security** → **App passwords** → create one for "Mail"
-4. Add to `.env` / Vercel env:
-   - `GMAIL_USER=you@gmail.com`
-   - `GMAIL_APP_PASSWORD=xxxx xxxx xxxx xxxx`
-5. Optional: `CONTACT_TO_EMAIL` if inbox differs from `data/site.json` email
+Primary content is stored in JSON:
 
-Reply-to is set to the visitor's email so you can reply directly from Gmail.
+| Path | Purpose |
+|---|---|
+| `data/site.json` | Profile, contact details, skills, experience, education, languages, translations |
+| `data/projects.json` | Portfolio projects and galleries |
+| `data/blog-posts.json` | Markdown blog posts |
+| `data/contact-submissions.json` | Contact inbox backup |
+| `data/chat-sessions.json` | AI chat session records |
+| `data/ui-messages/*.json` | Generated UI translations |
+| `public/` | Bundled public images, project assets, and CV files |
 
-## Environment Variables
+### Local Development
 
-Copy `.env.example` to `.env`:
+CMS saves write directly to `data/*.json` and uploaded assets under `public/`.
 
-```env
-NEXT_PUBLIC_SITE_URL=https://your-domain.com
-ADMIN_PASSWORD=your-strong-password
-GMAIL_USER=you@gmail.com
-GMAIL_APP_PASSWORD=your-app-password
-GITHUB_TOKEN=ghp_...
-GITHUB_OWNER=your-username
-GITHUB_REPO=shakeel-ai-folio
-```
+### Vercel / Serverless
 
-| Variable | Required | Description |
-|----------|----------|-------------|
-| `NEXT_PUBLIC_SITE_URL` | Recommended | Canonical URL for metadata |
-| `ADMIN_PASSWORD` | For CMS | Password for `/my-admin-section` |
-| `ADMIN_SECRET` | Optional | Cookie signing secret (defaults to `ADMIN_PASSWORD`) |
-| `GMAIL_USER` | Contact email | Gmail address used to send |
-| `GMAIL_APP_PASSWORD` | Contact email | Google App Password (not your login password) |
-| `CONTACT_TO_EMAIL` | Optional | Inbox override (defaults to `site.json` email) |
-| `GITHUB_*` | Vercel saves | Persist JSON via GitHub API on serverless |
+Serverless filesystems are not persistent. Configure `GITHUB_TOKEN`, `GITHUB_OWNER`, `GITHUB_REPO`, and optionally `GITHUB_BRANCH` so CMS changes are committed through the GitHub Contents API.
+
+Use a fine-grained GitHub token scoped to this repository with **Contents: Read and write** permission.
+
+## Contact Form
+
+Contact submissions are saved before email delivery. This means a message remains available in the admin inbox even if Gmail delivery fails.
+
+### Gmail Setup
+
+1. Enable 2-Step Verification on the Gmail account.
+2. Create a Google **App Password** for Mail.
+3. Set `GMAIL_USER` and `GMAIL_APP_PASSWORD`.
+4. Optionally set `CONTACT_TO_EMAIL` to override the inbox address from `data/site.json`.
+
+The visitor email is used as `Reply-To`, allowing direct replies from Gmail.
+
+## Deployment on Vercel
+
+1. Push the repository to GitHub.
+2. Import it into Vercel.
+3. Add production environment variables.
+4. Configure GitHub persistence variables if the CMS must save in production.
+5. Add the custom domain and set `NEXT_PUBLIC_SITE_URL` to its HTTPS URL.
+6. Redeploy after changing environment variables.
 
 ## Project Structure
 
-```
-data/                       # Static content (projects, blog, site info, contact inbox)
+```text
+data/                              JSON content and generated translations
+messages/                          Built-in UI translation fallbacks
+public/                            Images, project assets, models, and CV
 src/
-├── app/[locale]/           # Localized public routes
-├── app/api/contact/        # Contact form (JSON + email)
-├── app/my-admin-section/   # Content CMS
+├── app/
+│   ├── [locale]/                  Localized public routes
+│   ├── api/                       Contact, chat, assets, and admin APIs
+│   └── my-admin-section/          Admin CMS route and styles
 ├── components/
-│   ├── layout/             # Navbar, footer, language switcher
-│   ├── sections/           # Hero, projects, skills, about, contact
-│   └── pages/              # Blog page components
-├── i18n/                   # next-intl routing & navigation
-└── messages/               # en.json, ar.json, de.json
+│   ├── admin/                     CMS editors
+│   ├── layout/                    Navbar, footer, language switcher
+│   ├── pages/                     Home, blog, and map components
+│   ├── providers/                 Theme and content providers
+│   ├── sections/                  Public portfolio sections
+│   └── ui/                        Shared UI primitives
+├── i18n/                          next-intl request, routing, and navigation
+├── lib/                           Storage, AI, translations, email, and data helpers
+└── middleware.ts                  Locale middleware
 ```
 
-## Features
+## Production Checks
 
-- Multilingual portfolio (EN / AR / DE)
-- JSON-driven projects and blog
-- Admin CMS with contact inbox
-- Contact form (JSON backup + Gmail)
-- Time-aware hero sun/moon and starfield
-- Dark/light theme toggle
-- AI chat widget (optional — configure separately)
+Run before deployment:
+
+```bash
+npm run lint
+npm run build
+```
+
+The production build pre-renders enabled locales and supports other registered ISO locale routes on demand.

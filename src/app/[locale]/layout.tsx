@@ -21,8 +21,9 @@ type LocaleLayoutProps = {
   params: Promise<{ locale: string }>;
 };
 
-export function generateStaticParams() {
-  return routing.locales.map((locale) => ({ locale }));
+export async function generateStaticParams() {
+  const { site } = await loadContentData();
+  return getEnabledLocales(site).map((locale) => ({ locale: locale.code }));
 }
 
 export async function generateMetadata({

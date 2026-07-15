@@ -37,7 +37,9 @@ export function BlogPostPageContent({ slug }: { slug: string }) {
             </Link>
           </Button>
 
-          <h1 className="mb-4 text-4xl font-bold text-foreground">{post.title}</h1>
+          <h1 className="mb-4 break-words text-3xl font-bold text-foreground sm:text-4xl">
+            {post.title}
+          </h1>
 
           <div className="mb-6 flex flex-wrap items-center gap-4 text-sm text-muted-foreground">
             <span className="flex items-center gap-1">

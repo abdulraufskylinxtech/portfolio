@@ -1,9 +1,9 @@
 {
   "metadata": {
-    "title": "Shakeel Latif — 全栈开发者 & AI 爱好者",
+    "title": "作品集所有者 — 全栈开发者 & AI 爱好者",
     "description": "展示现代 Web 应用程序与 AI 集成的作品集。与我的 AI 助手聊天以了解更多关于我的工作。",
-    "siteName": "Shakeel Latif 作品集",
-    "ogImageAlt": "Shakeel Latif 作品集"
+    "siteName": "作品集",
+    "ogImageAlt": "作品集"
   },
   "nav": {
     "home": "首页",
@@ -24,7 +24,7 @@
     "viewCv": "查看简历"
   },
   "hero": {
-    "name": "Shakeel Latif",
+    "name": "作品集所有者",
     "roles": [
       "全栈开发者",
       "AI 爱好者",

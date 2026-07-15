@@ -76,10 +76,15 @@
 
   html {
     scroll-behavior: smooth;
+    overflow-x: clip;
+    width: 100%;
   }
 
   body {
     @apply text-foreground transition-colors duration-300;
+    min-width: 0;
+    width: 100%;
+    overflow-x: clip;
     font-family: var(--font-inter), -apple-system, BlinkMacSystemFont, "Segoe UI",
       sans-serif;
     -webkit-font-smoothing: antialiased;
@@ -94,6 +99,13 @@
       hsl(var(--gradient-to)) 100%
     );
     background-attachment: fixed;
+  }
+
+  img,
+  video,
+  canvas,
+  svg {
+    max-width: 100%;
   }
 
   .font-arabic {
@@ -117,6 +129,12 @@
 
   .text-gradient-brand {
     @apply bg-gradient-to-r from-primary via-primary-glow to-accent-foreground bg-clip-text text-transparent;
+  }
+}
+
+@media (max-width: 767px), (pointer: coarse) {
+  body {
+    background-attachment: scroll;
   }
 }
 
@@ -242,12 +260,12 @@
 
 @media (min-width: 640px) {
   .hero-portrait-code-label {
-    font-size: 20px;
+    font-size: 18px;
     letter-spacing: 0.03em;
   }
 
   .hero-portrait-code-orbit-inner .hero-portrait-code-label {
-    font-size: 18.5px;
+    font-size: 17px;
   }
 }
 

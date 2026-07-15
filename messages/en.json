@@ -1,9 +1,9 @@
 {
   "metadata": {
-    "title": "Shakeel Latif — Full-Stack Developer & AI Enthusiast",
+    "title": "Portfolio Owner — Full-Stack Developer & AI Enthusiast",
     "description": "Portfolio showcasing modern web applications with AI integration. Chat with my AI assistant to learn more about my work.",
-    "siteName": "Shakeel Latif Portfolio",
-    "ogImageAlt": "Shakeel Latif Portfolio"
+    "siteName": "Portfolio",
+    "ogImageAlt": "Portfolio"
   },
   "nav": {
     "home": "Home",
@@ -24,7 +24,7 @@
     "viewCv": "View CV"
   },
   "hero": {
-    "name": "Shakeel Latif",
+    "name": "Portfolio Owner",
     "roles": [
       "Full-Stack Developer",
       "AI Enthusiast",

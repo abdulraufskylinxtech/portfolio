@@ -41,26 +41,44 @@ export async function callLlmCompletion(
   userPrompt: string,
   options?: { temperature?: number; maxTokens?: number },
 ): Promise<string> {
-  const res = await fetch(config.url, {
-    method: "POST",
-    headers: {
-      "Content-Type": "application/json",
-      Authorization: `Bearer ${config.apiKey}`,
-    },
-    body: JSON.stringify({
-      model: config.model,
-      temperature: options?.temperature ?? 0.3,
-      max_tokens: options?.maxTokens ?? 2500,
-      messages: [
-        { role: "system", content: systemPrompt },
-        { role: "user", content: userPrompt },
-      ],
-    }),
-  });
+  let res: Response | null = null;
+  let lastError = "";
 
-  if (!res.ok) {
-    const errBody = await res.text();
-    throw new Error(`${config.provider} error ${res.status}: ${errBody.slice(0, 400)}`);
+  for (let attempt = 0; attempt < 4; attempt += 1) {
+    res = await fetch(config.url, {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: `Bearer ${config.apiKey}`,
+      },
+      body: JSON.stringify({
+        model: config.model,
+        temperature: options?.temperature ?? 0.3,
+        max_tokens: options?.maxTokens ?? 2500,
+        messages: [
+          { role: "system", content: systemPrompt },
+          { role: "user", content: userPrompt },
+        ],
+      }),
+    });
+
+    if (res.ok) break;
+
+    lastError = await res.text();
+    if (res.status !== 429 || attempt === 3) {
+      throw new Error(`${config.provider} error ${res.status}: ${lastError.slice(0, 400)}`);
+    }
+
+    const retryHeader = Number.parseFloat(res.headers.get("retry-after") ?? "");
+    const retryMessage = lastError.match(/try again in\s+([\d.]+)s/i)?.[1];
+    const retrySeconds = Number.isFinite(retryHeader)
+      ? retryHeader
+      : Number.parseFloat(retryMessage ?? "") || 10;
+    await new Promise((resolve) => setTimeout(resolve, Math.min(60, retrySeconds + 1) * 1000));
+  }
+
+  if (!res?.ok) {
+    throw new Error(`${config.provider} error: ${lastError.slice(0, 400)}`);
   }
 
   const data = (await res.json()) as {

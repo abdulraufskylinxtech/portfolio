@@ -36,6 +36,48 @@ function updateSkills(
 
 type SiteSkills = SiteInfo["skills"];
 
+function currentMonthValue(): string {
+  const now = new Date();
+  return `${now.getFullYear()}-${String(now.getMonth() + 1).padStart(2, "0")}`;
+}
+
+function formatExperienceMonth(value?: string): string {
+  if (!value || !/^\d{4}-\d{2}$/.test(value)) return "";
+  const [year, month] = value.split("-").map(Number);
+  return new Intl.DateTimeFormat("en", { month: "long", year: "numeric", timeZone: "UTC" }).format(
+    new Date(Date.UTC(year, month - 1, 1)),
+  );
+}
+
+function experiencePeriod(startDate?: string, endDate?: string, current?: boolean): string {
+  const start = formatExperienceMonth(startDate);
+  if (!start) return "";
+  const end = current ? "Present" : formatExperienceMonth(endDate);
+  return end ? `${start} — ${end}` : start;
+}
+
+function experienceDuration(startDate?: string, endDate?: string, current?: boolean): string {
+  if (!startDate) return "Select a start month";
+  const resolvedEnd = current ? currentMonthValue() : endDate;
+  if (!resolvedEnd) return "Select an end month";
+
+  const [startYear, startMonth] = startDate.split("-").map(Number);
+  const [endYear, endMonth] = resolvedEnd.split("-").map(Number);
+  const months = (endYear - startYear) * 12 + endMonth - startMonth + 1;
+  if (months <= 0) return "End month must be after the start month";
+
+  const years = Math.floor(months / 12);
+  const remainingMonths = months % 12;
+  return [
+    years ? `${years} ${years === 1 ? "year" : "years"}` : "",
+    remainingMonths
+      ? `${remainingMonths} ${remainingMonths === 1 ? "month" : "months"}`
+      : "",
+  ]
+    .filter(Boolean)
+    .join(" ");
+}
+
 function updateStat(data: SiteInfo, index: number, patch: Partial<SiteStat>): SiteInfo {
   const stats = [...data.stats];
   stats[index] = { ...stats[index], ...patch };
@@ -76,7 +118,7 @@ export function SiteEditor({ data, onChange, onTranslationsSaved, readOnly }: Pr
             <AdminInput
               value={data.name ?? ""}
               onChange={(name) => onChange({ ...data, name })}
-              placeholder="Shakeel Latif"
+              placeholder="Abdul Rauf"
               disabled={disabled}
             />
           </AdminField>
@@ -101,7 +143,7 @@ export function SiteEditor({ data, onChange, onTranslationsSaved, readOnly }: Pr
                 <AdminInput
                   value={data.nameAr ?? ""}
                   onChange={(nameAr) => onChange({ ...data, nameAr })}
-                  placeholder="شكيل لطيف"
+                  placeholder="عبدالرؤف"
                   disabled={disabled}
                 />
               </div>
@@ -402,7 +444,10 @@ export function SiteEditor({ data, onChange, onTranslationsSaved, readOnly }: Pr
                     {
                       role: "Role",
                       company: "Company",
-                      period: "2025 — Present",
+                      period: `${formatExperienceMonth(currentMonthValue())} — Present`,
+                      startDate: currentMonthValue(),
+                      endDate: "",
+                      current: true,
                       location: "Remote",
                       bullets: ["Achievement"],
                       tech: ["Tech"],
@@ -459,12 +504,68 @@ export function SiteEditor({ data, onChange, onTranslationsSaved, readOnly }: Pr
                     disabled={disabled}
                   />
                 </AdminField>
-                <AdminField label="Period">
+                <AdminField label="Start month">
                   <AdminInput
-                    value={exp.period}
-                    onChange={(period) => onChange(updateExperience(data, i, { period }))}
+                    type="month"
+                    value={exp.startDate ?? ""}
+                    onChange={(startDate) =>
+                      onChange(
+                        updateExperience(data, i, {
+                          startDate,
+                          period: experiencePeriod(startDate, exp.endDate, exp.current) || exp.period,
+                        }),
+                      )
+                    }
+                    max={currentMonthValue()}
                     disabled={disabled}
                   />
+                </AdminField>
+                <AdminField label="End month">
+                  <AdminInput
+                    type="month"
+                    value={exp.endDate ?? ""}
+                    onChange={(endDate) =>
+                      onChange(
+                        updateExperience(data, i, {
+                          endDate,
+                          period: experiencePeriod(exp.startDate, endDate, false) || exp.period,
+                        }),
+                      )
+                    }
+                    min={exp.startDate}
+                    max={currentMonthValue()}
+                    disabled={disabled || exp.current === true}
+                  />
+                </AdminField>
+                <AdminField label="Current position">
+                  <AdminCheckbox
+                    label="I currently work here"
+                    checked={exp.current === true}
+                    onChange={(current) =>
+                      onChange(
+                        updateExperience(data, i, {
+                          current,
+                          endDate: current ? "" : exp.endDate,
+                          period:
+                            experiencePeriod(exp.startDate, exp.endDate, current) || exp.period,
+                        }),
+                      )
+                    }
+                    disabled={disabled}
+                  />
+                </AdminField>
+                <AdminField
+                  label="Period shown on site"
+                  hint={exp.startDate ? "Automatically generated from the selected months" : "Select a start month to replace this legacy period"}
+                >
+                  <div className="admin-input flex min-h-10 items-center">
+                    {experiencePeriod(exp.startDate, exp.endDate, exp.current) || exp.period}
+                  </div>
+                </AdminField>
+                <AdminField label="Calculated duration">
+                  <div className="admin-input flex min-h-10 items-center font-medium text-primary">
+                    {experienceDuration(exp.startDate, exp.endDate, exp.current)}
+                  </div>
                 </AdminField>
                 <AdminField label="Location">
                   <AdminInput

@@ -48,19 +48,19 @@ export function ContactMap({ className }: ContactMapProps) {
           />
         </div>
 
-        <div className="absolute inset-x-0 bottom-0 flex flex-wrap items-center justify-between gap-3 p-4">
-          <div className="flex items-center gap-2 rounded-full border border-primary/30 bg-background/90 px-4 py-2 text-sm font-medium text-foreground shadow-sm backdrop-blur-sm">
+        <div className="flex flex-col gap-2 border-t border-border/60 bg-card/95 p-3 min-[420px]:flex-row min-[420px]:items-center min-[420px]:justify-between sm:absolute sm:inset-x-0 sm:bottom-0 sm:border-t-0 sm:bg-transparent sm:p-4">
+          <div className="flex min-w-0 items-center gap-2 rounded-full border border-primary/30 bg-background/90 px-3 py-2 text-sm font-medium text-foreground shadow-sm backdrop-blur-sm sm:px-4">
             <span className="relative flex h-2.5 w-2.5">
               <span className="absolute inline-flex h-full w-full animate-ping rounded-full bg-primary opacity-60" />
               <span className="relative inline-flex h-2.5 w-2.5 rounded-full bg-primary" />
             </span>
-            {label}
+            <span className="min-w-0 truncate">{label}</span>
           </div>
           <a
             href={directionsUrl}
             target="_blank"
             rel="noopener noreferrer"
-            className="inline-flex items-center gap-1.5 rounded-full border border-primary/30 bg-primary/10 px-4 py-2 text-sm font-medium text-primary backdrop-blur-sm transition hover:bg-primary/20"
+            className="inline-flex shrink-0 items-center justify-center gap-1.5 rounded-full border border-primary/30 bg-primary/10 px-3 py-2 text-sm font-medium text-primary backdrop-blur-sm transition hover:bg-primary/20 sm:px-4"
           >
             {t("directions")}
             <ExternalLink className="h-3.5 w-3.5" aria-hidden />

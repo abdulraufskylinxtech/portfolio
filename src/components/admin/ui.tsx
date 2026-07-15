@@ -55,6 +55,8 @@ export function AdminInput({
   placeholder,
   disabled,
   onBlur,
+  min,
+  max,
 }: {
   value: string;
   onChange: (value: string) => void;
@@ -62,6 +64,8 @@ export function AdminInput({
   placeholder?: string;
   disabled?: boolean;
   onBlur?: () => void;
+  min?: string;
+  max?: string;
 }) {
   return (
     <input
@@ -72,6 +76,8 @@ export function AdminInput({
       onBlur={onBlur}
       placeholder={placeholder}
       disabled={disabled}
+      min={min}
+      max={max}
     />
   );
 }

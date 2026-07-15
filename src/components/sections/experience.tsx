@@ -6,6 +6,7 @@ import { useLocale, useTranslations } from "next-intl";
 
 import { useSiteInfo } from "@/components/providers/content-provider";
 import { isExperiencePublished, type ExperienceEntry } from "@/lib/data";
+import { isRtlLocale } from "@/lib/locale-catalog";
 import { cn } from "@/lib/utils";
 
 const METRIC_REGEX = /(\d+(?:\.\d+)?%|\d+[kK]\+?|\d+\+|\b\d+\b)/g;
@@ -36,10 +37,40 @@ function BulletWithMetrics({ text, fragmentKey }: { text: string; fragmentKey: s
   );
 }
 
+function experienceDuration(entry: ExperienceEntry, locale: string): string | null {
+  if (!entry.startDate) return null;
+  const endDate = entry.current
+    ? `${new Date().getFullYear()}-${String(new Date().getMonth() + 1).padStart(2, "0")}`
+    : entry.endDate;
+  if (!endDate) return null;
+
+  const [startYear, startMonth] = entry.startDate.split("-").map(Number);
+  const [endYear, endMonth] = endDate.split("-").map(Number);
+  const totalMonths = (endYear - startYear) * 12 + endMonth - startMonth + 1;
+  if (totalMonths <= 0) return null;
+
+  const years = Math.floor(totalMonths / 12);
+  const months = totalMonths % 12;
+  const yearFormatter = new Intl.NumberFormat(locale, {
+    style: "unit",
+    unit: "year",
+    unitDisplay: "long",
+  });
+  const monthFormatter = new Intl.NumberFormat(locale, {
+    style: "unit",
+    unit: "month",
+    unitDisplay: "long",
+  });
+
+  return [years ? yearFormatter.format(years) : "", months ? monthFormatter.format(months) : ""]
+    .filter(Boolean)
+    .join(" ");
+}
+
 export function ExperienceSection() {
   const t = useTranslations("experience");
   const locale = useLocale();
-  const isRtl = locale === "ar";
+  const isRtl = isRtlLocale(locale);
   const site = useSiteInfo();
   const entries = useMemo(
     () => site.experience.filter(isExperiencePublished),
@@ -90,6 +121,7 @@ export function ExperienceSection() {
           <ul className="relative z-10 space-y-12 md:space-y-16">
             {entries.map((entry: ExperienceEntry, index: number) => {
               const alignStart = index % 2 === 0;
+              const duration = experienceDuration(entry, locale);
               const slideX = reduceMotion
                 ? 0
                 : !inView
@@ -112,29 +144,30 @@ export function ExperienceSection() {
                     delay: reduceMotion ? 0 : index * 0.08,
                   }}
                   className={cn(
-                    "w-full max-w-lg rounded-2xl border border-border bg-card p-6 shadow-lg transition-[border-color,box-shadow] duration-300 md:p-7",
+                    "w-full max-w-lg rounded-2xl border border-border bg-card p-6 text-start shadow-lg transition-[border-color,box-shadow] duration-300 md:p-7",
                     "hover:border-primary/45 hover:shadow-[0_0_28px_hsl(var(--primary)/0.15)]",
-                    alignStart ? "md:text-end" : "md:text-start",
                   )}
                 >
                   <h3 className="text-lg font-bold text-foreground sm:text-xl">{entry.role}</h3>
                   <p className="mt-1 font-medium text-primary">{entry.company}</p>
-                  <p className="mt-2 text-sm text-muted-foreground">
-                    {entry.period}
-                    <span className="mx-2 text-border" aria-hidden>
+                  <div className="mt-2 flex flex-wrap items-center gap-x-2 gap-y-1 text-sm text-muted-foreground">
+                    <span>{entry.period}</span>
+                    {duration ? (
+                      <span className="rounded-full border border-primary/20 bg-primary/10 px-2 py-0.5 text-xs font-medium text-primary">
+                        {duration}
+                      </span>
+                    ) : null}
+                    <span className="text-border" aria-hidden>
                       ·
                     </span>
-                    {entry.location}
-                  </p>
+                    <span>{entry.location}</span>
+                  </div>
 
                   <ul className="mt-5 space-y-2.5 text-sm leading-relaxed text-foreground/85">
                     {entry.bullets.filter((bullet) => bullet.trim()).map((bullet, bulletIndex) => (
                       <li
                         key={`${entry.role}-${bulletIndex}`}
-                        className={cn(
-                          "flex gap-2",
-                          alignStart ? "md:flex-row-reverse md:text-end" : "md:flex-row",
-                        )}
+                        className="flex items-start gap-2 text-start"
                       >
                         <span
                           className="mt-2 h-1.5 w-1.5 shrink-0 rounded-full bg-primary/85"
@@ -150,12 +183,7 @@ export function ExperienceSection() {
                     ))}
                   </ul>
 
-                  <div
-                    className={cn(
-                      "mt-6 flex flex-wrap gap-2",
-                      alignStart ? "md:justify-end" : "md:justify-start",
-                    )}
-                  >
+                  <div className="mt-6 flex flex-wrap justify-start gap-2">
                     {entry.tech.map((tech) => (
                       <span
                         key={tech}

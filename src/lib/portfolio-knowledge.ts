@@ -31,7 +31,8 @@ export function buildPortfolioKnowledge(site: SiteInfo, projects: Project[]): Kn
     category: "about",
     title: "Profile",
     keywords: uniqueWords(
-      "about bio profile developer shakeel latif introduction who",
+      "about bio profile developer introduction who",
+      site.name,
       site.role,
       site.bio,
       site.location,
@@ -268,8 +269,6 @@ export function detectIntent(message: string, chunks: KnowledgeChunk[]): Portfol
     "bio",
     "about",
     "developer",
-    "shakeel",
-    "latif",
     "availability",
     "hobby",
     "hobbies",
