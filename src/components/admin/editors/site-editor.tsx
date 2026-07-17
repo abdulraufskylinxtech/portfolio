@@ -10,6 +10,7 @@ import {
   AdminCheckbox,
   AdminField,
   AdminInput,
+  AdminMonthPicker,
   AdminSection,
   AdminTextarea,
   CommaListInput,
@@ -505,8 +506,7 @@ export function SiteEditor({ data, onChange, onTranslationsSaved, readOnly }: Pr
                   />
                 </AdminField>
                 <AdminField label="Start month">
-                  <AdminInput
-                    type="month"
+                  <AdminMonthPicker
                     value={exp.startDate ?? ""}
                     onChange={(startDate) =>
                       onChange(
@@ -521,8 +521,7 @@ export function SiteEditor({ data, onChange, onTranslationsSaved, readOnly }: Pr
                   />
                 </AdminField>
                 <AdminField label="End month">
-                  <AdminInput
-                    type="month"
+                  <AdminMonthPicker
                     value={exp.endDate ?? ""}
                     onChange={(endDate) =>
                       onChange(

@@ -8,6 +8,7 @@ import {
   AdminBadge,
   AdminButton,
   AdminCheckbox,
+  AdminDateTimePicker,
   AdminEmptyState,
   AdminField,
   AdminInput,
@@ -175,8 +176,7 @@ export function BlogEditor({ data, onChange, readOnly }: Props) {
               />
             </AdminField>
             <AdminField label="Created at">
-              <AdminInput
-                type="datetime-local"
+              <AdminDateTimePicker
                 value={selected.created_at.slice(0, 16)}
                 onChange={(v) =>
                   updatePost(selected.id, {

@@ -1,6 +1,6 @@
 "use client";
 
-import { Check, ChevronDown, Languages } from "lucide-react";
+import { Check, ChevronDown, Languages, Search } from "lucide-react";
 import { useEffect, useMemo, useRef, useState } from "react";
 
 import type { SiteInfo } from "@/lib/data";
@@ -57,11 +57,19 @@ export function SiteLanguagesPanel({ data, onChange, onTranslated, readOnly }: P
   const [error, setError] = useState("");
   const [pickCode, setPickCode] = useState("");
   const [pickerOpen, setPickerOpen] = useState(false);
+  const [languageSearch, setLanguageSearch] = useState("");
   const pickerRef = useRef<HTMLDivElement>(null);
 
   const defaultLocale = getDefaultLocaleCode(data);
   const enabled = getEnabledLocales(data);
   const addable = useMemo(() => getAddableLocales(data), [data]);
+  const filteredAddable = useMemo(() => {
+    const query = languageSearch.trim().toLocaleLowerCase();
+    if (!query) return addable;
+    return addable.filter((entry) =>
+      `${entry.code} ${entry.label} ${entry.nativeName}`.toLocaleLowerCase().includes(query),
+    );
+  }, [addable, languageSearch]);
   const selectedLanguage = addable.find((entry) => entry.code === pickCode);
   const translatable = getTranslatableLocaleCodes(data);
 
@@ -129,6 +137,7 @@ export function SiteLanguagesPanel({ data, onChange, onTranslated, readOnly }: P
     if (!pickCode) return;
     onChange(addLocaleToSite(data, pickCode));
     setPickCode("");
+    setLanguageSearch("");
     setPickerOpen(false);
     setMessage(`Added ${pickCode.toUpperCase()}. Save changes, then generate AI translation.`);
     setError("");
@@ -233,9 +242,21 @@ export function SiteLanguagesPanel({ data, onChange, onTranslated, readOnly }: P
 
           {pickerOpen ? (
             <div className="absolute inset-x-0 top-[calc(100%+0.35rem)] z-30 overflow-hidden rounded-xl border border-border bg-card shadow-2xl">
-              <div className="max-h-80 overflow-y-auto overscroll-contain p-1" role="listbox">
-                {addable.length ? (
-                  addable.map((entry) => (
+              <div className="sticky top-0 z-10 border-b border-border bg-card p-2">
+                <div className="relative">
+                  <Search className="pointer-events-none absolute start-3 top-1/2 h-4 w-4 -translate-y-1/2 text-primary" />
+                  <input
+                    value={languageSearch}
+                    onChange={(event) => setLanguageSearch(event.target.value)}
+                    placeholder="Search by language name or code…"
+                    className="admin-input ps-9"
+                    autoFocus
+                  />
+                </div>
+              </div>
+              <div className="max-h-72 overflow-y-auto overscroll-contain p-1" role="listbox">
+                {filteredAddable.length ? (
+                  filteredAddable.map((entry) => (
                     <button
                       key={entry.code}
                       type="button"
@@ -245,6 +266,7 @@ export function SiteLanguagesPanel({ data, onChange, onTranslated, readOnly }: P
                       onClick={() => {
                         setPickCode(entry.code);
                         setPickerOpen(false);
+                        setLanguageSearch("");
                       }}
                     >
                       <LanguageIcon flag={entry.flag} code={entry.code} />
@@ -263,7 +285,7 @@ export function SiteLanguagesPanel({ data, onChange, onTranslated, readOnly }: P
                   ))
                 ) : (
                   <p className="px-3 py-6 text-center text-sm text-muted-foreground">
-                    All catalog languages have been added.
+                    No matching language found.
                   </p>
                 )}
               </div>
