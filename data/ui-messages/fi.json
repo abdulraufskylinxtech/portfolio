@@ -1,9 +1,9 @@
 {
   "metadata": {
-    "title": "Portfolion Omistaja — Full-Stack Kehittäjä & Tekoäly Enthusiast",
-    "description": "Portfolionäyttely modernista web-sovelluksista tekoäly integraatiolla. Chatkaa tekoälyavustajani, jotta voit oppia lisää työstäni.",
-    "siteName": "Portfolionäyttely",
-    "ogImageAlt": "Portfolionäyttely"
+    "title": "Portfolio Omistaja — Full-Stack Kehittäjä & Tekoäly Ystävä",
+    "description": "Portfolio, joka esittelee moderneja web-sovelluksia tekoäly integraatiolla. Chatkaa tekoäly avustajani kanssa, jotta saat lisätietoja työstäni.",
+    "siteName": "Portfolio",
+    "ogImageAlt": "Portfolio"
   },
   "nav": {
     "home": "Etusivu",
@@ -24,14 +24,14 @@
     "viewCv": "Näytä Ansioluettelo"
   },
   "hero": {
-    "name": "Portfolion Omistaja",
+    "name": "Portfolio Omistaja",
     "roles": [
       "Full-Stack Kehittäjä",
-      "Tekoäly Enthusiast",
+      "Tekoäly Ystävä",
       "DevOps Opiskelija"
     ],
-    "tagline": "Full-Stack Kehittäjä | Tekoäly Enthusiast | DevOps Opiskelija",
-    "description": "Rakennan innovatiivisia ratkaisuja modernien teknologioiden avulla. Erikoistunut Reactiin, Node.js:ään ja tekoäly/ML integraatioon.",
+    "tagline": "Full-Stack Kehittäjä | Tekoäly Ystävä | DevOps Opiskelija",
+    "description": "Rakennan innovatiivisia ratkaisuja moderneilla tekniikoilla. Erikoistunut Reactiin, Node.js:ään ja tekoäly/ML integraatioon.",
     "chatWithAI": "Chatkaa Tekoäly Kaksosella",
     "viewProjects": "Näytä Projektit",
     "readBlog": "Lue Blogi",
@@ -40,23 +40,23 @@
     "codeRingInner": " AWS · Azure · Git · GitHub · RAG · MCP · "
   },
   "projects": {
-    "sectionLabel": "Portfolionäyttely",
+    "sectionLabel": "Portfolio",
     "title": "Esitellyt Projektit",
     "subtitle": "Valikoima projekteja, jotka esittelevät osaamistani full-stack kehityksessä ja tekoäly integraatiossa",
     "description": "Kuvaus",
     "technologies": "Teknologiat",
-    "apis": "Rajapinnat & Integraatiot",
+    "apis": "APIt & Integraatiot",
     "highlights": "Kohokohdat",
     "code": "Koodi",
-    "demo": "Esittely",
+    "demo": "Demo",
     "viewCode": "Näytä Koodi",
-    "liveDemo": "Live Esittely",
+    "liveDemo": "Live Demo",
     "prevImage": "Edellinen Kuva",
     "nextImage": "Seuraava Kuva",
-    "goToImage": "Siirry Kuvaan {n}"
+    "goToImage": "Mene Kuvaan {n}"
   },
   "skills": {
-    "sectionLabel": "Asiantuntemus",
+    "sectionLabel": "Asiakirja",
     "title": "Tekniset Taidot",
     "subtitle": "Jatkuva oppiminen ja parantaminen koko kehityspinoon",
     "categories": {
@@ -93,7 +93,7 @@
   "contact": {
     "sectionLabel": "Ota Yhteyttä",
     "title": "Ota Yhteyttä",
-    "subtitle": "Onko sinulla projekti mielessä? Töitäköön yhdessä!",
+    "subtitle": "Onko sinulla projekti mielessä? Työskentelemme yhdessä!",
     "map": {
       "title": "Löydä Minut Täältä",
       "directions": "Hae Ohjeet",
@@ -151,7 +151,7 @@
     "rights": "Kaikki oikeudet pidätetään.",
     "whatsapp": "Viesti WhatsAppissa",
     "whatsappPrefill": "Hei {name}, löysin portfolion ja haluan ottaa yhteyttä.",
-    "connect": "Yhdistä",
+    "connect": "Yhdistä Itsesi",
     "quickLinks": "Pikalinkit",
     "projects": "Projektit",
     "about": "Tietoa Minusta",
@@ -160,15 +160,16 @@
     "availability": "Avoinna etä- ja paikallisiin mahdollisuuksiin"
   },
   "chat": {
-    "greeting": "Hei! Olen {name}in portfolion avustaja. Vastaan kysymyksiin taitojen, kokemuksen, projektiensa, koulutuksensa ja ansioluettelonsa suhteen — ainoastaan ammatilliseen taustaan liittyen.",
+    "greeting": "Hei! Olen {name}in portfolioavustaja. Vastaan kysymyksiin taitoja, kokemusta, projekteja, koulutusta ja ansioluetteloa — ainoastaan ammatilliseen taustaan liittyen.",
     "placeholder": "Kysy taidoista, kokemuksesta, projekteista…",
     "title": "Tekoäly Avustaja",
     "newChat": "Uusi keskustelu",
-    "error": "Vastausmiseni on vaikeaa tällä hetkellä. Yritä uudelleen."
+    "error": "Vastausmme on tällä hetkellä vaikeaa. Yritä uudelleen."
   },
   "language": {
     "en": "English",
     "fi": "suomi",
-    "ar": "العربية"
+    "ar": "العربية",
+    "ur": "اردو"
   }
 }
