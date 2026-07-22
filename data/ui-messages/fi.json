@@ -1,0 +1,174 @@
+{
+  "metadata": {
+    "title": "Portfolion omistaja — Full-Stack Kehittäjä & Tekoäly Enthusiast",
+    "description": "Portfolionäyttely modernista web-sovelluksista tekoäly integraatiolla. Chatkaa tekoälyavustajani kanssa, jotta voit oppia lisää työstäni.",
+    "siteName": "Portfolionäyttely",
+    "ogImageAlt": "Portfolionäyttely"
+  },
+  "nav": {
+    "home": "Etusivu",
+    "projects": "Projektit",
+    "skills": "Taidot",
+    "experience": "Kokemus",
+    "about": "Tietoa minusta",
+    "blog": "Blogi",
+    "contact": "Ota yhteyttä",
+    "login": "Kirjaudu sisään",
+    "logout": "Kirjaudu ulos",
+    "admin": "Ylläpitäjä",
+    "menuOpen": "Avaa valikko",
+    "menuClose": "Sulje valikko",
+    "hireMe": "Vie minut työhön",
+    "cv": "Ansioluettelo",
+    "resume": "Työhistoria",
+    "viewCv": "Näytä ansioluettelo"
+  },
+  "hero": {
+    "name": "Portfolion omistaja",
+    "roles": [
+      "Full-Stack Kehittäjä",
+      "Tekoäly Enthusiast",
+      "DevOps Opiskelija"
+    ],
+    "tagline": "Full-Stack Kehittäjä | Tekoäly Enthusiast | DevOps Opiskelija",
+    "description": "Rakennan innovatiivisia ratkaisuja modernien teknologioiden avulla. Erikoistunut Reactiin, Node.js:ään ja tekoäly/ML-integraatioon.",
+    "chatWithAI": "Chatkaa tekoälykaksoseni kanssa",
+    "viewProjects": "Näytä projektit",
+    "readBlog": "Lue blogi",
+    "downloadCv": "Lataa ansioluettelo",
+    "codeRingOuter": " Python · PyTorch · Ollama · FastAPI · Docker · Redis · ",
+    "codeRingInner": " AWS · Azure · Git · GitHub · RAG · MCP · "
+  },
+  "projects": {
+    "sectionLabel": "Portfolionäyttely",
+    "title": "Esitellyt projektit",
+    "subtitle": "Valikoima projekteja, jotka esittelevät osaamistani full-stack kehityksessä ja tekoäly integraatiossa",
+    "description": "Kuvaus",
+    "technologies": "Teknologiat",
+    "apis": "Rajapinnat & Integraatiot",
+    "highlights": "Kohokohdat",
+    "code": "Koodi",
+    "demo": "Esittely",
+    "viewCode": "Näytä koodi",
+    "liveDemo": "Live-esittely",
+    "prevImage": "Edellinen kuva",
+    "nextImage": "Seuraava kuva",
+    "goToImage": "Siirry kuvaan {n}"
+  },
+  "skills": {
+    "sectionLabel": "Asiantuntemus",
+    "title": "Tekniset taidot",
+    "subtitle": "Jatkuva oppiminen ja parantaminen koko kehityspinoon",
+    "categories": {
+      "frontend": "Etupää",
+      "backend": "Takapää",
+      "devops": "DevOps",
+      "aiml": "Tekoäly / ML"
+    }
+  },
+  "experience": {
+    "sectionLabel": "Ura",
+    "title": "Työkokemus"
+  },
+  "about": {
+    "sectionLabel": "Tietoa minusta",
+    "title": "Tietoa minusta",
+    "educationTitle": "Koulutus & Kelpoisuudet",
+    "educationFormalTitle": "Virallinen koulutus",
+    "educationCertificatesTitle": "Todistukset",
+    "educationCoursesTitle": "Kurssit",
+    "educationTrainingsTitle": "Koulutukset & Työpajat",
+    "hobbiesTitle": "Harrastukset & Kiinnostukset",
+    "educationTypes": {
+      "degree": "Virallinen koulutus",
+      "certificate": "Todistus",
+      "course": "Kurssi",
+      "training": "Koulutus (Työpaja)"
+    },
+    "getInTouch": "Ota yhteyttä",
+    "email": "Sähköposti",
+    "linkedin": "LinkedIn",
+    "github": "GitHub"
+  },
+  "contact": {
+    "sectionLabel": "Ota yhteyttä",
+    "title": "Ota yhteyttä",
+    "subtitle": "Onko sinulla projekti mielessä? Työskentelemme yhdessä!",
+    "map": {
+      "title": "Löydä minut täältä",
+      "directions": "Hae ohjeet",
+      "note": "Sijainti Lahoresa, Pakistanissa — saatavilla paikalliset tapaamiset ja etäyhteistyö.",
+      "aria": "Interaktiivinen kartta, joka näyttää {location}"
+    },
+    "form": {
+      "name": "Nimi",
+      "email": "Sähköposti",
+      "message": "Viesti",
+      "send": "Lähetä viesti",
+      "sending": "Lähetetään..."
+    },
+    "connect": "Yhdistä itsesi minuun",
+    "validation": {
+      "nameRequired": "Nimi vaaditaan",
+      "invalidEmail": "Virheellinen sähköposti",
+      "messageMin": "Viesti on oltava vähintään 10 merkkiä"
+    },
+    "toast": {
+      "validationError": "Validointivirhe",
+      "error": "Viestin lähettäminen epäonnistui. Yritä uudelleen.",
+      "errorTitle": "Viestin lähettäminen epäonnistui",
+      "success": "Viestisi on lähetetty. Vastailen sinulle pian!",
+      "successTitle": "Viesti lähetetty",
+      "savedTitle": "Viesti tallennettu",
+      "savedPendingEmail": "Viestisi on tallennettu. Sähköpostin toimitus määritellään palvelimella.",
+      "savedNoEmail": "Viestisi on tallennettu sivuston tietoihin. Sähköpostia ei voitu lähettää — tarkista Gmail-viestintäasetukset.",
+      "openingEmail": "Avataan sähköpostia..."
+    }
+  },
+  "blog": {
+    "title": "Blogi",
+    "subtitle": "Ajatuksia kehityksestä, tekoälystä ja teknologiasta",
+    "search": "Hae kirjoituksia...",
+    "allTypes": "Kaikki tyypit",
+    "readMore": "Lue lisää",
+    "noPosts": "Ei kirjoituksia löydy",
+    "backToBlog": "Takaisin blogiin"
+  },
+  "auth": {
+    "login": "Kirjaudu sisään",
+    "signup": "Rekisteröidy",
+    "email": "Sähköposti",
+    "password": "Salasana",
+    "submitLogin": "Kirjaudu sisään",
+    "submitSignup": "Luo tili",
+    "toggleLogin": "Onko sinulla jo tili? Kirjaudu sisään",
+    "toggleSignup": "Eikö sinulla ole tiliä? Rekisteröidy",
+    "welcomeBack": "Tervetuloa takaisin!",
+    "loginSuccess": "Olet kirjautunut sisään onnistuneesti.",
+    "signupSuccess": "Tili luotu! Tarkista sähköpostisi vahvistusta varten."
+  },
+  "footer": {
+    "rights": "Kaikki oikeudet pidätetään.",
+    "whatsapp": "Lähetä viesti WhatsAppissa",
+    "whatsappPrefill": "Hei {name}, löysin portfolion ja haluan ottaa yhteyttä.",
+    "connect": "Yhdistä itsesi",
+    "quickLinks": "Pikalinkit",
+    "projects": "Projektit",
+    "about": "Tietoa minusta",
+    "blog": "Blogi",
+    "contact": "Ota yhteyttä",
+    "availability": "Avoinna etä- ja paikallisiin mahdollisuuksiin"
+  },
+  "chat": {
+    "greeting": "Hei! Olen {name}in portfolion avustaja. Vastaan kysymyksiin taitojen, kokemuksen, projektiensa, koulutuksensa ja ansioluettelonsa suhteen — ainoastaan ammatilliseen taustaan liittyen.",
+    "placeholder": "Kysy taidoista, kokemuksesta, projekteista…",
+    "title": "Tekoälyavustaja",
+    "newChat": "Uusi keskustelu",
+    "error": "Vastaus on vaikeutunut. Yritä uudelleen."
+  },
+  "language": {
+    "en": "English",
+    "fi": "suomi",
+    "ar": "العربية"
+  }
+}
