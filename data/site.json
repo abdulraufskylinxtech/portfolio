@@ -238,11 +238,11 @@
       "stats": [
         {
           "value": "2+",
-          "label": "Vuotta Kokemusta"
+          "label": "Vuotta kokemusta"
         },
         {
           "value": "20+",
-          "label": "Toimitettuja Projekteja"
+          "label": "Toimitettuja projekteja"
         },
         {
           "value": "10+",
@@ -290,7 +290,7 @@
       ]
     }
   },
-  "translationsUpdatedAt": "2026-07-22T12:15:23.394Z",
+  "translationsUpdatedAt": "2026-07-22T12:15:47.555Z",
   "useArabicDisplayName": false,
   "profileImage": "/profile/photo-mraxbcxj-2c2920fd.png"
 }
