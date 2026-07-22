@@ -231,8 +231,8 @@
   "translations": {
     "fi": {
       "name": "Abdul Rauf",
-      "role": "Rakennan älykkäitä taustajärjestelmiä ja tekoälysovelluksia",
-      "bio": "Python-kehittäjä, joka on erikoistunut taustapuolen insinöörintiin ja tekoälysovelluksiin. Kokenut FastAPI:ssa, Djangossa, REST API:ssa, LangChainissä ja LLM-integraatiossa.",
+      "role": "Rakennan älykkäitä taustajärjestelmiä ja tekoälykäyttöisiä sovelluksia",
+      "bio": "Python-kehittäjä, joka on erikoistunut taustapuolen insinöörintiin ja tekoälysovelluksiin. Kokemusta FastAPI:sta, Djangosta, REST API:sta, LangChainistä ja LLM-integraatiosta.",
       "heroRoles": [
         "Tekoälykehittäjä",
         "Python-taustakehittäjä",
@@ -329,7 +329,7 @@
       ]
     }
   },
-  "translationsUpdatedAt": "2026-07-22T12:17:11.049Z",
+  "translationsUpdatedAt": "2026-07-22T12:17:35.817Z",
   "useArabicDisplayName": false,
   "profileImage": "/profile/photo-mraxbcxj-2c2920fd.png"
 }
