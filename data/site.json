@@ -20,6 +20,12 @@
       "label": "Arabic",
       "nativeName": "العربية",
       "flag": "🇸🇦"
+    },
+    {
+      "code": "ur",
+      "label": "Urdu",
+      "nativeName": "اردو",
+      "flag": "🇵🇰"
     }
   ],
   "email": "rauf22750@gmail.com",
