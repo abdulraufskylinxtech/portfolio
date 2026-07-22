@@ -124,6 +124,10 @@ Translation generation includes:
 
 - Navigation, buttons, headings, forms, and other UI labels
 - Hero, role, bio, availability, location, stats, and hobbies
+- Experience roles, periods, locations, and every bullet point
+- Education degrees and institutions
+- Project titles, descriptions, APIs, and highlights
+- Complete blog titles, excerpts, and Markdown content
 - Animated code-ring labels
 
 The admin-controlled **Full name** is injected dynamically and is not replaced by stale translated names. A separate Arabic name is used only when its admin toggle is enabled.

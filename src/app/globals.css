@@ -441,6 +441,7 @@
     animation: none;
     opacity: 0.7;
   }
+
 }
 
 /* Custom cursor — imperative ring + dot, hover via CSS :has() */

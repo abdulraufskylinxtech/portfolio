@@ -8,7 +8,7 @@ import { useRef } from "react";
 import { z } from "zod";
 
 import { ContactMap } from "@/components/pages/contact-map";
-import { useSiteInfo } from "@/components/providers/content-provider";
+import { useLocalizedSite } from "@/components/providers/content-provider";
 import { getPhoneNumber } from "@/lib/data";
 import { getWhatsAppUrl } from "@/lib/site";
 import { Button } from "@/components/ui/button";
@@ -19,7 +19,7 @@ import { useToast } from "@/hooks/use-toast";
 
 export function ContactSection() {
   const t = useTranslations("contact");
-  const site = useSiteInfo();
+  const site = useLocalizedSite();
   const [formData, setFormData] = useState({ name: "", email: "", message: "" });
   const [sending, setSending] = useState(false);
   const { toast } = useToast();

@@ -10,6 +10,14 @@ export interface Project {
   github_link: string | null;
   images: string[];
   published: boolean;
+  translations?: Record<string, ProjectLocaleBundle>;
+}
+
+export interface ProjectLocaleBundle {
+  title: string;
+  description: string;
+  apis: string[];
+  highlights: string[];
 }
 
 export interface BlogPost {
@@ -23,6 +31,13 @@ export interface BlogPost {
   featured_image_url: string | null;
   published: boolean;
   created_at: string;
+  translations?: Record<string, BlogPostLocaleBundle>;
+}
+
+export interface BlogPostLocaleBundle {
+  title: string;
+  excerpt: string;
+  content: string;
 }
 
 export interface SiteStat {
@@ -97,6 +112,9 @@ export interface SiteLocaleBundle {
   location?: string;
   stats?: SiteStat[];
   hobbies?: string[];
+  experience?: ExperienceEntry[];
+  education?: EducationEntry[];
+  complete?: boolean;
 }
 
 export interface SiteInfo {
@@ -205,6 +223,32 @@ export function resolveSiteForLocale(site: SiteInfo, locale: string): SiteInfo {
     location: tr.location || site.location,
     stats: tr.stats?.length ? tr.stats : site.stats,
     hobbies: tr.hobbies?.length ? tr.hobbies : site.hobbies,
+    experience:
+      tr.experience?.length === site.experience.length ? tr.experience : site.experience,
+    education: tr.education?.length === site.education.length ? tr.education : site.education,
+  };
+}
+
+export function resolveProjectForLocale(project: Project, locale: string): Project {
+  const translation = project.translations?.[locale];
+  if (!translation) return project;
+  return {
+    ...project,
+    title: translation.title?.trim() || project.title,
+    description: translation.description?.trim() || project.description,
+    apis: translation.apis?.length ? translation.apis : project.apis,
+    highlights: translation.highlights?.length ? translation.highlights : project.highlights,
+  };
+}
+
+export function resolveBlogPostForLocale(post: BlogPost, locale: string): BlogPost {
+  const translation = post.translations?.[locale];
+  if (!translation) return post;
+  return {
+    ...post,
+    title: translation.title?.trim() || post.title,
+    excerpt: translation.excerpt?.trim() || post.excerpt,
+    content: translation.content?.trim() || post.content,
   };
 }
 

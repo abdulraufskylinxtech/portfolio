@@ -4,7 +4,7 @@ import { Fragment, useMemo, useRef } from "react";
 import { motion, useInView, useReducedMotion } from "framer-motion";
 import { useLocale, useTranslations } from "next-intl";
 
-import { useSiteInfo } from "@/components/providers/content-provider";
+import { useLocalizedSite } from "@/components/providers/content-provider";
 import { isExperiencePublished, type ExperienceEntry } from "@/lib/data";
 import { isRtlLocale } from "@/lib/locale-catalog";
 import { cn } from "@/lib/utils";
@@ -71,7 +71,7 @@ export function ExperienceSection() {
   const t = useTranslations("experience");
   const locale = useLocale();
   const isRtl = isRtlLocale(locale);
-  const site = useSiteInfo();
+  const site = useLocalizedSite();
   const entries = useMemo(
     () => site.experience.filter(isExperiencePublished),
     [site.experience],

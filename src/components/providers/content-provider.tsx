@@ -4,7 +4,11 @@ import { createContext, useContext, useMemo } from "react";
 import { useLocale } from "next-intl";
 
 import type { BlogPost, Project, SiteInfo } from "@/lib/data";
-import { resolveSiteForLocale } from "@/lib/data";
+import {
+  resolveBlogPostForLocale,
+  resolveProjectForLocale,
+  resolveSiteForLocale,
+} from "@/lib/data";
 
 export type ContentData = {
   site: SiteInfo;
@@ -44,15 +48,27 @@ export function useLocalizedSite(): SiteInfo {
 }
 
 export function usePublishedProjects(): Project[] {
-  return useContent().projects.filter((project) => project.published);
+  const { projects } = useContent();
+  const locale = useLocale();
+  return useMemo(
+    () => projects.filter((project) => project.published).map((project) => resolveProjectForLocale(project, locale)),
+    [locale, projects],
+  );
 }
 
 export function usePublishedBlogPosts(): BlogPost[] {
-  return useContent()
-    .posts.filter((post) => post.published)
-    .sort(
-      (a, b) => new Date(b.created_at).getTime() - new Date(a.created_at).getTime(),
-    );
+  const { posts } = useContent();
+  const locale = useLocale();
+  return useMemo(
+    () =>
+      posts
+        .filter((post) => post.published)
+        .map((post) => resolveBlogPostForLocale(post, locale))
+        .sort(
+          (a, b) => new Date(b.created_at).getTime() - new Date(a.created_at).getTime(),
+        ),
+    [locale, posts],
+  );
 }
 
 export function useProjectBySlug(slug: string): Project | undefined {

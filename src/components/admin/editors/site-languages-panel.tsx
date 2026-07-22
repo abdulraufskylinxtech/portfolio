@@ -151,12 +151,12 @@ export function SiteLanguagesPanel({ data, onChange, onTranslated, readOnly }: P
   return (
     <AdminSection
       title="Languages"
-      description="Add languages for the public switcher. English is the source — AI generates hero/about text for each added language."
+      description="Add languages for the public switcher. AI translates the complete website: UI, profile, experience, education, projects, and blogs."
     >
       <div className="space-y-3">
         {enabled.map((locale) => {
           const isDefault = locale.code === defaultLocale;
-          const ready = Boolean(data.translations?.[locale.code]?.role);
+          const ready = data.translations?.[locale.code]?.complete === true;
           return (
             <div
               key={locale.code}
@@ -316,7 +316,7 @@ export function SiteLanguagesPanel({ data, onChange, onTranslated, readOnly }: P
       <p className="mt-3 text-sm text-muted-foreground">
         After adding a language, click <strong>Save changes</strong>, then generate AI. This
         translates <strong>all UI labels</strong> (nav, buttons, sections) and your portfolio
-        content (hero, about, footer).
+        content (hero, about, footer, experience, education, projects, and full blog posts).
       </p>
 
       <details className="mt-3 text-xs text-muted-foreground">
