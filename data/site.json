@@ -255,9 +255,42 @@
         "Kriketti",
         "Matkustelu"
       ]
+    },
+    "ar": {
+      "name": "عبدالرؤف",
+      "role": "بناء أنظمة الخلفية الذكية وتطبيقات مدعومة بالذكاء الاصطناعي",
+      "bio": "مطور بايثون متخصص في هندسة الخلفية وتطبيقات الذكاء الاصطناعي. لديه خبرة في FastAPI و Django و REST APIs و LangChain ودمج LLM.",
+      "heroRoles": [
+        "مطور الذكاء الاصطناعي",
+        "مطور بايثون للخلفية",
+        "مطور FastAPI",
+        "مطور Django"
+      ],
+      "availability": "مفتوح للفرص الجديدة — عن بعد وموقعي",
+      "location": "AL Sadiq Block Raiwand road, Lahore, Pakistan",
+      "stats": [
+        {
+          "value": "2+",
+          "label": "سنوات الخبرة"
+        },
+        {
+          "value": "20+",
+          "label": "المشاريع المنفذة"
+        },
+        {
+          "value": "10+",
+          "label": "التكنولوجيات"
+        }
+      ],
+      "hobbies": [
+        "قراءة مدونات التكنولوجيا",
+        "استكشاف أدوات الذكاء الاصطناعي",
+        "الكريكيت",
+        "السفر"
+      ]
     }
   },
-  "translationsUpdatedAt": "2026-07-22T12:14:30.907Z",
+  "translationsUpdatedAt": "2026-07-22T12:15:23.394Z",
   "useArabicDisplayName": false,
   "profileImage": "/profile/photo-mraxbcxj-2c2920fd.png"
 }
